@@ -1,0 +1,238 @@
+[
+  {
+    "type": "Endurance",
+    "target_distance": 1500,
+    "duration": "45-60 min",
+    "sets": [
+      "300m easy warm-up @ 2:51/100m-3:06/100m",
+      "5 \u00d7 200m endurance @ 2:36/100m-2:46/100m",
+      "200m easy cool-down @ 2:51/100m-3:06/100m"
+    ],
+    "goal": "Build aerobic endurance while maintaining controlled pace.",
+    "plan_id": "b437aa4d-0f12-4012-a0bc-ab84a4251409",
+    "planned_date": "2026-08-27"
+  },
+  {
+    "type": "Endurance",
+    "target_distance": 1500,
+    "duration": "45-60 min",
+    "sets": [
+      {
+        "distance": 300,
+        "reps": 1,
+        "stroke": "Freestyle",
+        "purpose": "Easy warm-up",
+        "pace": "2:51/100m-3:06/100m",
+        "rest": "\u2014"
+      },
+      {
+        "distance": 200,
+        "reps": 5,
+        "stroke": "Freestyle",
+        "purpose": "Endurance",
+        "pace": "2:36/100m-2:46/100m",
+        "rest": "20-30 sec"
+      },
+      {
+        "distance": 200,
+        "reps": 1,
+        "stroke": "Freestyle",
+        "purpose": "Cool-down",
+        "pace": "2:51/100m-3:06/100m",
+        "rest": "\u2014"
+      }
+    ],
+    "goal": "Build aerobic endurance and improve sustainable freestyle pace.",
+    "plan_id": "dfbb760e-7edc-481e-80b8-b2839c7abaf9",
+    "planned_date": "2026-08-27"
+  },
+  {
+    "type": "Endurance",
+    "target_distance": 1500,
+    "pool_length": 25,
+    "total_lengths": 60,
+    "duration": "45-60 min",
+    "sets": [
+      {
+        "distance": 300,
+        "reps": 1,
+        "total_distance": 300,
+        "lengths": 12,
+        "total_lengths": 12,
+        "stroke": "Freestyle",
+        "purpose": "Easy warm-up",
+        "pace": "2:51/100m-3:06/100m",
+        "rest": "\u2014"
+      },
+      {
+        "distance": 200,
+        "reps": 5,
+        "total_distance": 1000,
+        "lengths": 8,
+        "total_lengths": 40,
+        "stroke": "Freestyle",
+        "purpose": "Endurance",
+        "pace": "2:36/100m-2:46/100m",
+        "rest": "20-30 sec"
+      },
+      {
+        "distance": 200,
+        "reps": 1,
+        "total_distance": 200,
+        "lengths": 8,
+        "total_lengths": 8,
+        "stroke": "Freestyle",
+        "purpose": "Cool-down",
+        "pace": "2:51/100m-3:06/100m",
+        "rest": "\u2014"
+      }
+    ],
+    "goal": "Build aerobic endurance and improve sustainable freestyle pace.",
+    "plan_id": "92ca273c-f77c-40d7-a520-dc7411b8de46",
+    "planned_date": "2026-08-27"
+  },
+  {
+    "type": "Endurance",
+    "target_distance": 1500,
+    "pool_length": 25,
+    "total_laps": 60,
+    "duration": "45-60 min",
+    "sets": [
+      {
+        "distance": 300,
+        "reps": 1,
+        "total_distance": 300,
+        "laps": 12,
+        "total_laps": 12,
+        "stroke": "Freestyle",
+        "stroke_pattern": "Freestyle",
+        "purpose": "Easy warm-up",
+        "pace": "2:51/100m-3:06/100m",
+        "rest": "\u2014"
+      },
+      {
+        "distance": 200,
+        "reps": 5,
+        "total_distance": 1000,
+        "laps": 8,
+        "total_laps": 40,
+        "stroke": "Mixed",
+        "stroke_pattern": "6 laps Freestyle + 2 laps Breaststroke",
+        "purpose": "Endurance",
+        "pace": "2:36/100m-2:46/100m",
+        "rest": "20-30 sec"
+      },
+      {
+        "distance": 200,
+        "reps": 1,
+        "total_distance": 200,
+        "laps": 8,
+        "total_laps": 8,
+        "stroke": "Freestyle",
+        "stroke_pattern": "Freestyle",
+        "purpose": "Cool-down",
+        "pace": "2:51/100m-3:06/100m",
+        "rest": "\u2014"
+      }
+    ],
+    "goal": "Build aerobic endurance while improving sustainable freestyle pace.",
+    "plan_id": "ee696fcb-0376-4ee8-81dd-3653fe50599b",
+    "planned_date": "2026-08-27"
+  },
+  {
+    "type": "Endurance",
+    "target_distance": 1500,
+    "pool_length": 25,
+    "total_laps": 60,
+    "duration": "45-60 min",
+    "sets": [
+      {
+        "distance": 300,
+        "reps": 1,
+        "total_distance": 300,
+        "laps": 12,
+        "total_laps": 12,
+        "stroke": "Freestyle",
+        "stroke_pattern": "Freestyle",
+        "purpose": "Easy warm-up",
+        "pace": "2:51/100m-3:06/100m",
+        "rest": "\u2014"
+      },
+      {
+        "distance": 200,
+        "reps": 5,
+        "total_distance": 1000,
+        "laps": 8,
+        "total_laps": 40,
+        "stroke": "Mixed",
+        "stroke_pattern": "6 laps Freestyle + 2 laps Breaststroke",
+        "purpose": "Endurance",
+        "pace": "2:36/100m-2:46/100m",
+        "rest": "20-30 sec"
+      },
+      {
+        "distance": 200,
+        "reps": 1,
+        "total_distance": 200,
+        "laps": 8,
+        "total_laps": 8,
+        "stroke": "Freestyle",
+        "stroke_pattern": "Freestyle",
+        "purpose": "Cool-down",
+        "pace": "2:51/100m-3:06/100m",
+        "rest": "\u2014"
+      }
+    ],
+    "goal": "Build aerobic endurance while improving sustainable freestyle pace.",
+    "plan_id": "ed2f707e-f00b-4963-a009-894123c38bac",
+    "planned_date": "2026-08-27"
+  },
+  {
+    "type": "Endurance",
+    "target_distance": 1500,
+    "pool_length": 25,
+    "total_laps": 60,
+    "duration": "45-60 min",
+    "sets": [
+      {
+        "distance": 300,
+        "reps": 1,
+        "total_distance": 300,
+        "laps": 12,
+        "total_laps": 12,
+        "stroke": "Freestyle",
+        "stroke_pattern": "Freestyle",
+        "purpose": "Easy warm-up",
+        "pace": "2:51/100m-3:06/100m",
+        "rest": "None"
+      },
+      {
+        "distance": 200,
+        "reps": 5,
+        "total_distance": 1000,
+        "laps": 8,
+        "total_laps": 40,
+        "stroke": "Mixed",
+        "stroke_pattern": "6 laps Freestyle + 2 laps Breaststroke",
+        "purpose": "Endurance",
+        "pace": "2:36/100m-2:46/100m",
+        "rest": "20-30 sec"
+      },
+      {
+        "distance": 200,
+        "reps": 1,
+        "total_distance": 200,
+        "laps": 8,
+        "total_laps": 8,
+        "stroke": "Freestyle",
+        "stroke_pattern": "Freestyle",
+        "purpose": "Cool-down",
+        "pace": "2:51/100m-3:06/100m",
+        "rest": "None"
+      }
+    ],
+    "goal": "Build aerobic endurance while improving sustainable freestyle pace.",
+    "plan_id": "d5c62a81-e5d2-4500-8ac4-ec08070a91ee",
+    "planned_date": "2026-08-27"
+  }
+]
