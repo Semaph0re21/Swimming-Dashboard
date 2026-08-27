@@ -617,18 +617,18 @@ st.sidebar.caption("🚀 Double-click desktop shortcut anytime to open.")
 # MAIN TOP HEADER
 # ============================================================
 
-st.title("⚡ Personal Fitness & Training Command Center")
-
-st.markdown(
-    f"""
-    <div style="display: flex; align-items: center; justify-content: flex-end; flex-wrap: wrap; gap: 8px; margin-bottom: 18px;">
+header_html = f"""<div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px; margin-bottom: 20px; padding-top: 4px;">
+    <h1 style="margin: 0; padding: 0; font-size: 2.1rem; font-weight: 800; color: #FFFFFF; letter-spacing: -0.02em; line-height: 1.2;">⚡ Personal Fitness &amp; Training Command Center</h1>
+    <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
         <span class="sport-chip chip-swim">Garmin 965</span>
         <span class="sport-chip chip-ride">25m Pool</span>
         <span class="sport-chip chip-strava">Strava Connected ({tot_strava} activities)</span>
     </div>
-    """,
-    unsafe_allow_html=True,
-)
+</div>"""
+if hasattr(st, "html"):
+    st.html(header_html)
+else:
+    st.markdown(header_html, unsafe_allow_html=True)
 
 
 # ============================================================
