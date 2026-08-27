@@ -64,12 +64,13 @@ st.markdown(
         font-family: 'Material Symbols Rounded', 'Material Symbols Outlined', 'Material Icons' !important;
     }
     
-    /* Main Container Padding */
+    /* Main Container Padding (Desktop) */
     .block-container {
         padding-top: 4.5rem !important;
         padding-bottom: 3rem;
         padding-left: 2rem;
         padding-right: 2rem;
+        max-width: 100% !important;
     }
 
     /* Headings */
@@ -87,6 +88,10 @@ st.markdown(
         padding: 16px 18px;
         margin-bottom: 12px;
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        transition: transform 0.15s ease-in-out, border-color 0.15s ease-in-out;
+    }
+    .kpi-card:hover {
+        border-color: #38BDF8;
     }
     .kpi-label {
         font-size: 0.88rem;
@@ -127,54 +132,15 @@ st.markdown(
         font-size: 0.85rem;
         font-weight: 700;
     }
-    .chip-swim {
-        background: #0284C7;
-        color: #FFFFFF !important;
-    }
-    .chip-ride {
-        background: #059669;
-        color: #FFFFFF !important;
-    }
-    .chip-walk {
-        background: #D97706;
-        color: #FFFFFF !important;
-    }
-    .chip-run {
-        background: #DB2777;
-        color: #FFFFFF !important;
-    }
-    .chip-workout {
-        background: #7C3AED;
-        color: #FFFFFF !important;
-    }
-    .chip-rest {
-        background: #475569;
-        color: #FFFFFF !important;
-    }
-    .chip-strava {
-        background: #EA580C;
-        color: #FFFFFF !important;
-        font-size: 0.78rem;
-        font-weight: 700;
-        padding: 3px 8px;
-        border-radius: 5px;
-    }
-    .chip-intervals {
-        background: #2563EB;
-        color: #FFFFFF !important;
-        font-size: 0.78rem;
-        font-weight: 700;
-        padding: 3px 8px;
-        border-radius: 5px;
-    }
-    .chip-merged {
-        background: #0D9488;
-        color: #FFFFFF !important;
-        font-size: 0.78rem;
-        font-weight: 700;
-        padding: 3px 8px;
-        border-radius: 5px;
-    }
+    .chip-swim { background: #0284C7; color: #FFFFFF !important; }
+    .chip-ride { background: #059669; color: #FFFFFF !important; }
+    .chip-walk { background: #D97706; color: #FFFFFF !important; }
+    .chip-run { background: #DB2777; color: #FFFFFF !important; }
+    .chip-workout { background: #7C3AED; color: #FFFFFF !important; }
+    .chip-rest { background: #475569; color: #FFFFFF !important; }
+    .chip-strava { background: #EA580C; color: #FFFFFF !important; font-size: 0.78rem; font-weight: 700; padding: 3px 8px; border-radius: 5px; }
+    .chip-intervals { background: #2563EB; color: #FFFFFF !important; font-size: 0.78rem; font-weight: 700; padding: 3px 8px; border-radius: 5px; }
+    .chip-merged { background: #0D9488; color: #FFFFFF !important; font-size: 0.78rem; font-weight: 700; padding: 3px 8px; border-radius: 5px; }
 
     /* AI Coach Hero Banner */
     .hero-banner {
@@ -242,6 +208,139 @@ st.markdown(
     }
     .stImage img:hover {
         transform: scale(1.03);
+    }
+
+    /* Mobile Responsive Tab Navigation Bar */
+    [data-baseweb="tab-list"] {
+        gap: 6px !important;
+        overflow-x: auto !important;
+        flex-wrap: nowrap !important;
+        -webkit-overflow-scrolling: touch !important;
+        padding-bottom: 8px !important;
+        border-bottom: 1px solid #23324A !important;
+    }
+    [data-baseweb="tab"] {
+        padding: 8px 14px !important;
+        font-size: 0.88rem !important;
+        font-weight: 700 !important;
+        white-space: nowrap !important;
+        border-radius: 8px !important;
+        background: #151D2C !important;
+        border: 1px solid #23324A !important;
+        min-height: 40px !important;
+    }
+    [data-baseweb="tab"][aria-selected="true"] {
+        background: #0284C7 !important;
+        color: #FFFFFF !important;
+        border-color: #38BDF8 !important;
+    }
+
+    /* Touch-friendly buttons and inputs */
+    button[kind="primary"], button[kind="secondary"], .stButton > button {
+        min-height: 42px !important;
+        font-size: 0.92rem !important;
+        font-weight: 700 !important;
+        border-radius: 8px !important;
+    }
+
+    /* Responsive DataFrames & Tables */
+    [data-testid="stDataFrame"], [data-testid="stTable"] {
+        overflow-x: auto !important;
+        -webkit-overflow-scrolling: touch !important;
+        max-width: 100% !important;
+    }
+    .vega-embed {
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+
+    /* ============================================================
+       MOBILE SCREEN OPTIMIZATIONS (@media max-width: 768px)
+       ============================================================ */
+    @media (max-width: 768px) {
+        .block-container {
+            padding-top: 2.2rem !important;
+            padding-bottom: 2rem !important;
+            padding-left: 0.6rem !important;
+            padding-right: 0.6rem !important;
+        }
+
+        /* Wrap columns gracefully into 2-column or 1-column grid on mobile */
+        [data-testid="column"] {
+            min-width: 47% !important;
+            flex: 1 1 47% !important;
+            margin-bottom: 6px !important;
+        }
+
+        /* Typography on small screens */
+        h1 { font-size: 1.45rem !important; line-height: 1.25 !important; }
+        h2 { font-size: 1.25rem !important; line-height: 1.25 !important; }
+        h3 { font-size: 1.1rem !important; line-height: 1.25 !important; }
+        h4 { font-size: 0.95rem !important; line-height: 1.25 !important; }
+
+        /* KPI Cards on Mobile */
+        .kpi-card {
+            padding: 10px 12px !important;
+            border-radius: 10px !important;
+            margin-bottom: 6px !important;
+        }
+        .kpi-label {
+            font-size: 0.74rem !important;
+            margin-bottom: 3px !important;
+        }
+        .kpi-value {
+            font-size: 1.4rem !important;
+            line-height: 1.1 !important;
+        }
+        .kpi-sub {
+            font-size: 0.74rem !important;
+            margin-top: 2px !important;
+        }
+
+        /* Hero Banner on Mobile */
+        .hero-banner {
+            padding: 14px 16px !important;
+            border-radius: 10px !important;
+            margin-bottom: 14px !important;
+        }
+        .hero-title {
+            font-size: 1.2rem !important;
+            margin: 2px 0 6px 0 !important;
+        }
+        .hero-text {
+            font-size: 0.88rem !important;
+            line-height: 1.4 !important;
+        }
+
+        /* Calendar on Mobile */
+        .cal-cell {
+            padding: 4px 4px !important;
+            min-height: 60px !important;
+            border-radius: 6px !important;
+        }
+        .cal-date-num {
+            font-size: 0.78rem !important;
+            margin-bottom: 2px !important;
+        }
+        .cal-badge {
+            font-size: 0.65rem !important;
+            padding: 2px 3px !important;
+            margin-bottom: 2px !important;
+        }
+
+        /* Gallery photos on mobile: 2-column fit */
+        .stImage img {
+            max-width: 100% !important;
+            max-height: 160px !important;
+            border-radius: 8px !important;
+        }
+
+        /* Tabs font on mobile */
+        [data-baseweb="tab"] {
+            padding: 6px 10px !important;
+            font-size: 0.8rem !important;
+            min-height: 36px !important;
+        }
     }
     </style>
     """,
