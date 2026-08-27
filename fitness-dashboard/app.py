@@ -1,7 +1,14 @@
+import sys
+from pathlib import Path
+
+# Add project root to sys.path so src imports work regardless of working directory
+_app_dir = Path(__file__).resolve().parent
+if str(_app_dir) not in sys.path:
+    sys.path.insert(0, str(_app_dir))
+
 import calendar
 from datetime import datetime, date, timedelta
 import json
-from pathlib import Path
 import streamlit as st
 import pandas as pd
 import altair as alt
