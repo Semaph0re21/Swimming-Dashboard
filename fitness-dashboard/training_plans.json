@@ -532,5 +532,56 @@
     "coaching_rationale": "After a 4 days gap without swimming, an aerobic base endurance session is recommended to regain feel for the water.",
     "readiness_score": 70,
     "baseline_pace": 156.2
+  },
+  {
+    "type": "Endurance",
+    "target_distance": 1500,
+    "pool_length": 25,
+    "total_laps": 60,
+    "duration": "35-45 min",
+    "sets": [
+      {
+        "distance": 300,
+        "reps": 1,
+        "total_distance": 300,
+        "laps": 12,
+        "total_laps": 12,
+        "stroke": "Freestyle",
+        "stroke_pattern": "Freestyle",
+        "purpose": "Easy warm-up",
+        "pace": "2:51/100m-3:06/100m",
+        "rest": "None"
+      },
+      {
+        "distance": 200,
+        "reps": 5,
+        "total_distance": 1000,
+        "laps": 8,
+        "total_laps": 40,
+        "stroke": "Mixed",
+        "stroke_pattern": "6 laps Freestyle + 2 laps Breaststroke",
+        "purpose": "Endurance",
+        "pace": "2:36/100m-2:46/100m",
+        "rest": "20-30 sec"
+      },
+      {
+        "distance": 200,
+        "reps": 1,
+        "total_distance": 200,
+        "laps": 8,
+        "total_laps": 8,
+        "stroke": "Freestyle",
+        "stroke_pattern": "Freestyle",
+        "purpose": "Cool-down",
+        "pace": "2:51/100m-3:06/100m",
+        "rest": "None"
+      }
+    ],
+    "goal": "Build aerobic endurance while improving sustainable freestyle pace.",
+    "plan_id": "b12d3a72-8e25-41c7-ab6f-8154dabc497a",
+    "planned_date": "2026-08-27",
+    "coaching_rationale": "After a 4 days gap without swimming, an aerobic base endurance session is recommended to regain feel for the water.",
+    "readiness_score": 70,
+    "baseline_pace": 156.2
   }
 ]

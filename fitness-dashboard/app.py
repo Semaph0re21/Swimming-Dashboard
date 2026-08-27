@@ -613,15 +613,10 @@ st.title("🏊 My Fitness Dashboard")
 
 st.markdown(
     f"""
-    <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; margin-bottom: 20px;">
-        <span style="color: #94A3B8; font-size: 1.05rem; font-weight: 500;">
-            Garmin 965 → Intervals.icu + Strava Archive → Personal Training Engine
-        </span>
-        <div style="display: flex; gap: 8px; flex-wrap: wrap;">
-            <span class="sport-chip chip-swim">Garmin 965</span>
-            <span class="sport-chip chip-ride">25m Pool</span>
-            <span class="sport-chip chip-strava">Strava Connected ({tot_strava} activities)</span>
-        </div>
+    <div style="display: flex; align-items: center; justify-content: flex-end; flex-wrap: wrap; gap: 8px; margin-bottom: 18px;">
+        <span class="sport-chip chip-swim">Garmin 965</span>
+        <span class="sport-chip chip-ride">25m Pool</span>
+        <span class="sport-chip chip-strava">Strava Connected ({tot_strava} activities)</span>
     </div>
     """,
     unsafe_allow_html=True,
