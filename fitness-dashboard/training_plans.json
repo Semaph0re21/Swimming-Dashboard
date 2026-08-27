@@ -736,5 +736,107 @@
     "coaching_rationale": "After a 4 days gap without swimming, an aerobic base endurance session is recommended to regain feel for the water.",
     "readiness_score": 70,
     "baseline_pace": 156.2
+  },
+  {
+    "type": "Endurance",
+    "target_distance": 1800,
+    "pool_length": 25,
+    "total_laps": 72,
+    "duration": "40-51 min",
+    "sets": [
+      {
+        "distance": 300,
+        "reps": 1,
+        "total_distance": 300,
+        "laps": 12,
+        "total_laps": 12,
+        "stroke": "Freestyle",
+        "stroke_pattern": "Freestyle",
+        "purpose": "Easy warm-up",
+        "pace": "2:51/100m-3:06/100m",
+        "rest": "None"
+      },
+      {
+        "distance": 200,
+        "reps": 6,
+        "total_distance": 1200,
+        "laps": 8,
+        "total_laps": 48,
+        "stroke": "Mixed",
+        "stroke_pattern": "6 laps Freestyle + 2 laps Breaststroke",
+        "purpose": "Endurance",
+        "pace": "2:36/100m-2:46/100m",
+        "rest": "20-30 sec"
+      },
+      {
+        "distance": 300,
+        "reps": 1,
+        "total_distance": 300,
+        "laps": 12,
+        "total_laps": 12,
+        "stroke": "Freestyle",
+        "stroke_pattern": "Freestyle",
+        "purpose": "Cool-down",
+        "pace": "2:51/100m-3:06/100m",
+        "rest": "None"
+      }
+    ],
+    "goal": "Build aerobic endurance while improving sustainable freestyle pace.",
+    "plan_id": "0c88a9b1-fe4c-48c9-9ceb-1b65e48fc356",
+    "planned_date": "2026-08-27",
+    "coaching_rationale": "Weekly volume is lower (3.2km vs 10.3km). An aerobic endurance session builds total capacity.",
+    "readiness_score": 75,
+    "baseline_pace": 156.2
+  },
+  {
+    "type": "Endurance",
+    "target_distance": 1800,
+    "pool_length": 25,
+    "total_laps": 72,
+    "duration": "40-51 min",
+    "sets": [
+      {
+        "distance": 300,
+        "reps": 1,
+        "total_distance": 300,
+        "laps": 12,
+        "total_laps": 12,
+        "stroke": "Freestyle",
+        "stroke_pattern": "Freestyle",
+        "purpose": "Easy warm-up",
+        "pace": "2:51/100m-3:06/100m",
+        "rest": "None"
+      },
+      {
+        "distance": 200,
+        "reps": 6,
+        "total_distance": 1200,
+        "laps": 8,
+        "total_laps": 48,
+        "stroke": "Mixed",
+        "stroke_pattern": "6 laps Freestyle + 2 laps Breaststroke",
+        "purpose": "Endurance",
+        "pace": "2:36/100m-2:46/100m",
+        "rest": "20-30 sec"
+      },
+      {
+        "distance": 300,
+        "reps": 1,
+        "total_distance": 300,
+        "laps": 12,
+        "total_laps": 12,
+        "stroke": "Freestyle",
+        "stroke_pattern": "Freestyle",
+        "purpose": "Cool-down",
+        "pace": "2:51/100m-3:06/100m",
+        "rest": "None"
+      }
+    ],
+    "goal": "Build aerobic endurance while improving sustainable freestyle pace.",
+    "plan_id": "13d297ad-1130-4404-b6ba-302c7c9940aa",
+    "planned_date": "2026-08-27",
+    "coaching_rationale": "Weekly volume is lower (3.2km vs 10.3km). An aerobic endurance session builds total capacity.",
+    "readiness_score": 75,
+    "baseline_pace": 156.2
   }
 ]

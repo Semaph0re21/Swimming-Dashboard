@@ -2,7 +2,8 @@ import json
 import uuid
 from pathlib import Path
 
-PLAN_FILE = Path("training_plans.json")
+_base_dir = Path(__file__).resolve().parent.parent.parent
+PLAN_FILE = _base_dir / "training_plans.json"
 
 
 def save_plan(plan, target_date=None):

@@ -387,6 +387,14 @@ def format_date_clean(date_str):
         return str(date_str)[:10]
 
 
+def format_days_ago(days):
+    if days is None:
+        return "—"
+    if days == 0:
+        return "Today"
+    return f"{days}d ago"
+
+
 def format_duration_hm(minutes):
     if not minutes or minutes <= 0:
         return "0m"
@@ -498,7 +506,7 @@ time_filter = st.sidebar.selectbox(
 
 today_date = date.today()
 now_hour = datetime.now().hour
-is_night_cutoff = now_hour >= 20
+is_night_cutoff = now_hour >= 21  # 9 PM evening rollover
 
 if time_filter == "7 Days":
     start_date_str = str(today_date - timedelta(days=6))
@@ -526,18 +534,6 @@ else:
         e_date = st.date_input("End", value=today_date)
     start_date_str = str(s_date)
     end_date_str = str(e_date)
-
-end_val = datetime.fromisoformat(end_date_str).date()
-if is_night_cutoff:
-    target_plan_date = end_val + timedelta(days=1)
-    plan_timing_label = "Tomorrow's"
-    plan_timing_badge = "Tomorrow"
-else:
-    target_plan_date = end_val
-    plan_timing_label = "Today's"
-    plan_timing_badge = "Today"
-
-target_plan_date_str = target_plan_date.strftime("%A, %b %d, %Y")
 
 
 # ============================================================
@@ -574,6 +570,28 @@ strava_matched = data.get("strava_matched", 0)
 strava_added = data.get("strava_added", 0)
 tot_intervals = data.get("total_intervals_count", 0)
 tot_strava = data.get("total_strava_count", 0)
+
+# Check if today's swim activity is completed
+today_swims = [
+    a for a in all_activities
+    if a.get("sport") == "Swim" and str(a.get("date", ""))[:10] == str(today_date)
+]
+today_swim_done = len(today_swims) > 0
+
+# Roll over to next day if 9 PM (21:00) cutoff is reached OR current day's swimming is completed
+show_next_day = is_night_cutoff or today_swim_done
+
+end_val = datetime.fromisoformat(end_date_str).date()
+if show_next_day:
+    target_plan_date = end_val + timedelta(days=1)
+    plan_timing_label = "Tomorrow's"
+    plan_timing_badge = "Tomorrow"
+else:
+    target_plan_date = end_val
+    plan_timing_label = "Today's"
+    plan_timing_badge = "Today"
+
+target_plan_date_str = target_plan_date.strftime("%A, %b %d, %Y")
 
 # Analytics dictionaries
 running_analytics = data.get("running_analytics", {})
@@ -666,19 +684,19 @@ st.markdown(
             <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
                 <div style="text-align: center; background: #1F293D; padding: 8px 14px; border-radius: 10px; border: 1px solid #334155;">
                     <div style="font-size: 0.75rem; font-weight: 700; color: #94A3B8; text-transform: uppercase;">Last Swim</div>
-                    <div style="font-size: 1.25rem; font-weight: 800; color: #38BDF8;">{f"{days_since_swim}d ago" if days_since_swim is not None else "—"}</div>
+                    <div style="font-size: 1.25rem; font-weight: 800; color: #38BDF8;">{format_days_ago(days_since_swim)}</div>
                 </div>
                 <div style="text-align: center; background: #1F293D; padding: 8px 14px; border-radius: 10px; border: 1px solid #334155;">
                     <div style="font-size: 0.75rem; font-weight: 700; color: #94A3B8; text-transform: uppercase;">Last Ride</div>
-                    <div style="font-size: 1.25rem; font-weight: 800; color: #4ADE80;">{f"{days_since_ride}d ago" if days_since_ride is not None else "—"}</div>
+                    <div style="font-size: 1.25rem; font-weight: 800; color: #4ADE80;">{format_days_ago(days_since_ride)}</div>
                 </div>
                 <div style="text-align: center; background: #1F293D; padding: 8px 14px; border-radius: 10px; border: 1px solid #334155;">
                     <div style="font-size: 0.75rem; font-weight: 700; color: #94A3B8; text-transform: uppercase;">Last Walk</div>
-                    <div style="font-size: 1.25rem; font-weight: 800; color: #FBBF24;">{f"{days_since_walk}d ago" if days_since_walk is not None else "—"}</div>
+                    <div style="font-size: 1.25rem; font-weight: 800; color: #FBBF24;">{format_days_ago(days_since_walk)}</div>
                 </div>
                 <div style="text-align: center; background: #1F293D; padding: 8px 14px; border-radius: 10px; border: 1px solid #334155;">
                     <div style="font-size: 0.75rem; font-weight: 700; color: #94A3B8; text-transform: uppercase;">Last Run</div>
-                    <div style="font-size: 1.25rem; font-weight: 800; color: #F472B6;">{f"{days_since_run}d ago" if days_since_run is not None else "—"}</div>
+                    <div style="font-size: 1.25rem; font-weight: 800; color: #F472B6;">{format_days_ago(days_since_run)}</div>
                 </div>
             </div>
         </div>
@@ -902,7 +920,7 @@ with tab_overview:
                     ⏱️ {format_duration_hm(swim_sum.get('moving_time_min', 0))} · ⚡ {s_pace}
                 </div>
                 <div style="font-size: 0.78rem; color: #38BDF8; margin-top: 6px; font-weight: 600;">
-                    Last: {f"{days_since_swim}d ago" if days_since_swim is not None else "—"}
+                    Last: {format_days_ago(days_since_swim)}
                 </div>
             </div>
             """,
@@ -923,7 +941,7 @@ with tab_overview:
                     ⏱️ {format_duration_hm(run_sum.get('moving_time_min', 0))} · ⚡ {r_pace}
                 </div>
                 <div style="font-size: 0.78rem; color: #F472B6; margin-top: 6px; font-weight: 600;">
-                    Last: {f"{days_since_run}d ago" if days_since_run is not None else "—"}
+                    Last: {format_days_ago(days_since_run)}
                 </div>
             </div>
             """,
@@ -945,7 +963,7 @@ with tab_overview:
                     ⏱️ {format_duration_hm(ride_sum.get('moving_time_min', 0))} · ⚡ {b_speed_str}
                 </div>
                 <div style="font-size: 0.78rem; color: #4ADE80; margin-top: 6px; font-weight: 600;">
-                    Last: {f"{days_since_ride}d ago" if days_since_ride is not None else "—"}
+                    Last: {format_days_ago(days_since_ride)}
                 </div>
             </div>
             """,
@@ -966,7 +984,7 @@ with tab_overview:
                     ⏱️ {format_duration_hm(walk_sum.get('moving_time_min', 0))} · ⚡ {w_pace}
                 </div>
                 <div style="font-size: 0.78rem; color: #FBBF24; margin-top: 6px; font-weight: 600;">
-                    Last: {f"{days_since_walk}d ago" if days_since_walk is not None else "—"}
+                    Last: {format_days_ago(days_since_walk)}
                 </div>
             </div>
             """,
@@ -1251,82 +1269,26 @@ with tab_swimming:
             ).properties(title="Pace Progression /100m (Continuous Swims)")
             st.altair_chart(apply_chart_theme(c_pace), use_container_width=True)
 
-    # 5. Interactive Swim Workout Builder & Customizer
+    # 5. Link to Calendar Tab for Workout Builder
     st.markdown("---")
-    st.markdown("### 🛠️ Interactive Swim Workout Builder & Customizer")
-    b_col1, b_col2 = st.columns([1, 2])
-
-    with b_col1:
-        custom_focus = st.selectbox("Workout Focus", ["Endurance", "Tempo", "Intervals", "Pyramid Ladder", "Recovery"], index=0)
-        custom_dist = st.slider("Target Distance (m)", min_value=1000, max_value=3500, value=plan_dist, step=250)
-        custom_date = st.date_input("Target / Planned Date", value=target_plan_date, key="custom_swim_workout_date")
-
-        # Generate dynamically with user's baseline pace zones
-        if custom_focus == "Endurance":
-            custom_plan = endurance_workout(
-                target_distance=custom_dist,
-                easy_min=pace_zones["easy"]["min"],
-                easy_max=pace_zones["easy"]["max"],
-                endurance_min=pace_zones["endurance"]["min"],
-                endurance_max=pace_zones["endurance"]["max"],
-            )
-        elif custom_focus == "Tempo":
-            custom_plan = tempo_workout(
-                target_distance=custom_dist,
-                easy_min=pace_zones["easy"]["min"],
-                easy_max=pace_zones["easy"]["max"],
-                tempo_min=pace_zones["tempo"]["min"],
-                tempo_max=pace_zones["tempo"]["max"],
-            )
-        elif custom_focus == "Intervals":
-            custom_plan = interval_workout(
-                target_distance=custom_dist,
-                easy_min=pace_zones["easy"]["min"],
-                easy_max=pace_zones["easy"]["max"],
-                interval_min=pace_zones["interval"]["min"],
-                interval_max=pace_zones["interval"]["max"],
-            )
-        elif custom_focus == "Pyramid Ladder":
-            custom_plan = pyramid_workout(
-                target_distance=custom_dist,
-                easy_min=pace_zones["easy"]["min"],
-                easy_max=pace_zones["easy"]["max"],
-                tempo_min=pace_zones["tempo"]["min"],
-                tempo_max=pace_zones["tempo"]["max"],
-                interval_min=pace_zones["interval"]["min"],
-                interval_max=pace_zones["interval"]["max"],
-            )
-        else:
-            custom_plan = recovery_workout(
-                target_distance=custom_dist,
-                easy_min=pace_zones["easy"]["min"],
-                easy_max=pace_zones["easy"]["max"],
-            )
-
-        cust_target_d = custom_plan.get("target_distance") or custom_dist
-        cust_laps = custom_plan.get("total_laps") or (cust_target_d // 25)
-        cust_dur = custom_plan.get("duration") or "45-55 min"
-        cust_goal = custom_plan.get("goal") or "Maintain swimming consistency."
-
-        # Attach metadata to custom plan
-        custom_plan["plan_id"] = str(uuid.uuid4())
-        custom_plan["planned_date"] = str(custom_date)
-        custom_plan["created_at"] = datetime.now().isoformat()
-        custom_plan["name"] = f"Custom {custom_focus} Session"
-        custom_plan["distance_m"] = cust_target_d
-
-        if st.button("💾 Save Custom Plan to Library", use_container_width=True):
-            save_plan(custom_plan, target_date=str(custom_date))
-            st.success(f"Saved {custom_focus} ({cust_target_d}m) for {custom_date.strftime('%A, %b %d, %Y')} to your Library!")
-
-    with b_col2:
-        custom_date_str = custom_date.strftime("%A, %b %d, %Y")
-        st.markdown(f"**Custom Plan Preview:** `{custom_plan.get('type', custom_focus)}` · `{cust_target_d}m` ({cust_laps} Laps) · 📅 `{custom_date_str}`")
-        st.caption(f"Estimated Time: **{cust_dur}** · Goal: **{cust_goal}**")
-        for j, cs in enumerate(custom_plan.get("sets", [])):
-            st.markdown(
-                f"- **Set {j+1}:** `{cs.get('reps')} × {cs.get('distance')}m` ({cs.get('total_laps')} total laps) — `{cs.get('stroke_pattern', cs.get('stroke'))}` · Pace: `{cs.get('pace')}` · Rest: `{cs.get('rest')}`"
-            )
+    st.markdown(
+        """
+        <div style="background: #111827; border: 1px solid #23324A; border-left: 6px solid #00D2FF; border-radius: 12px; padding: 16px 20px; margin-top: 10px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);">
+            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+                <div>
+                    <h4 style="margin: 0 0 4px 0; color: #FFFFFF; font-size: 1.1rem; font-weight: 800;">
+                        📅 Custom Swim Workout Builder &amp; Scheduler
+                    </h4>
+                    <p style="margin: 0; color: #94A3B8; font-size: 0.9rem;">
+                        The <strong>Interactive Swim Workout Builder &amp; Customizer</strong> is located in the <strong>📅 Calendar</strong> tab so you can design, customize, and schedule structured workouts directly onto your monthly training calendar.
+                    </p>
+                </div>
+                <span class="sport-chip chip-swim" style="font-size: 0.85rem;">🗓️ Moved to Calendar Tab</span>
+            </div>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
 
 
 # ============================================================
@@ -1894,8 +1856,18 @@ with tab_performance:
 # ============================================================
 
 with tab_calendar:
-    st.markdown("## 📅 Interactive Fitness Calendar")
-    st.markdown("Color-coded activity calendar with multi-sport session inspector.")
+    st.markdown("## 📅 Interactive Fitness Calendar & Workout Planner")
+    st.markdown("Color-coded activity calendar, day inspector, and interactive swim workout scheduler.")
+
+    # Load saved workout plans from store
+    saved_plans_list = get_plans()
+    plans_by_date = {}
+    for p in saved_plans_list:
+        pd_key = (p.get("planned_date") or (p.get("created_at") or "")[:10])
+        if pd_key:
+            if pd_key not in plans_by_date:
+                plans_by_date[pd_key] = []
+            plans_by_date[pd_key].append(p)
 
     # Month selector
     cal_col1, cal_col2 = st.columns([1, 3])
@@ -1932,6 +1904,7 @@ with tab_calendar:
             else:
                 d_str = f"{sel_year:04d}-{sel_month:02d}-{day_num:02d}"
                 acts = act_by_date.get(d_str, [])
+                p_items = plans_by_date.get(d_str, [])
                 is_today = (d_str == str(today_date))
                 cell_class = "cal-cell cal-cell-today" if is_today else "cal-cell"
                 num_style = "color: #00D2FF !important;" if is_today else ""
@@ -1945,7 +1918,14 @@ with tab_calendar:
                         dur_m = act_item.get("moving_time_min") or act_item.get("duration_min") or 0.0
                         label = f"{get_sport_icon(sp_name)} {d_km:.1f}k" if d_km > 0 else f"{get_sport_icon(sp_name)} {dur_m:.0f}m"
                         badge_html += f"<span class='cal-badge {chip_cls}'>{label}</span>"
-                else:
+
+                # Show planned workouts badge if any
+                if p_items:
+                    for p_item in p_items:
+                        p_dist_val = p_item.get("distance_m") or p_item.get("target_distance", 0)
+                        badge_html += f"<span class='cal-badge' style='background: #4F46E5; color: #FFFFFF;'>📋 {p_dist_val}m Plan</span>"
+
+                if not acts and not p_items:
                     badge_html = "<span class='cal-rest'>Rest</span>"
 
                 cells_list.append(
@@ -1967,13 +1947,14 @@ with tab_calendar:
     # Interactive Day Inspector
     st.markdown("---")
     st.markdown("### 🔍 Day Inspector")
-    insp_date = st.date_input("Select Date to Inspect", value=today_date)
+    insp_date = st.date_input("Select Date to Inspect", value=today_date, key="cal_day_inspector_date")
     insp_str = str(insp_date)
     day_acts = act_by_date.get(insp_str, [])
     day_wel = next((w for w in wellness_records if str(w.get("id") or w.get("date") or "")[:10] == insp_str), None)
+    day_plans = plans_by_date.get(insp_str, [])
 
-    if day_acts or day_wel:
-        st.markdown(f"#### Activities & Sleep on `{format_date_clean(insp_str)}`")
+    if day_acts or day_wel or day_plans:
+        st.markdown(f"#### Activities, Sleep &amp; Schedule on `{format_date_clean(insp_str)}`")
         if day_wel and day_wel.get("sleepSecs"):
             sl_s = day_wel.get("sleepSecs", 0)
             st.info(f"🛌 **Garmin Sleep Log:** `{sl_s//3600}h {(sl_s%3600)//60:02d}m` · Score: `{day_wel.get('sleepScore', '—')}/100` · HRV: `{day_wel.get('hrv', '—')} ms` · RHR: `{day_wel.get('restingHR', '—')} bpm`")
@@ -1992,10 +1973,148 @@ with tab_calendar:
                         - **Source:** `{da.get('source', 'Garmin')}`
                         """
                     )
-        else:
+
+        if day_plans:
+            st.markdown("##### 📋 Scheduled Workout Plans for this Date")
+            for dp in day_plans:
+                dp_id = dp.get("plan_id") or dp.get("id") or str(uuid.uuid4())
+                dp_name = dp.get("name") or f"{dp.get('type', 'Custom')} Plan"
+                dp_dist = dp.get("distance_m") or dp.get("target_distance", 0)
+                dp_laps = dp.get("total_laps") or (dp_dist // 25 if dp_dist else 0)
+                with st.expander(f"🏊 Scheduled: {dp_name} — {dp_dist}m ({dp_laps} Laps)", expanded=True):
+                    st.markdown(f"- **Focus:** `{dp.get('type', 'Custom')}` · **Target Distance:** `{dp_dist}m` ({dp_laps} Laps)")
+                    st.markdown(f"- **Goal:** {dp.get('goal', '—')} · **Estimated Time:** {dp.get('duration', '—')}")
+                    if dp.get("sets"):
+                        for idx, st_set in enumerate(dp.get("sets", [])):
+                            st.markdown(f"  - **Set {idx+1}:** `{st_set.get('reps')} × {st_set.get('distance')}m` ({st_set.get('total_laps')} laps) — `{st_set.get('stroke_pattern', st_set.get('stroke'))}` · Pace: `{st_set.get('pace')}` · Rest: `{st_set.get('rest')}`")
+                    if st.button("🗑️ Delete Scheduled Plan", key=f"del_insp_{dp_id}"):
+                        delete_plan(dp_id)
+                        st.rerun()
+
+        if not day_acts and not day_plans:
             st.info("Rest day — no workout sessions logged.")
     else:
-        st.info(f"No activities or sleep records on {format_date_clean(insp_str)}.")
+        st.info(f"No activities, sleep records, or scheduled workouts on {format_date_clean(insp_str)}.")
+
+    # 3. Interactive Swim Workout Builder & Customizer
+    st.markdown("---")
+    st.markdown("### 🛠️ Interactive Swim Workout Builder & Customizer")
+    st.markdown("Build, customize, and schedule custom swim workouts directly onto your training calendar.")
+    
+    cal_b_col1, cal_b_col2 = st.columns([1, 2])
+
+    default_builder_dist = plan.get("distance_m", 2000) if isinstance(plan, dict) else 2000
+
+    with cal_b_col1:
+        custom_focus = st.selectbox(
+            "Workout Focus",
+            ["Endurance", "Tempo", "Intervals", "Pyramid Ladder", "Recovery"],
+            index=0,
+            key="cal_custom_focus"
+        )
+        custom_dist = st.slider(
+            "Target Distance (m)",
+            min_value=1000,
+            max_value=3500,
+            value=default_builder_dist,
+            step=250,
+            key="cal_custom_dist"
+        )
+        custom_date = st.date_input(
+            "Target / Planned Date",
+            value=target_plan_date,
+            key="cal_custom_date"
+        )
+
+        # Generate dynamically with user's baseline pace zones
+        if custom_focus == "Endurance":
+            custom_plan = endurance_workout(
+                target_distance=custom_dist,
+                easy_min=pace_zones["easy"]["min"],
+                easy_max=pace_zones["easy"]["max"],
+                endurance_min=pace_zones["endurance"]["min"],
+                endurance_max=pace_zones["endurance"]["max"],
+            )
+        elif custom_focus == "Tempo":
+            custom_plan = tempo_workout(
+                target_distance=custom_dist,
+                easy_min=pace_zones["easy"]["min"],
+                easy_max=pace_zones["easy"]["max"],
+                tempo_min=pace_zones["tempo"]["min"],
+                tempo_max=pace_zones["tempo"]["max"],
+            )
+        elif custom_focus == "Intervals":
+            custom_plan = interval_workout(
+                target_distance=custom_dist,
+                easy_min=pace_zones["easy"]["min"],
+                easy_max=pace_zones["easy"]["max"],
+                interval_min=pace_zones["interval"]["min"],
+                interval_max=pace_zones["interval"]["max"],
+            )
+        elif custom_focus == "Pyramid Ladder":
+            custom_plan = pyramid_workout(
+                target_distance=custom_dist,
+                easy_min=pace_zones["easy"]["min"],
+                easy_max=pace_zones["easy"]["max"],
+                tempo_min=pace_zones["tempo"]["min"],
+                tempo_max=pace_zones["tempo"]["max"],
+                interval_min=pace_zones["interval"]["min"],
+                interval_max=pace_zones["interval"]["max"],
+            )
+        else:
+            custom_plan = recovery_workout(
+                target_distance=custom_dist,
+                easy_min=pace_zones["easy"]["min"],
+                easy_max=pace_zones["easy"]["max"],
+            )
+
+        cust_target_d = custom_plan.get("target_distance") or custom_dist
+        cust_laps = custom_plan.get("total_laps") or (cust_target_d // 25)
+        cust_dur = custom_plan.get("duration") or "45-55 min"
+        cust_goal = custom_plan.get("goal") or "Maintain swimming consistency."
+
+        # Attach metadata to custom plan
+        custom_plan["plan_id"] = str(uuid.uuid4())
+        custom_plan["planned_date"] = str(custom_date)
+        custom_plan["created_at"] = datetime.now().isoformat()
+        custom_plan["name"] = f"Custom {custom_focus} Session"
+        custom_plan["distance_m"] = cust_target_d
+
+        if st.button("💾 Save Custom Plan to Library", use_container_width=True, key="save_custom_plan_cal"):
+            save_plan(custom_plan, target_date=str(custom_date))
+            st.success(f"Saved {custom_focus} ({cust_target_d}m) for {custom_date.strftime('%A, %b %d, %Y')} to your Library!")
+            st.rerun()
+
+    with cal_b_col2:
+        custom_date_str = custom_date.strftime("%A, %b %d, %Y")
+        st.markdown(f"**Custom Plan Preview:** `{custom_plan.get('type', custom_focus)}` · `{cust_target_d}m` ({cust_laps} Laps) · 📅 `{custom_date_str}`")
+        st.caption(f"Estimated Time: **{cust_dur}** · Goal: **{cust_goal}**")
+        for j, cs in enumerate(custom_plan.get("sets", [])):
+            st.markdown(
+                f"- **Set {j+1}:** `{cs.get('reps')} × {cs.get('distance')}m` ({cs.get('total_laps')} total laps) — `{cs.get('stroke_pattern', cs.get('stroke'))}` · Pace: `{cs.get('pace')}` · Rest: `{cs.get('rest')}`"
+            )
+
+    # 4. Saved Workout Plans & Scheduled Sessions Library
+    if saved_plans_list:
+        st.markdown("---")
+        st.markdown(f"### 🗄️ Saved Workout Plans &amp; Library ({len(saved_plans_list)} Plans)")
+        for p_item in saved_plans_list:
+            p_id = p_item.get("plan_id") or p_item.get("id") or str(uuid.uuid4())
+            p_name = p_item.get("name") or f"{p_item.get('type', 'Custom')} Plan"
+            p_dist = p_item.get("distance_m") or p_item.get("target_distance", 0)
+            p_date = p_item.get("planned_date") or (p_item.get("created_at") or "")[:10] or "Unscheduled"
+            p_laps = p_item.get("total_laps") or (p_dist // 25 if p_dist else 0)
+            with st.expander(f"🏊 {p_name} — {p_dist}m ({p_laps} Laps) · 📅 {format_date_clean(p_date)}"):
+                st.markdown(f"**Goal:** {p_item.get('goal', '—')} · **Duration:** {p_item.get('duration', '—')}")
+                if p_item.get("sets"):
+                    for idx, st_set in enumerate(p_item.get("sets", [])):
+                        st.markdown(f"- **Set {idx+1}:** `{st_set.get('reps')} × {st_set.get('distance')}m` ({st_set.get('total_laps')} laps) — `{st_set.get('stroke_pattern', st_set.get('stroke'))}` · Pace: `{st_set.get('pace')}` · Rest: `{st_set.get('rest')}`")
+                
+                c_del1, c_del2 = st.columns([1, 4])
+                with c_del1:
+                    if st.button(f"🗑️ Delete Plan", key=f"del_plan_cal_{p_id}"):
+                        delete_plan(p_id)
+                        st.rerun()
 
 
 # ============================================================
