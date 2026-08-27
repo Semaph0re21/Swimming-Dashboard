@@ -1,6 +1,6 @@
 import json
 import logging
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, date
 from pathlib import Path
 
 from src.api.intervals import get_activities, get_wellness
@@ -124,10 +124,13 @@ def get_dashboard_data(start_date, end_date, source_filter="all", strava_path=No
     api_status = "offline"
     raw_intervals = []
 
+    today_iso = str(date.today())
+    fetch_end_date = max(end_date, today_iso)
+
     # 1. Fetch or load Intervals.icu data
     try:
         # Fetch wide window from API to enable full historical merge if needed
-        raw_intervals = get_activities("2025-01-01", end_date)
+        raw_intervals = get_activities("2025-01-01", fetch_end_date)
         api_status = "connected"
         try:
             with open(CACHE_FILE, "w", encoding="utf-8") as f:
@@ -196,6 +199,15 @@ def get_dashboard_data(start_date, end_date, source_filter="all", strava_path=No
     baseline_pace = calculate_baseline(long_swims)
     pace_zones = swim_pace_zones(baseline_pace)
 
+    # 6b. Running baseline (using all available runs up to end_date for historical baseline)
+    all_runs_up_to_date = [
+        a for a in clean_activities
+        if a.get("sport") == "Run" and a.get("date") and datetime.fromisoformat(a["date"][:10]).date() <= end_dt
+    ]
+    historical_running = get_running_analytics(all_runs_up_to_date, strava_path)
+    running_baseline_pace = historical_running.get("best_pace_sec") or 550
+    running_pace_zones = historical_running.get("pace_zones") or []
+
     # 7. Days since last activity for each sport
     days_since_swim = days_since_last(clean_activities, "Swim", end_date)
     days_since_ride = days_since_last(clean_activities, "Ride", end_date)
@@ -204,13 +216,29 @@ def get_dashboard_data(start_date, end_date, source_filter="all", strava_path=No
     days_since_workout = days_since_last(clean_activities, "Workout", end_date)
 
     # 8. Wellness data (optional)
-    wellness_data = []
+    wellness_data_all = []
     try:
-        wellness_data = get_wellness(start_date, end_date)
+        wellness_data_all = get_wellness("2025-01-01", fetch_end_date)
     except Exception as e:
         logger.warning(f"Could not load wellness data: {e}")
 
-    latest_wellness = wellness_data[-1] if wellness_data else None
+    # Scope wellness data for the selected filter window
+    wellness_data = [
+        w for w in wellness_data_all
+        if (w.get("id") and start_date <= w["id"] <= end_date) or (w.get("date") and start_date <= str(w["date"])[:10] <= end_date)
+    ]
+
+    latest_wellness = wellness_data[-1] if wellness_data else (wellness_data_all[-1] if wellness_data_all else None)
+
+    # 8b. Real-time today's wellness and today's completed activities (independent of time filter)
+    today_wellness = next((w for w in wellness_data_all if w.get("id") == today_iso or w.get("date") == today_iso), None)
+    if not today_wellness and wellness_data_all:
+        today_wellness = wellness_data_all[-1]
+
+    today_activities = [
+        a for a in clean_activities
+        if a.get("date") and str(a["date"])[:10] == today_iso
+    ]
 
     # 9. Generate next swim plan (incorporating latest Garmin sleep & recovery)
     swim_plan = generate_swim_plan(
@@ -235,20 +263,20 @@ def get_dashboard_data(start_date, end_date, source_filter="all", strava_path=No
     # 12. Swimming weekly trends (within selected window or full history)
     weekly_trends = swimming_weekly_trend(window_activities if len(window_activities) > 5 else clean_activities)
 
-    # 13. Running analytics
-    running_analytics = get_running_analytics(clean_activities, strava_path)
+    # 13. Running analytics (scoped to selected timeline window)
+    running_analytics = get_running_analytics(window_activities, strava_path)
 
-    # 14. Cycling analytics
-    cycling_analytics = get_cycling_analytics(clean_activities)
+    # 14. Cycling analytics (scoped to selected timeline window)
+    cycling_analytics = get_cycling_analytics(window_activities)
 
-    # 15. Walking analytics
-    walking_analytics = get_walking_analytics(clean_activities)
+    # 15. Walking analytics (scoped to selected timeline window)
+    walking_analytics = get_walking_analytics(window_activities)
 
     # 16. Sleep & Recovery analytics
-    sleep_analytics = get_sleep_analytics(wellness_data, start_date, end_date)
+    sleep_analytics = get_sleep_analytics(wellness_data if wellness_data else wellness_data_all, start_date, end_date)
 
-    # 17. Cross-sport Performance analytics
-    performance_analytics = get_performance_analytics(window_activities if window_activities else clean_activities, wellness_data)
+    # 17. Cross-sport Performance analytics (scoped to selected timeline window)
+    performance_analytics = get_performance_analytics(window_activities, wellness_data)
 
     # 18. Unified Personal Records (PBs)
     personal_records = calculate_all_personal_records(clean_activities)
@@ -256,11 +284,16 @@ def get_dashboard_data(start_date, end_date, source_filter="all", strava_path=No
     return {
         "activities": window_activities,
         "all_activities": clean_activities,
+        "today_activities": today_activities,
+        "today_wellness": today_wellness,
+        "all_wellness": wellness_data_all,
         "current_week": current_week,
         "previous_week": previous_week,
         "swim_baseline": long_swims,
         "baseline_pace": baseline_pace,
         "pace_zones": pace_zones,
+        "running_baseline_pace": running_baseline_pace,
+        "running_pace_zones": running_pace_zones,
         "days_since_swim": days_since_swim,
         "days_since_ride": days_since_ride,
         "days_since_walk": days_since_walk,

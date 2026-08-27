@@ -22,15 +22,40 @@ def get_plans():
         return []
     try:
         with open(PLAN_FILE, "r", encoding="utf-8") as f:
-            return json.load(f)
+            data = json.load(f)
+            changed = False
+            for p in data:
+                if not p.get("plan_id") and not p.get("id"):
+                    p["plan_id"] = str(uuid.uuid4())
+                    changed = True
+            if changed:
+                with open(PLAN_FILE, "w", encoding="utf-8") as fw:
+                    json.dump(data, fw, indent=2)
+            return data
     except Exception:
         return []
 
 
 def delete_plan(plan_id):
-    """Delete a plan by plan_id or id."""
+    """Delete a single plan by plan_id or id."""
+    if not plan_id:
+        return False
     plans = get_plans()
-    new_plans = [p for p in plans if p.get("plan_id") != plan_id and p.get("id") != plan_id]
+    new_plans = [p for p in plans if str(p.get("plan_id")) != str(plan_id) and str(p.get("id")) != str(plan_id)]
+    with open(PLAN_FILE, "w", encoding="utf-8") as f:
+        json.dump(new_plans, f, indent=2)
+    return len(new_plans) < len(plans)
+
+
+def delete_plans_by_date(date_str):
+    """Delete all plans planned for a specific date."""
+    if not date_str:
+        return False
+    plans = get_plans()
+    new_plans = [
+        p for p in plans
+        if (p.get("planned_date") != date_str and (p.get("created_at") or "")[:10] != date_str)
+    ]
     with open(PLAN_FILE, "w", encoding="utf-8") as f:
         json.dump(new_plans, f, indent=2)
     return len(new_plans) < len(plans)

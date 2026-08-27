@@ -23,19 +23,26 @@ from src.training.swim_paces import (
 
 def calculate_baseline(long_swims):
     """
-    Calculate average pace in seconds per 100m from long endurance swims.
+    Calculate current endurance baseline pace in seconds per 100m from athlete's recent long swims.
+    Prioritizes recent fitness (last 6-8 long swims) to accurately reflect current physiological capacity.
     """
     if not long_swims:
         return 154.0
 
-    pace_values = [
-        swim["pace_seconds"]
-        for swim in long_swims
-        if swim.get("pace_seconds") is not None and swim.get("pace_seconds") > 0
+    valid_swims = [
+        s for s in long_swims
+        if s.get("pace_seconds") is not None and s.get("pace_seconds") > 0
     ]
 
-    if not pace_values:
+    if not valid_swims:
         return 154.0
+
+    # Sort by date descending to get most recent swims first
+    sorted_swims = sorted(valid_swims, key=lambda s: s.get("date", ""), reverse=True)
+
+    # Take the most recent 6-8 long swims to calculate current true aerobic baseline
+    recent_swims = sorted_swims[:8]
+    pace_values = [s["pace_seconds"] for s in recent_swims]
 
     return sum(pace_values) / len(pace_values)
 

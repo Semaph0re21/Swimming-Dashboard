@@ -69,6 +69,7 @@ def parse_gpx_splits(filename, custom_path=None):
         splits = []
         current_km = 1
         km_start_time = None
+        pts_start_time = None
         cum_dist = 0.0
         last_pt = None
         last_time = None
@@ -86,6 +87,9 @@ def parse_gpx_splits(filename, custom_path=None):
             except Exception:
                 continue
 
+            if pts_start_time is None:
+                pts_start_time = t_dt
+
             if last_pt is None:
                 last_pt = (lat, lon)
                 last_time = t_dt
@@ -99,26 +103,38 @@ def parse_gpx_splits(filename, custom_path=None):
 
             if cum_dist >= current_km * 1000.0:
                 split_duration = (t_dt - km_start_time).total_seconds()
+                elapsed_dur = (t_dt - pts_start_time).total_seconds()
                 splits.append({
                     "split": f"Kilometer {current_km}",
+                    "split_km": current_km,
                     "distance": "1.00 km",
                     "duration_sec": split_duration,
+                    "split_time_formatted": f"{int(split_duration // 60)}:{int(split_duration % 60):02d}",
                     "pace": format_run_pace(split_duration),
+                    "pace_formatted": format_run_pace(split_duration),
+                    "elapsed_time_formatted": f"{int(elapsed_dur // 60)}:{int(elapsed_dur % 60):02d}",
+                    "elevation_gain_m": 0,
                 })
                 current_km += 1
                 km_start_time = t_dt
 
         # Remainder segment
-        if cum_dist > (current_km - 1) * 1000.0 and km_start_time and last_time:
+        if cum_dist > (current_km - 1) * 1000.0 and km_start_time and last_time and pts_start_time:
             rem_dist = cum_dist - (current_km - 1) * 1000.0
             if rem_dist >= 50.0:  # Only if more than 50 meters
                 rem_sec = (last_time - km_start_time).total_seconds()
+                elapsed_dur = (last_time - pts_start_time).total_seconds()
                 pace_sec = rem_sec / (rem_dist / 1000.0)
                 splits.append({
                     "split": f"Final ({rem_dist:.0f}m)",
+                    "split_km": current_km,
                     "distance": f"{rem_dist / 1000.0:.2f} km",
                     "duration_sec": rem_sec,
+                    "split_time_formatted": f"{int(rem_sec // 60)}:{int(rem_sec % 60):02d}",
                     "pace": format_run_pace(pace_sec),
+                    "pace_formatted": format_run_pace(pace_sec),
+                    "elapsed_time_formatted": f"{int(elapsed_dur // 60)}:{int(elapsed_dur % 60):02d}",
+                    "elevation_gain_m": 0,
                 })
 
         return splits
