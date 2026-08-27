@@ -1103,91 +1103,7 @@ with tab_swimming:
             unsafe_allow_html=True,
         )
 
-    # 2. 5-Zone Pace Guidelines
-    st.markdown("### 🎯 5-Zone Swim Pace Guidelines (25m Pool)")
-    z_easy = pace_zones.get("easy", {})
-    z_end = pace_zones.get("endurance", {})
-    z_tempo = pace_zones.get("tempo", {})
-    z_int = pace_zones.get("interval", {})
-    z_sprint = pace_zones.get("sprint", {})
-
-    zone_rows = [
-        {
-            "Zone": "Zone 1 · Easy / Recovery",
-            "Pace /100m": z_easy.get("formatted", f"{format_pace(baseline_pace + 15)} – {format_pace(baseline_pace + 30)}"),
-            "200m (8 Laps)": f"{format_pace((z_easy.get('min', baseline_pace + 15)) * 2)}",
-            "400m (16 Laps)": f"{format_pace((z_easy.get('min', baseline_pace + 15)) * 4)}",
-            "Purpose": z_easy.get("purpose", "Warm-up, cool-down, active recovery & drills"),
-        },
-        {
-            "Zone": "Zone 2 · Aerobic Base (Cruise)",
-            "Pace /100m": z_end.get("formatted", f"{format_pace(baseline_pace)} – {format_pace(baseline_pace + 10)}"),
-            "200m (8 Laps)": f"{format_pace((z_end.get('min', baseline_pace)) * 2)}",
-            "400m (16 Laps)": f"{format_pace((z_end.get('min', baseline_pace)) * 4)}",
-            "Purpose": z_end.get("purpose", "Aerobic conditioning, continuous mixed sets"),
-        },
-        {
-            "Zone": "Zone 3 · Tempo (Lactate Threshold)",
-            "Pace /100m": z_tempo.get("formatted", f"{format_pace(baseline_pace - 10)} – {format_pace(baseline_pace)}"),
-            "200m (8 Laps)": f"{format_pace((z_tempo.get('min', baseline_pace - 10)) * 2)}",
-            "400m (16 Laps)": f"{format_pace((z_tempo.get('min', baseline_pace - 10)) * 4)}",
-            "Purpose": z_tempo.get("purpose", "Lactate threshold & sustainable speed endurance"),
-        },
-        {
-            "Zone": "Zone 4 · Threshold & Speed Intervals",
-            "Pace /100m": z_int.get("formatted", f"{format_pace(baseline_pace - 20)} – {format_pace(baseline_pace - 10)}"),
-            "200m (8 Laps)": f"{format_pace((z_int.get('min', baseline_pace - 20)) * 2)}",
-            "400m (16 Laps)": f"{format_pace((z_int.get('min', baseline_pace - 20)) * 4)}",
-            "Purpose": z_int.get("purpose", "100m freestyle speed repeats with rest"),
-        },
-        {
-            "Zone": "Zone 5 · Anaerobic Power / Sprint",
-            "Pace /100m": z_sprint.get("formatted", f"{format_pace(baseline_pace - 30)} – {format_pace(baseline_pace - 20)}"),
-            "200m (8 Laps)": f"{format_pace((z_sprint.get('min', baseline_pace - 30)) * 2)}",
-            "400m (16 Laps)": f"{format_pace((z_sprint.get('min', baseline_pace - 30)) * 4)}",
-            "Purpose": z_sprint.get("purpose", "25m-50m max cadence & explosive push-offs"),
-        },
-    ]
-    st.dataframe(pd.DataFrame(zone_rows), use_container_width=True, hide_index=True)
-
-    # 3. Swimming Charts
-    st.markdown("### 📈 Swimming Trends")
-    sw_chart_col1, sw_chart_col2 = st.columns(2)
-
-    with sw_chart_col1:
-        if weekly_trends:
-            w_df = pd.DataFrame(weekly_trends)
-            c_dist = alt.Chart(w_df).mark_bar(color="#0284C7", cornerRadiusTopLeft=6, cornerRadiusTopRight=6).encode(
-                x=alt.X("week:N", title="Training Week"),
-                y=alt.Y("distance_km:Q", title="Volume (km)"),
-                tooltip=[
-                    alt.Tooltip("week:N", title="Week"),
-                    alt.Tooltip("distance_km:Q", title="Distance (km)"),
-                    alt.Tooltip("sessions:Q", title="Sessions"),
-                    alt.Tooltip("time_min:Q", title="Time (min)"),
-                ],
-            ).properties(title="Weekly Swim Volume Progression")
-            st.altair_chart(apply_chart_theme(c_dist), use_container_width=True)
-
-    with sw_chart_col2:
-        if swim_baseline:
-            b_df = pd.DataFrame(swim_baseline)
-            b_df["date_clean"] = b_df["date"].apply(lambda d: str(d)[:10])
-            b_df["pace_min"] = b_df["pace_seconds"] / 60.0
-            c_pace = alt.Chart(b_df).mark_line(point=True, color="#38BDF8").encode(
-                x=alt.X("date_clean:N", title="Swim Date"),
-                y=alt.Y("pace_seconds:Q", title="Pace (seconds /100m)", scale=alt.Scale(zero=False)),
-                tooltip=[
-                    alt.Tooltip("date_clean:N", title="Date"),
-                    alt.Tooltip("distance_km:Q", title="Distance (km)"),
-                    alt.Tooltip("time_min:Q", title="Time (min)"),
-                    alt.Tooltip("pace_formatted:N", title="Pace"),
-                ],
-            ).properties(title="Pace Progression /100m (Continuous Swims)")
-            st.altair_chart(apply_chart_theme(c_pace), use_container_width=True)
-
-    # 4. AI Next Swim Workout Plan (with Accordion Sets & Lap Terminology)
-    st.markdown("---")
+    # 2. AI Next Swim Workout Plan (with Accordion Sets & Lap Terminology)
     st.markdown(f"### 🎯 {plan_timing_label} AI Recommended Swim Workout Plan")
 
     plan_type = plan.get("workout_type", "Endurance")
@@ -1250,6 +1166,90 @@ with tab_swimming:
                 - **Set Purpose:** {purpose}
                 """
             )
+
+    # 3. 5-Zone Pace Guidelines
+    st.markdown("---")
+    st.markdown("### 🎯 5-Zone Swim Pace Guidelines (25m Pool)")
+    z_easy = pace_zones.get("easy", {})
+    z_end = pace_zones.get("endurance", {})
+    z_tempo = pace_zones.get("tempo", {})
+    z_int = pace_zones.get("interval", {})
+    z_sprint = pace_zones.get("sprint", {})
+
+    zone_rows = [
+        {
+            "Zone": "Zone 1 · Easy / Recovery",
+            "Pace /100m": z_easy.get("formatted", f"{format_pace(baseline_pace + 15)} – {format_pace(baseline_pace + 30)}"),
+            "200m (8 Laps)": f"{format_pace((z_easy.get('min', baseline_pace + 15)) * 2)}",
+            "400m (16 Laps)": f"{format_pace((z_easy.get('min', baseline_pace + 15)) * 4)}",
+            "Purpose": z_easy.get("purpose", "Warm-up, cool-down, active recovery & drills"),
+        },
+        {
+            "Zone": "Zone 2 · Aerobic Base (Cruise)",
+            "Pace /100m": z_end.get("formatted", f"{format_pace(baseline_pace)} – {format_pace(baseline_pace + 10)}"),
+            "200m (8 Laps)": f"{format_pace((z_end.get('min', baseline_pace)) * 2)}",
+            "400m (16 Laps)": f"{format_pace((z_end.get('min', baseline_pace)) * 4)}",
+            "Purpose": z_end.get("purpose", "Aerobic conditioning, continuous mixed sets"),
+        },
+        {
+            "Zone": "Zone 3 · Tempo (Lactate Threshold)",
+            "Pace /100m": z_tempo.get("formatted", f"{format_pace(baseline_pace - 10)} – {format_pace(baseline_pace)}"),
+            "200m (8 Laps)": f"{format_pace((z_tempo.get('min', baseline_pace - 10)) * 2)}",
+            "400m (16 Laps)": f"{format_pace((z_tempo.get('min', baseline_pace - 10)) * 4)}",
+            "Purpose": z_tempo.get("purpose", "Lactate threshold & sustainable speed endurance"),
+        },
+        {
+            "Zone": "Zone 4 · Threshold & Speed Intervals",
+            "Pace /100m": z_int.get("formatted", f"{format_pace(baseline_pace - 20)} – {format_pace(baseline_pace - 10)}"),
+            "200m (8 Laps)": f"{format_pace((z_int.get('min', baseline_pace - 20)) * 2)}",
+            "400m (16 Laps)": f"{format_pace((z_int.get('min', baseline_pace - 20)) * 4)}",
+            "Purpose": z_int.get("purpose", "100m freestyle speed repeats with rest"),
+        },
+        {
+            "Zone": "Zone 5 · Anaerobic Power / Sprint",
+            "Pace /100m": z_sprint.get("formatted", f"{format_pace(baseline_pace - 30)} – {format_pace(baseline_pace - 20)}"),
+            "200m (8 Laps)": f"{format_pace((z_sprint.get('min', baseline_pace - 30)) * 2)}",
+            "400m (16 Laps)": f"{format_pace((z_sprint.get('min', baseline_pace - 30)) * 4)}",
+            "Purpose": z_sprint.get("purpose", "25m-50m max cadence & explosive push-offs"),
+        },
+    ]
+    st.dataframe(pd.DataFrame(zone_rows), use_container_width=True, hide_index=True)
+
+    # 4. Swimming Charts
+    st.markdown("### 📈 Swimming Trends")
+    sw_chart_col1, sw_chart_col2 = st.columns(2)
+
+    with sw_chart_col1:
+        if weekly_trends:
+            w_df = pd.DataFrame(weekly_trends)
+            c_dist = alt.Chart(w_df).mark_bar(color="#0284C7", cornerRadiusTopLeft=6, cornerRadiusTopRight=6).encode(
+                x=alt.X("week:N", title="Training Week"),
+                y=alt.Y("distance_km:Q", title="Volume (km)"),
+                tooltip=[
+                    alt.Tooltip("week:N", title="Week"),
+                    alt.Tooltip("distance_km:Q", title="Distance (km)"),
+                    alt.Tooltip("sessions:Q", title="Sessions"),
+                    alt.Tooltip("time_min:Q", title="Time (min)"),
+                ],
+            ).properties(title="Weekly Swim Volume Progression")
+            st.altair_chart(apply_chart_theme(c_dist), use_container_width=True)
+
+    with sw_chart_col2:
+        if swim_baseline:
+            b_df = pd.DataFrame(swim_baseline)
+            b_df["date_clean"] = b_df["date"].apply(lambda d: str(d)[:10])
+            b_df["pace_min"] = b_df["pace_seconds"] / 60.0
+            c_pace = alt.Chart(b_df).mark_line(point=True, color="#38BDF8").encode(
+                x=alt.X("date_clean:N", title="Swim Date"),
+                y=alt.Y("pace_seconds:Q", title="Pace (seconds /100m)", scale=alt.Scale(zero=False)),
+                tooltip=[
+                    alt.Tooltip("date_clean:N", title="Date"),
+                    alt.Tooltip("distance_km:Q", title="Distance (km)"),
+                    alt.Tooltip("time_min:Q", title="Time (min)"),
+                    alt.Tooltip("pace_formatted:N", title="Pace"),
+                ],
+            ).properties(title="Pace Progression /100m (Continuous Swims)")
+            st.altair_chart(apply_chart_theme(c_pace), use_container_width=True)
 
     # 5. Interactive Swim Workout Builder & Customizer
     st.markdown("---")
