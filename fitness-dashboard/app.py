@@ -20,6 +20,7 @@ from src.training.swim_workouts import (
     tempo_workout,
     interval_workout,
     recovery_workout,
+    pyramid_workout,
     format_pace,
 )
 from src.training.swim_paces import swim_pace_zones
@@ -31,15 +32,15 @@ from src.training.plan_store import save_plan, get_plans, delete_plan, clear_pla
 # ============================================================
 
 st.set_page_config(
-    page_title="My Fitness Dashboard",
-    page_icon="🏊",
+    page_title="Personal Fitness & Training Dashboard",
+    page_icon="⚡",
     layout="wide",
     initial_sidebar_state="expanded",
 )
 
 
 # ============================================================
-# HIGH CONTRAST & READABILITY CSS
+# HIGH CONTRAST & RESPONSIVE CSS
 # ============================================================
 
 st.markdown(
@@ -64,7 +65,7 @@ st.markdown(
         font-family: 'Material Symbols Rounded', 'Material Symbols Outlined', 'Material Icons' !important;
     }
     
-    /* Main Container Padding (Desktop) */
+    /* Main Container Padding */
     .block-container {
         padding-top: 4.5rem !important;
         padding-bottom: 3rem;
@@ -80,7 +81,7 @@ st.markdown(
         letter-spacing: -0.01em;
     }
     
-    /* High-Contrast Custom Metric Cards */
+    /* High-Contrast Metric Cards */
     .kpi-card {
         background: #151D2C;
         border: 1px solid #23324A;
@@ -94,7 +95,7 @@ st.markdown(
         border-color: #38BDF8;
     }
     .kpi-label {
-        font-size: 0.88rem;
+        font-size: 0.84rem;
         font-weight: 700;
         text-transform: uppercase;
         letter-spacing: 0.04em;
@@ -107,7 +108,7 @@ st.markdown(
         line-height: 1.15;
     }
     .kpi-sub {
-        font-size: 0.85rem;
+        font-size: 0.82rem;
         color: #94A3B8 !important;
         margin-top: 5px;
         font-weight: 500;
@@ -148,21 +149,35 @@ st.markdown(
         border: 1px solid #1E293B;
         border-left: 6px solid #00D2FF;
         border-radius: 14px;
-        padding: 22px 26px;
-        margin-bottom: 24px;
+        padding: 20px 24px;
+        margin-bottom: 22px;
         box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
     }
     .hero-title {
-        font-size: 1.6rem;
+        font-size: 1.5rem;
         font-weight: 800;
         color: #FFFFFF !important;
         margin: 4px 0 8px 0;
     }
     .hero-text {
-        font-size: 1.05rem;
+        font-size: 1.0rem;
         color: #E2E8F0 !important;
         line-height: 1.5;
         margin: 0;
+    }
+
+    /* Sport Summary Card */
+    .sport-summary-card {
+        background: #151D2C;
+        border: 1px solid #23324A;
+        border-radius: 12px;
+        padding: 16px 18px;
+        margin-bottom: 14px;
+        transition: transform 0.15s ease-in-out, border-color 0.15s ease-in-out;
+    }
+    .sport-summary-card:hover {
+        border-color: #38BDF8;
+        transform: translateY(-2px);
     }
 
     /* Calendar Styling */
@@ -254,9 +269,7 @@ st.markdown(
         max-width: 100% !important;
     }
 
-    /* ============================================================
-       MOBILE SCREEN OPTIMIZATIONS (@media max-width: 768px)
-       ============================================================ */
+    /* Mobile Screen Rules */
     @media (max-width: 768px) {
         .block-container {
             padding-top: 2.2rem !important;
@@ -264,83 +277,24 @@ st.markdown(
             padding-left: 0.6rem !important;
             padding-right: 0.6rem !important;
         }
-
-        /* Wrap columns gracefully into 2-column or 1-column grid on mobile */
         [data-testid="column"] {
             min-width: 47% !important;
             flex: 1 1 47% !important;
             margin-bottom: 6px !important;
         }
-
-        /* Typography on small screens */
-        h1 { font-size: 1.45rem !important; line-height: 1.25 !important; }
-        h2 { font-size: 1.25rem !important; line-height: 1.25 !important; }
-        h3 { font-size: 1.1rem !important; line-height: 1.25 !important; }
-        h4 { font-size: 0.95rem !important; line-height: 1.25 !important; }
-
-        /* KPI Cards on Mobile */
-        .kpi-card {
-            padding: 10px 12px !important;
-            border-radius: 10px !important;
-            margin-bottom: 6px !important;
-        }
-        .kpi-label {
-            font-size: 0.74rem !important;
-            margin-bottom: 3px !important;
-        }
-        .kpi-value {
-            font-size: 1.4rem !important;
-            line-height: 1.1 !important;
-        }
-        .kpi-sub {
-            font-size: 0.74rem !important;
-            margin-top: 2px !important;
-        }
-
-        /* Hero Banner on Mobile */
-        .hero-banner {
-            padding: 14px 16px !important;
-            border-radius: 10px !important;
-            margin-bottom: 14px !important;
-        }
-        .hero-title {
-            font-size: 1.2rem !important;
-            margin: 2px 0 6px 0 !important;
-        }
-        .hero-text {
-            font-size: 0.88rem !important;
-            line-height: 1.4 !important;
-        }
-
-        /* Calendar on Mobile */
-        .cal-cell {
-            padding: 4px 4px !important;
-            min-height: 60px !important;
-            border-radius: 6px !important;
-        }
-        .cal-date-num {
-            font-size: 0.78rem !important;
-            margin-bottom: 2px !important;
-        }
-        .cal-badge {
-            font-size: 0.65rem !important;
-            padding: 2px 3px !important;
-            margin-bottom: 2px !important;
-        }
-
-        /* Gallery photos on mobile: 2-column fit */
-        .stImage img {
-            max-width: 100% !important;
-            max-height: 160px !important;
-            border-radius: 8px !important;
-        }
-
-        /* Tabs font on mobile */
-        [data-baseweb="tab"] {
-            padding: 6px 10px !important;
-            font-size: 0.8rem !important;
-            min-height: 36px !important;
-        }
+        h1 { font-size: 1.45rem !important; }
+        h2 { font-size: 1.25rem !important; }
+        h3 { font-size: 1.1rem !important; }
+        .kpi-card { padding: 10px 12px !important; }
+        .kpi-value { font-size: 1.4rem !important; }
+        .hero-banner { padding: 14px 16px !important; }
+        .hero-title { font-size: 1.2rem !important; }
+        .hero-text { font-size: 0.88rem !important; }
+        .cal-cell { padding: 4px 4px !important; min-height: 60px !important; }
+        .cal-date-num { font-size: 0.78rem !important; }
+        .cal-badge { font-size: 0.65rem !important; }
+        .stImage img { max-width: 100% !important; max-height: 160px !important; }
+        [data-baseweb="tab"] { padding: 6px 10px !important; font-size: 0.8rem !important; min-height: 36px !important; }
     }
     </style>
     """,
@@ -353,14 +307,23 @@ st.markdown(
 # ============================================================
 
 def format_date_clean(date_str):
-    """Convert ISO date to readable string (e.g., Aug 23, 2026)."""
     if not date_str:
-        return "—"
+        return "N/A"
     try:
         dt = datetime.fromisoformat(str(date_str)[:10])
         return dt.strftime("%b %d, %Y")
     except Exception:
         return str(date_str)[:10]
+
+
+def format_duration_hm(minutes):
+    if not minutes or minutes <= 0:
+        return "0m"
+    hours = int(minutes // 60)
+    mins = int(minutes % 60)
+    if hours > 0:
+        return f"{hours}h {mins:02d}m"
+    return f"{mins}m"
 
 
 def get_sport_icon(sport):
@@ -369,9 +332,9 @@ def get_sport_icon(sport):
         "Ride": "🚴",
         "Walk": "🚶",
         "Run": "🏃",
-        "Workout": "💪",
+        "Workout": "🏋️",
     }
-    return icons.get(sport, "⚡")
+    return icons.get(sport, "🏅")
 
 
 def get_sport_chip_class(sport):
@@ -386,14 +349,13 @@ def get_sport_chip_class(sport):
 
 
 def apply_chart_theme(chart, height=300):
-    """Apply high-contrast dark theme to Altair charts."""
     return (
         chart.properties(height=height)
         .configure_axis(
             labelColor="#E2E8F0",
             titleColor="#F8FAFC",
-            labelFontSize=12,
-            titleFontSize=13,
+            labelFontSize=11,
+            titleFontSize=12,
             titleFontWeight="bold",
             gridColor="rgba(255, 255, 255, 0.1)",
             domainColor="#475569",
@@ -402,13 +364,13 @@ def apply_chart_theme(chart, height=300):
         .configure_legend(
             labelColor="#E2E8F0",
             titleColor="#F8FAFC",
-            labelFontSize=12,
-            titleFontSize=13,
+            labelFontSize=11,
+            titleFontSize=12,
             titleFontWeight="bold",
         )
         .configure_title(
             color="#FFFFFF",
-            fontSize=15,
+            fontSize=14,
             fontWeight="bold",
         )
         .configure_view(
@@ -418,96 +380,83 @@ def apply_chart_theme(chart, height=300):
 
 
 # ============================================================
-# SIDEBAR CONTROLS
+# SIDEBAR CONTROLS & GLOBAL FILTERS
 # ============================================================
 
 st.sidebar.markdown(
     """
     <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;">
-        <span style="font-size: 2.2rem;">🏊</span>
+        <span style="font-size: 2.0rem;">⚡</span>
         <div>
-            <h2 style="margin: 0; font-weight: 800; color: #FFFFFF; font-size: 1.3rem;">FITNESS AI</h2>
-            <span style="font-size: 0.8rem; color: #38BDF8; font-weight: 700; text-transform: uppercase;">Training Engine</span>
+            <h2 style="margin: 0; font-weight: 800; color: #FFFFFF; font-size: 1.25rem;">FITNESS AI</h2>
+            <span style="font-size: 0.78rem; color: #38BDF8; font-weight: 700; text-transform: uppercase;">Personal Training Engine</span>
         </div>
     </div>
     """,
     unsafe_allow_html=True,
 )
 
-st.sidebar.markdown("---")
-
-# Data Source Filter
-source_choice_label = st.sidebar.selectbox(
-    "📦 Data Source",
-    [
-        "🔄 All Sources (Merged & Deduplicated)",
-        "🟡 Intervals.icu (Garmin sync)",
-        "🟠 Strava Archive",
-    ],
+st.sidebar.markdown("### 🎛️ Data Source")
+source_filter = st.sidebar.selectbox(
+    "Select Source",
+    options=["all", "intervals", "strava"],
+    format_func=lambda x: {
+        "all": "⚡ All Sources (Merged & Deduplicated)",
+        "intervals": "🟢 Intervals.icu API / Garmin",
+        "strava": "🟠 Strava Export Archive",
+    }[x],
     index=0,
-    help="Unified views merge Garmin / Intervals.icu data with your full Strava export archive.",
+    label_visibility="collapsed",
 )
 
-source_filter_map = {
-    "🔄 All Sources (Merged & Deduplicated)": "all",
-    "🟡 Intervals.icu (Garmin sync)": "intervals",
-    "🟠 Strava Archive": "strava",
-}
-source_filter = source_filter_map[source_choice_label]
-
-st.sidebar.markdown("---")
-
-# Time Window Presets
-date_preset = st.sidebar.selectbox(
-    "⏱️ Select Time Window",
-    [
-        "Default Period (Jul 1 - Aug 27, 2026)",
-        "All Time (Full History · Oct 2025 – Present)",
+st.sidebar.markdown("### 📅 Time Window")
+time_filter = st.sidebar.selectbox(
+    "Select Period",
+    options=[
+        "7 Days",
+        "30 Days",
+        "3 Months",
         "Year to Date (2026)",
-        "Last 90 Days",
-        "Last 30 Days",
-        "Last 14 Days",
-        "Last 7 Days",
-        "Custom Date Range",
+        "1 Year",
+        "All Time",
+        "Custom Range",
     ],
     index=0,
+    label_visibility="collapsed",
 )
 
-today_date = date(2026, 8, 27)
+today_date = date.today()
+now_hour = datetime.now().hour
+is_night_cutoff = now_hour >= 20
 
-if date_preset == "Default Period (Jul 1 - Aug 27, 2026)":
-    start_val = date(2026, 7, 1)
-    end_val = date(2026, 8, 27)
-elif date_preset == "All Time (Full History · Oct 2025 – Present)":
-    start_val = date(2025, 10, 1)
-    end_val = today_date
-elif date_preset == "Year to Date (2026)":
-    start_val = date(2026, 1, 1)
-    end_val = today_date
-elif date_preset == "Last 90 Days":
-    start_val = today_date - timedelta(days=90)
-    end_val = today_date
-elif date_preset == "Last 30 Days":
-    start_val = today_date - timedelta(days=30)
-    end_val = today_date
-elif date_preset == "Last 14 Days":
-    start_val = today_date - timedelta(days=14)
-    end_val = today_date
-elif date_preset == "Last 7 Days":
-    start_val = today_date - timedelta(days=7)
-    end_val = today_date
+if time_filter == "7 Days":
+    start_date_str = str(today_date - timedelta(days=6))
+    end_date_str = str(today_date)
+elif time_filter == "30 Days":
+    start_date_str = str(today_date - timedelta(days=29))
+    end_date_str = str(today_date)
+elif time_filter == "3 Months":
+    start_date_str = str(today_date - timedelta(days=90))
+    end_date_str = str(today_date)
+elif time_filter == "Year to Date (2026)":
+    start_date_str = f"{today_date.year}-01-01"
+    end_date_str = str(today_date)
+elif time_filter == "1 Year":
+    start_date_str = str(today_date - timedelta(days=365))
+    end_date_str = str(today_date)
+elif time_filter == "All Time":
+    start_date_str = "2024-01-01"
+    end_date_str = str(today_date)
 else:
-    c_start, c_end = st.sidebar.columns(2)
-    start_val = c_start.date_input("Start Date", date(2025, 10, 1))
-    end_val = c_end.date_input("End Date", date(2026, 8, 27))
+    col_s1, col_s2 = st.sidebar.columns(2)
+    with col_s1:
+        s_date = st.date_input("Start", value=today_date - timedelta(days=30))
+    with col_s2:
+        e_date = st.date_input("End", value=today_date)
+    start_date_str = str(s_date)
+    end_date_str = str(e_date)
 
-start_date_str = str(start_val)
-end_date_str = str(end_val)
-
-# Determine recommendation timing based on night cutoff (9 PM)
-now = datetime.now()
-is_night_cutoff = (now.hour >= 21)
-
+end_val = datetime.fromisoformat(end_date_str).date()
 if is_night_cutoff:
     target_plan_date = end_val + timedelta(days=1)
     plan_timing_label = "Tomorrow's"
@@ -518,15 +467,6 @@ else:
     plan_timing_badge = "Today"
 
 target_plan_date_str = target_plan_date.strftime("%A, %b %d, %Y")
-target_plan_date_short = target_plan_date.strftime("%b %d, %Y")
-
-last_7d_start = end_val - timedelta(days=6)
-last_7d_start_str = str(last_7d_start)
-
-prev_7d_start = end_val - timedelta(days=13)
-prev_7d_end = end_val - timedelta(days=7)
-
-st.sidebar.markdown("---")
 
 
 # ============================================================
@@ -542,7 +482,7 @@ if st.sidebar.button("🔄 Refresh / Sync Live Data", use_container_width=True):
     st.cache_data.clear()
     st.rerun()
 
-with st.spinner("Loading athlete training data from Garmin, Intervals & Strava..."):
+with st.spinner("Loading athlete training telemetry from Garmin, Intervals & Strava..."):
     data = load_cached_dashboard_data(start_date_str, end_date_str, source_filter)
 
 activities = data.get("activities", [])
@@ -564,10 +504,18 @@ strava_added = data.get("strava_added", 0)
 tot_intervals = data.get("total_intervals_count", 0)
 tot_strava = data.get("total_strava_count", 0)
 
+# Analytics dictionaries
+running_analytics = data.get("running_analytics", {})
+cycling_analytics = data.get("cycling_analytics", {})
+walking_analytics = data.get("walking_analytics", {})
+sleep_analytics = data.get("sleep_analytics", {})
+performance_analytics = data.get("performance_analytics", {})
+personal_records = data.get("personal_records", {})
+
 # Sidebar Status Badges
 if source_filter == "all":
     st.sidebar.success(f"🟢 Intervals.icu ({tot_intervals}) + 🟠 Strava ({tot_strava})")
-    st.sidebar.caption(f"⚡ Merged: **{strava_matched} synced** · **{strava_added} Strava archive sessions**")
+    st.sidebar.caption(f"⚡ Merged: **{strava_matched} synced** · **{strava_added} archive**")
 elif source_filter == "strava":
     st.sidebar.warning(f"🟠 Strava Export Archive ({tot_strava} sessions)")
 else:
@@ -582,22 +530,23 @@ st.sidebar.markdown(f"**Activities in Window:** **{len(activities)} sessions** (
 total_dist_all = sum(s.get("distance_km", 0) for s in summary.values())
 total_time_all = sum(s.get("moving_time_min", 0) for s in summary.values())
 total_load_all = sum(s.get("training_load", 0) for s in summary.values())
+total_cals_all = sum(a.get("calories", 0) for a in activities if a.get("calories"))
 
 st.sidebar.markdown("---")
 st.sidebar.markdown("### 📊 Window Totals")
 st.sidebar.markdown(f"**Total Distance:** `{total_dist_all:.1f} km`")
 st.sidebar.markdown(f"**Total Active Time:** `{total_time_all / 60:.1f} hours`")
+st.sidebar.markdown(f"**Total Active Calories:** `{total_cals_all:,} kcal`")
 st.sidebar.markdown(f"**Total Training Load:** `{total_load_all:.0f}`")
-
 st.sidebar.markdown("---")
-st.sidebar.caption("🚀 **Click & Go**: Double-click the desktop shortcut anytime to open this dashboard.")
+st.sidebar.caption("🚀 Double-click desktop shortcut anytime to open.")
 
 
 # ============================================================
-# MAIN HEADER
+# MAIN TOP HEADER
 # ============================================================
 
-st.title("🏊 My Fitness Dashboard")
+st.title("⚡ Personal Fitness & Training Command Center")
 
 st.markdown(
     f"""
@@ -631,8 +580,8 @@ st.markdown(
     f"""
     <div class="hero-banner">
         <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;">
-            <div style="flex: 1; min-width: 320px;">
-                <span style="font-size: 0.85rem; font-weight: 800; color: #38BDF8; letter-spacing: 0.06em; text-transform: uppercase;">
+            <div style="flex: 1; min-width: 300px;">
+                <span style="font-size: 0.82rem; font-weight: 800; color: #38BDF8; letter-spacing: 0.06em; text-transform: uppercase;">
                     ⚡ AI COACH RECOMMENDATION FOR {plan_timing_label.upper()} · {target_plan_date_str.upper()} ({plan_timing_badge.upper()})
                 </span>
                 <div class="hero-title">
@@ -643,22 +592,22 @@ st.markdown(
                     {rec_reason}
                 </p>
             </div>
-            <div style="display: flex; gap: 12px; align-items: center; flex-wrap: wrap;">
-                <div style="text-align: center; background: #1F293D; padding: 10px 16px; border-radius: 10px; border: 1px solid #334155;">
-                    <div style="font-size: 0.78rem; font-weight: 700; color: #94A3B8; text-transform: uppercase;">Last Swim</div>
-                    <div style="font-size: 1.3rem; font-weight: 800; color: #38BDF8;">{f"{days_since_swim}d ago" if days_since_swim is not None else "—"}</div>
+            <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
+                <div style="text-align: center; background: #1F293D; padding: 8px 14px; border-radius: 10px; border: 1px solid #334155;">
+                    <div style="font-size: 0.75rem; font-weight: 700; color: #94A3B8; text-transform: uppercase;">Last Swim</div>
+                    <div style="font-size: 1.25rem; font-weight: 800; color: #38BDF8;">{f"{days_since_swim}d ago" if days_since_swim is not None else "—"}</div>
                 </div>
-                <div style="text-align: center; background: #1F293D; padding: 10px 16px; border-radius: 10px; border: 1px solid #334155;">
-                    <div style="font-size: 0.78rem; font-weight: 700; color: #94A3B8; text-transform: uppercase;">Last Ride</div>
-                    <div style="font-size: 1.3rem; font-weight: 800; color: #4ADE80;">{f"{days_since_ride}d ago" if days_since_ride is not None else "—"}</div>
+                <div style="text-align: center; background: #1F293D; padding: 8px 14px; border-radius: 10px; border: 1px solid #334155;">
+                    <div style="font-size: 0.75rem; font-weight: 700; color: #94A3B8; text-transform: uppercase;">Last Ride</div>
+                    <div style="font-size: 1.25rem; font-weight: 800; color: #4ADE80;">{f"{days_since_ride}d ago" if days_since_ride is not None else "—"}</div>
                 </div>
-                <div style="text-align: center; background: #1F293D; padding: 10px 16px; border-radius: 10px; border: 1px solid #334155;">
-                    <div style="font-size: 0.78rem; font-weight: 700; color: #94A3B8; text-transform: uppercase;">Last Walk</div>
-                    <div style="font-size: 1.3rem; font-weight: 800; color: #FBBF24;">{f"{days_since_walk}d ago" if days_since_walk is not None else "—"}</div>
+                <div style="text-align: center; background: #1F293D; padding: 8px 14px; border-radius: 10px; border: 1px solid #334155;">
+                    <div style="font-size: 0.75rem; font-weight: 700; color: #94A3B8; text-transform: uppercase;">Last Walk</div>
+                    <div style="font-size: 1.25rem; font-weight: 800; color: #FBBF24;">{f"{days_since_walk}d ago" if days_since_walk is not None else "—"}</div>
                 </div>
-                <div style="text-align: center; background: #1F293D; padding: 10px 16px; border-radius: 10px; border: 1px solid #334155;">
-                    <div style="font-size: 0.78rem; font-weight: 700; color: #94A3B8; text-transform: uppercase;">Last Run</div>
-                    <div style="font-size: 1.3rem; font-weight: 800; color: #F472B6;">{f"{days_since_run}d ago" if days_since_run is not None else "—"}</div>
+                <div style="text-align: center; background: #1F293D; padding: 8px 14px; border-radius: 10px; border: 1px solid #334155;">
+                    <div style="font-size: 0.75rem; font-weight: 700; color: #94A3B8; text-transform: uppercase;">Last Run</div>
+                    <div style="font-size: 1.25rem; font-weight: 800; color: #F472B6;">{f"{days_since_run}d ago" if days_since_run is not None else "—"}</div>
                 </div>
             </div>
         </div>
@@ -669,49 +618,52 @@ st.markdown(
 
 
 # ============================================================
-# DASHBOARD TABS
+# APPLICATION NAVIGATION TABS (11 TABS)
 # ============================================================
 
-running_analytics = data.get("running_analytics", {})
-
-tab_overview, tab_plan, tab_calendar, tab_comparison, tab_trends, tab_running, tab_activities, tab_wellness, tab_history = st.tabs([
-    "🏠 Overview & KPIs",
-    f"🎯 {plan_timing_label} Swim Plan",
-    "📅 Training Calendar",
-    "📊 Weekly Comparison",
-    "📈 Swim Analytics & Baseline",
-    "🏃 Running Analytics & Splits",
-    "📋 Daily Activity Deep Dive",
-    "💓 Wellness & Recovery",
-    "🗄️ Saved Plans Library",
+(
+    tab_overview,
+    tab_swimming,
+    tab_running,
+    tab_cycling,
+    tab_walking,
+    tab_sleep,
+    tab_performance,
+    tab_calendar,
+    tab_load,
+    tab_records,
+    tab_settings,
+) = st.tabs([
+    "🏠 Overview",
+    "🏊 Swimming",
+    "🏃 Running",
+    "🚴 Cycling",
+    "🚶 Walking",
+    "😴 Sleep & Recovery",
+    "📊 Performance",
+    "📅 Calendar",
+    "📈 Training Load",
+    "🏆 Personal Records",
+    "⚙️ Data & Settings",
 ])
 
 
 # ============================================================
-# TAB 1: OVERVIEW & KPIS
+# TAB 1: 🏠 OVERVIEW
 # ============================================================
 
 with tab_overview:
-    # ------------------------------------------------------------
-    # TODAY'S GARMIN SLEEP & RECOVERY CARD
-    # ------------------------------------------------------------
+    # 1. Today's Garmin Sleep & Recovery Card
     today_iso = str(today_date)
     today_wellness = next((w for w in wellness_records if w.get("id") == today_iso or w.get("date") == today_iso), None)
     if not today_wellness and wellness_records:
         today_wellness = wellness_records[-1]
-
-    yesterday_iso = str(today_date - timedelta(days=1))
-    yesterday_wellness = next((w for w in wellness_records if w.get("id") == yesterday_iso or w.get("date") == yesterday_iso), None)
 
     if today_wellness:
         t_sleep_sec = today_wellness.get("sleepSecs")
         t_sleep_score = today_wellness.get("sleepScore")
         t_rhr = today_wellness.get("restingHR")
         t_hrv = today_wellness.get("hrv")
-        t_steps = today_wellness.get("steps")
-        y_rhr = yesterday_wellness.get("restingHR") if yesterday_wellness else None
-        rhr_diff = (t_rhr - y_rhr) if (t_rhr is not None and y_rhr is not None) else None
-
         if t_sleep_sec or t_rhr or t_hrv:
             t_hours = int(t_sleep_sec // 3600) if t_sleep_sec else 0
             t_mins = int((t_sleep_sec % 3600) // 60) if t_sleep_sec else 0
@@ -720,14 +672,14 @@ with tab_overview:
 
             st.markdown(
                 f"""
-                <div style="background: #111827; border: 1px solid #23324A; border-left: 6px solid #8B5CF6; border-radius: 12px; padding: 18px 22px; margin-bottom: 22px; box-shadow: 0 4px 14px rgba(0,0,0,0.35);">
-                    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; margin-bottom: 14px;">
+                <div style="background: #111827; border: 1px solid #23324A; border-left: 6px solid #8B5CF6; border-radius: 12px; padding: 16px 20px; margin-bottom: 20px; box-shadow: 0 4px 14px rgba(0,0,0,0.35);">
+                    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; margin-bottom: 12px;">
                         <div>
-                            <span style="font-size: 0.82rem; font-weight: 800; color: #A78BFA; text-transform: uppercase; letter-spacing: 0.05em;">
-                                🌙 TODAY'S GARMIN SLEEP & RECOVERY · {format_date_clean(today_wellness.get('id', today_iso)).upper()}
+                            <span style="font-size: 0.8rem; font-weight: 800; color: #A78BFA; text-transform: uppercase; letter-spacing: 0.05em;">
+                                🌙 TODAY'S GARMIN SLEEP & RECOVERY TELEMETRY · {format_date_clean(today_wellness.get('id', today_iso)).upper()}
                             </span>
-                            <h3 style="margin: 3px 0 0 0; color: #FFFFFF; font-size: 1.35rem; font-weight: 800;">
-                                Garmin 965 Sleep & Recovery Telemetry
+                            <h3 style="margin: 2px 0 0 0; color: #FFFFFF; font-size: 1.25rem; font-weight: 800;">
+                                Sleep Quality, HRV & Recovery State
                             </h3>
                         </div>
                         <div style="display: flex; gap: 8px; flex-wrap: wrap;">
@@ -736,26 +688,26 @@ with tab_overview:
                             <span class="sport-chip chip-ride" style="background: #059669;">RHR: {f"{t_rhr:.0f} bpm" if t_rhr else "—"}</span>
                         </div>
                     </div>
-                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px;">
-                        <div style="background: #151D2C; border: 1px solid #23324A; border-radius: 10px; padding: 12px 16px;">
-                            <div style="font-size: 0.8rem; font-weight: 700; color: #A78BFA; text-transform: uppercase;">🛌 Sleep Duration</div>
-                            <div style="font-size: 1.65rem; font-weight: 800; color: #FFFFFF;">{dur_display}</div>
-                            <div style="font-size: 0.8rem; color: #94A3B8;">{f"{t_sleep_sec:,} sec recorded" if t_sleep_sec else "No duration log"}</div>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px;">
+                        <div style="background: #151D2C; border: 1px solid #23324A; border-radius: 8px; padding: 10px 14px;">
+                            <div style="font-size: 0.75rem; font-weight: 700; color: #A78BFA; text-transform: uppercase;">🛌 Sleep Duration</div>
+                            <div style="font-size: 1.45rem; font-weight: 800; color: #FFFFFF;">{dur_display}</div>
+                            <div style="font-size: 0.75rem; color: #94A3B8;">{f"{t_sleep_sec:,}s log" if t_sleep_sec else "No duration"}</div>
                         </div>
-                        <div style="background: #151D2C; border: 1px solid #23324A; border-radius: 10px; padding: 12px 16px;">
-                            <div style="font-size: 0.8rem; font-weight: 700; color: #F472B6; text-transform: uppercase;">🎯 Sleep Score</div>
-                            <div style="font-size: 1.65rem; font-weight: 800; color: #FFFFFF;">{f"{t_sleep_score:.0f}" if t_sleep_score else "—"} <span style="font-size: 1rem; color: #94A3B8;">/ 100</span></div>
-                            <div style="font-size: 0.8rem; color: #34D399; font-weight: 600;">Fair Quality · Restful</div>
+                        <div style="background: #151D2C; border: 1px solid #23324A; border-radius: 8px; padding: 10px 14px;">
+                            <div style="font-size: 0.75rem; font-weight: 700; color: #F472B6; text-transform: uppercase;">🎯 Sleep Score</div>
+                            <div style="font-size: 1.45rem; font-weight: 800; color: #FFFFFF;">{f"{t_sleep_score:.0f}" if t_sleep_score else "—"} <span style="font-size: 0.85rem; color: #94A3B8;">/ 100</span></div>
+                            <div style="font-size: 0.75rem; color: #34D399; font-weight: 600;">Restful</div>
                         </div>
-                        <div style="background: #151D2C; border: 1px solid #23324A; border-radius: 10px; padding: 12px 16px;">
-                            <div style="font-size: 0.8rem; font-weight: 700; color: #34D399; text-transform: uppercase;">⚡ Overnight HRV</div>
-                            <div style="font-size: 1.65rem; font-weight: 800; color: #FFFFFF;">{f"{t_hrv:.1f}" if t_hrv else "—"} <span style="font-size: 1rem; color: #94A3B8;">ms</span></div>
-                            <div style="font-size: 0.8rem; color: #34D399; font-weight: 600;">Balanced Recovery Status</div>
+                        <div style="background: #151D2C; border: 1px solid #23324A; border-radius: 8px; padding: 10px 14px;">
+                            <div style="font-size: 0.75rem; font-weight: 700; color: #38BDF8; text-transform: uppercase;">💓 Overnight HRV</div>
+                            <div style="font-size: 1.45rem; font-weight: 800; color: #FFFFFF;">{f"{t_hrv:.0f}" if t_hrv else "—"} <span style="font-size: 0.85rem; color: #94A3B8;">ms</span></div>
+                            <div style="font-size: 0.75rem; color: #38BDF8;">Balanced</div>
                         </div>
-                        <div style="background: #151D2C; border: 1px solid #23324A; border-radius: 10px; padding: 12px 16px;">
-                            <div style="font-size: 0.8rem; font-weight: 700; color: #F87171; text-transform: uppercase;">💓 Resting Heart Rate</div>
-                            <div style="font-size: 1.65rem; font-weight: 800; color: #FFFFFF;">{f"{t_rhr:.0f}" if t_rhr else "—"} <span style="font-size: 1rem; color: #94A3B8;">bpm</span></div>
-                            <div style="font-size: 0.8rem; color: #38BDF8;">{f"↓ {abs(rhr_diff)} bpm vs yesterday" if (rhr_diff is not None and rhr_diff < 0) else "Optimal recovery baseline"}</div>
+                        <div style="background: #151D2C; border: 1px solid #23324A; border-radius: 8px; padding: 10px 14px;">
+                            <div style="font-size: 0.75rem; font-weight: 700; color: #4ADE80; text-transform: uppercase;">❤️ Resting HR</div>
+                            <div style="font-size: 1.45rem; font-weight: 800; color: #FFFFFF;">{f"{t_rhr:.0f}" if t_rhr else "—"} <span style="font-size: 0.85rem; color: #94A3B8;">bpm</span></div>
+                            <div style="font-size: 0.75rem; color: #4ADE80;">Garmin 965</div>
                         </div>
                     </div>
                 </div>
@@ -763,1154 +715,1231 @@ with tab_overview:
                 unsafe_allow_html=True,
             )
 
-    st.subheader(f"Training Overview · Last 7 Days ({format_date_clean(last_7d_start_str)} – {format_date_clean(end_date_str)})")
+    # 2. Window Primary KPI Cards (7 Cards)
+    st.markdown("### 📊 Activity Telemetry Overview")
+    kpi_col1, kpi_col2, kpi_col3, kpi_col4, kpi_col5, kpi_col6, kpi_col7 = st.columns(7)
 
-    swim_curr = current_week.get("Swim", {})
-    ride_curr = current_week.get("Ride", {})
-    walk_curr = current_week.get("Walk", {})
-    run_curr = current_week.get("Run", {})
-    workout_curr = current_week.get("Workout", {})
-
-    total_curr_load = sum(s.get("training_load", 0) for s in current_week.values())
-    total_curr_dist = sum(s.get("distance_km", 0) for s in current_week.values())
-    total_curr_time = sum(s.get("duration_min", 0) for s in current_week.values())
-
-    col1, col2, col3, col4, col5, col6 = st.columns(6)
-
-    with col1:
+    with kpi_col1:
         st.markdown(
             f"""
             <div class="kpi-card">
-                <div class="kpi-label label-swim">🏊 Swim (7d)</div>
-                <div class="kpi-value">{swim_curr.get('distance_km', 0):.2f} <span style="font-size: 1.1rem; color: #94A3B8;">km</span></div>
-                <div class="kpi-sub">{swim_curr.get('sessions', 0)} sessions · {swim_curr.get('duration_min', 0):.0f} min</div>
+                <div class="kpi-label label-total">🏃 Total Distance</div>
+                <div class="kpi-value">{total_dist_all:.1f} <span style="font-size: 1rem; font-weight: 600; color: #94A3B8;">km</span></div>
+                <div class="kpi-sub">{len(activities)} total sessions</div>
             </div>
             """,
             unsafe_allow_html=True,
         )
 
-    with col2:
+    with kpi_col2:
         st.markdown(
             f"""
             <div class="kpi-card">
-                <div class="kpi-label label-load">🔥 Swim Load</div>
-                <div class="kpi-value">{swim_curr.get('training_load', 0):.0f}</div>
-                <div class="kpi-sub">Training Load Score</div>
+                <div class="kpi-label label-swim">⏱️ Active Time</div>
+                <div class="kpi-value">{total_time_all / 60:.1f} <span style="font-size: 1rem; font-weight: 600; color: #94A3B8;">hrs</span></div>
+                <div class="kpi-sub">{total_time_all:.0f} moving mins</div>
             </div>
             """,
             unsafe_allow_html=True,
         )
 
-    with col3:
+    with kpi_col3:
         st.markdown(
             f"""
             <div class="kpi-card">
-                <div class="kpi-label label-ride">🚴 Ride (7d)</div>
-                <div class="kpi-value">{ride_curr.get('distance_km', 0):.2f} <span style="font-size: 1.1rem; color: #94A3B8;">km</span></div>
-                <div class="kpi-sub">{ride_curr.get('sessions', 0)} sessions · {ride_curr.get('duration_min', 0):.0f} min</div>
+                <div class="kpi-label label-ride">🔥 Active Calories</div>
+                <div class="kpi-value">{total_cals_all:,} <span style="font-size: 1rem; font-weight: 600; color: #94A3B8;">kcal</span></div>
+                <div class="kpi-sub">Verified energy</div>
             </div>
             """,
             unsafe_allow_html=True,
         )
 
-    with col4:
+    with kpi_col4:
         st.markdown(
             f"""
             <div class="kpi-card">
-                <div class="kpi-label label-walk">🚶 Walk (7d)</div>
-                <div class="kpi-value">{walk_curr.get('distance_km', 0):.2f} <span style="font-size: 1.1rem; color: #94A3B8;">km</span></div>
-                <div class="kpi-sub">{walk_curr.get('sessions', 0)} sessions · {walk_curr.get('duration_min', 0):.0f} min</div>
+                <div class="kpi-label label-load">📈 Training Load</div>
+                <div class="kpi-value">{total_load_all:.0f}</div>
+                <div class="kpi-sub">ICU Training Load</div>
             </div>
             """,
             unsafe_allow_html=True,
         )
 
-    with col5:
+    with kpi_col5:
+        # Steps from wellness or walks
+        daily_steps_list = [w["steps"] for w in wellness_records if w.get("steps")]
+        avg_steps = round(sum(daily_steps_list) / len(daily_steps_list)) if daily_steps_list else None
         st.markdown(
             f"""
             <div class="kpi-card">
-                <div class="kpi-label label-total">⚡ Total 7d Load</div>
-                <div class="kpi-value">{total_curr_load:.0f}</div>
-                <div class="kpi-sub">{total_curr_dist:.1f} km across sports</div>
+                <div class="kpi-label label-walk">👟 Avg Daily Steps</div>
+                <div class="kpi-value">{f"{avg_steps:,}" if avg_steps else "—"}</div>
+                <div class="kpi-sub">Garmin pedometer</div>
             </div>
             """,
             unsafe_allow_html=True,
         )
 
-    with col6:
+    with kpi_col6:
+        avg_sleep_f = sleep_analytics.get("avg_duration_formatted", "—")
         st.markdown(
             f"""
             <div class="kpi-card">
-                <div class="kpi-label label-swim">🏊 Swim Gap</div>
-                <div class="kpi-value">{days_since_swim if days_since_swim is not None else "—"} <span style="font-size: 1.1rem; color: #94A3B8;">days</span></div>
-                <div class="kpi-sub">{'Rebuild endurance' if (days_since_swim or 0) >= 4 else 'Regular rhythm'}</div>
+                <div class="kpi-label label-workout">😴 Avg Sleep</div>
+                <div class="kpi-value">{avg_sleep_f}</div>
+                <div class="kpi-sub">{sleep_analytics.get('total_days_tracked', 0)} nights tracked</div>
             </div>
             """,
             unsafe_allow_html=True,
         )
 
-    st.markdown("<br>", unsafe_allow_html=True)
+    with kpi_col7:
+        streak_days = performance_analytics.get("current_streak", 0)
+        st.markdown(
+            f"""
+            <div class="kpi-card">
+                <div class="kpi-label" style="color: #F59E0B;">🔥 Activity Streak</div>
+                <div class="kpi-value">{streak_days} <span style="font-size: 1rem; font-weight: 600; color: #94A3B8;">days</span></div>
+                <div class="kpi-sub">Consecutive active</div>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
 
-    # Overview Visualizations
-    chart_col1, chart_col2 = st.columns([3, 2])
+    # 3. Sport Summary Cards Section (Swim, Run, Bike, Walk)
+    st.markdown("### 🏅 Multi-Sport Breakdown")
+    s_col1, s_col2, s_col3, s_col4 = st.columns(4)
 
-    with chart_col1:
-        st.markdown("#### 📊 Daily Training Load (Selected Window)")
-        if activities:
-            df_act = pd.DataFrame(activities)
-            df_act["date_only"] = df_act["date"].str[:10]
-            df_act["formatted_date"] = df_act["date"].apply(format_date_clean)
-            df_recent = df_act.sort_values("date_only").tail(35)
+    swim_sum = summary.get("Swim", {})
+    run_sum = summary.get("Run", {})
+    ride_sum = summary.get("Ride", {})
+    walk_sum = summary.get("Walk", {})
 
-            chart_load = (
-                alt.Chart(df_recent)
-                .mark_bar(cornerRadiusTopLeft=5, cornerRadiusTopRight=5)
-                .encode(
-                    x=alt.X("date_only:N", title="Activity Date", axis=alt.Axis(labelAngle=-40)),
-                    y=alt.Y("training_load:Q", title="Training Load"),
-                    color=alt.Color(
-                        "sport:N",
-                        scale=alt.Scale(
-                            domain=["Swim", "Ride", "Walk", "Run", "Workout"],
-                            range=["#00D2FF", "#10B981", "#F59E0B", "#EC4899", "#8B5CF6"],
-                        ),
-                        title="Sport",
-                    ),
-                    tooltip=[
-                        alt.Tooltip("formatted_date:N", title="Date"),
-                        alt.Tooltip("sport:N", title="Sport"),
-                        alt.Tooltip("name:N", title="Name"),
-                        alt.Tooltip("distance_km:Q", title="Distance (km)", format=".2f"),
-                        alt.Tooltip("training_load:Q", title="Training Load", format=".0f"),
-                        alt.Tooltip("duration_min:Q", title="Duration (min)", format=".0f"),
-                        alt.Tooltip("source:N", title="Source"),
-                    ],
-                )
-            )
-            st.altair_chart(apply_chart_theme(chart_load, height=320), use_container_width=True)
-        else:
-            st.info("No activity records available in the selected window.")
+    with s_col1:
+        s_pace = swim_sum.get("pace_formatted", "—")
+        st.markdown(
+            f"""
+            <div class="sport-summary-card" style="border-top: 4px solid #0284C7;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                    <span style="font-size: 1.1rem; font-weight: 800; color: #38BDF8;">🏊 SWIMMING</span>
+                    <span class="sport-chip chip-swim">{swim_sum.get('sessions', 0)} sessions</span>
+                </div>
+                <div style="font-size: 1.5rem; font-weight: 800; color: #FFFFFF;">{swim_sum.get('distance_km', 0):.2f} km</div>
+                <div style="font-size: 0.85rem; color: #94A3B8; margin-top: 4px;">
+                    ⏱️ {format_duration_hm(swim_sum.get('moving_time_min', 0))} · ⚡ {s_pace}
+                </div>
+                <div style="font-size: 0.78rem; color: #38BDF8; margin-top: 6px; font-weight: 600;">
+                    Last: {f"{days_since_swim}d ago" if days_since_swim is not None else "—"}
+                </div>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
 
-    with chart_col2:
-        st.markdown("#### ⚡ Sport Volume Distribution")
-        sport_dist_data = []
-        for sport, stats in summary.items():
-            sport_dist_data.append({
-                "Sport": sport,
-                "Distance (km)": stats.get("distance_km", 0),
-                "Load": stats.get("training_load", 0),
-                "Sessions": stats.get("sessions", 0),
+    with s_col2:
+        r_pace = run_sum.get("pace_formatted", "—")
+        st.markdown(
+            f"""
+            <div class="sport-summary-card" style="border-top: 4px solid #DB2777;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                    <span style="font-size: 1.1rem; font-weight: 800; color: #F472B6;">🏃 RUNNING</span>
+                    <span class="sport-chip chip-run">{run_sum.get('sessions', 0)} sessions</span>
+                </div>
+                <div style="font-size: 1.5rem; font-weight: 800; color: #FFFFFF;">{run_sum.get('distance_km', 0):.2f} km</div>
+                <div style="font-size: 0.85rem; color: #94A3B8; margin-top: 4px;">
+                    ⏱️ {format_duration_hm(run_sum.get('moving_time_min', 0))} · ⚡ {r_pace}
+                </div>
+                <div style="font-size: 0.78rem; color: #F472B6; margin-top: 6px; font-weight: 600;">
+                    Last: {f"{days_since_run}d ago" if days_since_run is not None else "—"}
+                </div>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
+
+    with s_col3:
+        b_speed = cycling_analytics.get("avg_speed_kmh")
+        b_speed_str = f"{b_speed:.1f} km/h" if b_speed else "—"
+        st.markdown(
+            f"""
+            <div class="sport-summary-card" style="border-top: 4px solid #059669;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                    <span style="font-size: 1.1rem; font-weight: 800; color: #4ADE80;">🚴 CYCLING</span>
+                    <span class="sport-chip chip-ride">{ride_sum.get('sessions', 0)} sessions</span>
+                </div>
+                <div style="font-size: 1.5rem; font-weight: 800; color: #FFFFFF;">{ride_sum.get('distance_km', 0):.2f} km</div>
+                <div style="font-size: 0.85rem; color: #94A3B8; margin-top: 4px;">
+                    ⏱️ {format_duration_hm(ride_sum.get('moving_time_min', 0))} · ⚡ {b_speed_str}
+                </div>
+                <div style="font-size: 0.78rem; color: #4ADE80; margin-top: 6px; font-weight: 600;">
+                    Last: {f"{days_since_ride}d ago" if days_since_ride is not None else "—"}
+                </div>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
+
+    with s_col4:
+        w_pace = walking_analytics.get("avg_pace_formatted", "—")
+        st.markdown(
+            f"""
+            <div class="sport-summary-card" style="border-top: 4px solid #D97706;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                    <span style="font-size: 1.1rem; font-weight: 800; color: #FBBF24;">🚶 WALKING</span>
+                    <span class="sport-chip chip-walk">{walk_sum.get('sessions', 0)} sessions</span>
+                </div>
+                <div style="font-size: 1.5rem; font-weight: 800; color: #FFFFFF;">{walk_sum.get('distance_km', 0):.2f} km</div>
+                <div style="font-size: 0.85rem; color: #94A3B8; margin-top: 4px;">
+                    ⏱️ {format_duration_hm(walk_sum.get('moving_time_min', 0))} · ⚡ {w_pace}
+                </div>
+                <div style="font-size: 0.78rem; color: #FBBF24; margin-top: 6px; font-weight: 600;">
+                    Last: {f"{days_since_walk}d ago" if days_since_walk is not None else "—"}
+                </div>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
+
+    # 4. Recent Activities Feed
+    st.markdown("### 📋 Recent Training Activities")
+    if activities:
+        recent_rows = []
+        for a in activities[:15]:
+            sp = a.get("sport", "Other")
+            d_km = a.get("distance_km") or 0.0
+            dur_m = a.get("moving_time_min") or a.get("duration_min") or 0.0
+            hr_val = f"{a['avg_hr']:.0f} bpm" if a.get("avg_hr") else "—"
+            cals_val = f"{a['calories']} kcal" if a.get("calories") else "—"
+            load_val = f"{a['training_load']:.0f}" if a.get("training_load") else "—"
+
+            pace_speed = "—"
+            if sp == "Swim" and d_km > 0 and dur_m > 0:
+                p_sec = (dur_m * 60) / (d_km * 10)
+                pace_speed = f"{int(p_sec//60)}:{int(p_sec%60):02d} /100m"
+            elif sp == "Run" and d_km > 0 and dur_m > 0:
+                p_sec = (dur_m * 60) / d_km
+                pace_speed = f"{int(p_sec//60)}:{int(p_sec%60):02d} /km"
+            elif sp == "Ride" and d_km > 0 and dur_m > 0:
+                spd = d_km / (dur_m / 60)
+                pace_speed = f"{spd:.1f} km/h"
+            elif sp == "Walk" and d_km > 0 and dur_m > 0:
+                p_sec = (dur_m * 60) / d_km
+                pace_speed = f"{int(p_sec//60)}:{int(p_sec%60):02d} /km"
+
+            recent_rows.append({
+                "Date": format_date_clean(a.get("date")),
+                "Sport": f"{get_sport_icon(sp)} {sp}",
+                "Activity Name": a.get("name", "Workout"),
+                "Distance (km)": f"{d_km:.2f} km" if d_km > 0 else "—",
+                "Duration": format_duration_hm(dur_m),
+                "Pace / Speed": pace_speed,
+                "Avg HR": hr_val,
+                "Calories": cals_val,
+                "Training Load": load_val,
+                "Source": a.get("source", "Garmin"),
             })
-        if sport_dist_data:
-            df_pie = pd.DataFrame(sport_dist_data)
-            pie_chart = (
-                alt.Chart(df_pie)
-                .mark_arc(innerRadius=50, stroke="#151D2C", strokeWidth=2)
-                .encode(
-                    theta=alt.Theta(field="Distance (km)", type="quantitative"),
-                    color=alt.Color(
-                        field="Sport",
-                        type="nominal",
-                        scale=alt.Scale(
-                            domain=["Swim", "Ride", "Walk", "Run", "Workout"],
-                            range=["#00D2FF", "#10B981", "#F59E0B", "#EC4899", "#8B5CF6"],
-                        ),
-                    ),
-                    tooltip=[
-                        alt.Tooltip("Sport:N"),
-                        alt.Tooltip("Distance (km):Q", format=".2f"),
-                        alt.Tooltip("Sessions:Q"),
-                        alt.Tooltip("Load:Q", format=".0f"),
-                    ],
-                )
-            )
-            st.altair_chart(apply_chart_theme(pie_chart, height=320), use_container_width=True)
-        else:
-            st.info("No volume data available.")
+        st.dataframe(pd.DataFrame(recent_rows), use_container_width=True, hide_index=True)
+    else:
+        st.info("No activities recorded in the selected time window. Expand your time window in the sidebar.")
 
 
 # ============================================================
-# TAB 2: SWIM PLAN
+# TAB 2: 🏊 SWIMMING
 # ============================================================
 
-with tab_plan:
-    st.header(f"🎯 {plan_timing_label} Swim Workout Plan")
-    st.markdown(f"<span style='color: #38BDF8; font-weight: 700; font-size: 1.15rem;'>📅 Scheduled for: {target_plan_date_str} ({plan_timing_badge})</span>", unsafe_allow_html=True)
-    st.markdown("<br>", unsafe_allow_html=True)
+with tab_swimming:
+    swim_activities = [a for a in activities if a.get("sport") == "Swim"]
+    all_swims = [a for a in all_activities if a.get("sport") == "Swim"]
 
-    plan_type = plan.get("type", "Endurance")
-    target_dist = plan.get("target_distance", 1500)
-    pool_len = plan.get("pool_length", 25)
-    total_laps = plan.get("total_laps", target_dist // 25)
-    duration_str = plan.get("duration", "45-60 min")
-    goal_str = plan.get("goal", "Build aerobic endurance and maintain technique.")
-    coach_rationale = plan.get("coaching_rationale", "Periodized swimming session matched to recent training volume.")
-    readiness_score = plan.get("readiness_score", 80)
+    st.markdown("## 🏊 Swimming Analytics & AI Workout Engine")
+    st.markdown("Deep swim pacing, 5-zone distribution, baseline speed, dynamic workout builder, and accordion sets.")
 
-    # High-Contrast Plan Hero
+    # 1. Swim KPIs
+    sw_dist = sum(s.get("distance_km") or 0.0 for s in swim_activities)
+    sw_time = sum(s.get("moving_time_min") or 0.0 for s in swim_activities)
+    sw_hrs = [s["avg_hr"] for s in swim_activities if s.get("avg_hr")]
+    sw_avg_hr = round(sum(sw_hrs) / len(sw_hrs)) if sw_hrs else None
+    sw_cals = sum(s.get("calories") or 0 for s in swim_activities if s.get("calories"))
+
+    c_sw1, c_sw2, c_sw3, c_sw4, c_sw5, c_sw6 = st.columns(6)
+    with c_sw1:
+        st.markdown(
+            f"""
+            <div class="kpi-card">
+                <div class="kpi-label label-swim">Total Swim Distance</div>
+                <div class="kpi-value">{sw_dist:.2f} <span style="font-size: 1rem; color: #94A3B8;">km</span></div>
+                <div class="kpi-sub">{len(swim_activities)} swim sessions</div>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
+    with c_sw2:
+        st.markdown(
+            f"""
+            <div class="kpi-card">
+                <div class="kpi-label label-swim">Active Swim Time</div>
+                <div class="kpi-value">{format_duration_hm(sw_time)}</div>
+                <div class="kpi-sub">{sw_time:.0f} moving mins</div>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
+    with c_sw3:
+        st.markdown(
+            f"""
+            <div class="kpi-card">
+                <div class="kpi-label label-swim">Baseline Pace</div>
+                <div class="kpi-value">{format_pace(baseline_pace)}</div>
+                <div class="kpi-sub">per 100m threshold</div>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
+    with c_sw4:
+        est_1000m_sec = baseline_pace * 10
+        st.markdown(
+            f"""
+            <div class="kpi-card">
+                <div class="kpi-label label-swim">Est. 1,000m Time</div>
+                <div class="kpi-value">{int(est_1000m_sec // 60)}:{int(est_1000m_sec % 60):02d}</div>
+                <div class="kpi-sub">at baseline pace</div>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
+    with c_sw5:
+        st.markdown(
+            f"""
+            <div class="kpi-card">
+                <div class="kpi-label label-swim">Avg Heart Rate</div>
+                <div class="kpi-value">{f"{sw_avg_hr}" if sw_avg_hr else "—"} <span style="font-size: 1rem; color: #94A3B8;">bpm</span></div>
+                <div class="kpi-sub">Underwater optical</div>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
+    with c_sw6:
+        st.markdown(
+            f"""
+            <div class="kpi-card">
+                <div class="kpi-label label-swim">Pool Length</div>
+                <div class="kpi-value">25 <span style="font-size: 1rem; color: #94A3B8;">m</span></div>
+                <div class="kpi-sub">Standard short course</div>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
+
+    # 2. 5-Zone Pace Guidelines
+    st.markdown("### 🎯 5-Zone Swim Pace Guidelines (25m Pool)")
+    zone_rows = [
+        {"Zone": "Zone 1: Recovery", "Pace /100m": f"{format_pace(pace_zones['recovery'][0])} – {format_pace(pace_zones['recovery'][1])}", "200m (8 Laps)": f"{format_pace(pace_zones['recovery'][0]*2)}", "400m (16 Laps)": f"{format_pace(pace_zones['recovery'][0]*4)}", "Purpose": "Warm-up, active recovery & drill sets"},
+        {"Zone": "Zone 2: Aerobic Base", "Pace /100m": f"{format_pace(pace_zones['aerobic'][0])} – {format_pace(pace_zones['aerobic'][1])}", "200m (8 Laps)": f"{format_pace(pace_zones['aerobic'][0]*2)}", "400m (16 Laps)": f"{format_pace(pace_zones['aerobic'][0]*4)}", "Purpose": "Sustainable continuous aerobic endurance"},
+        {"Zone": "Zone 3: Tempo", "Pace /100m": f"{format_pace(pace_zones['tempo'][0])} – {format_pace(pace_zones['tempo'][1])}", "200m (8 Laps)": f"{format_pace(pace_zones['tempo'][0]*2)}", "400m (16 Laps)": f"{format_pace(pace_zones['tempo'][0]*4)}", "Purpose": "Lactate threshold & race pace endurance"},
+        {"Zone": "Zone 4: Threshold / Interval", "Pace /100m": f"{format_pace(pace_zones['threshold'][0])} – {format_pace(pace_zones['threshold'][1])}", "200m (8 Laps)": f"{format_pace(pace_zones['threshold'][0]*2)}", "400m (16 Laps)": f"{format_pace(pace_zones['threshold'][0]*4)}", "Purpose": "Speed-endurance with structured rest"},
+        {"Zone": "Zone 5: Sprint", "Pace /100m": f"{format_pace(pace_zones['sprint'][0])} – {format_pace(pace_zones['sprint'][1])}", "200m (8 Laps)": f"{format_pace(pace_zones['sprint'][0]*2)}", "400m (16 Laps)": f"{format_pace(pace_zones['sprint'][0]*4)}", "Purpose": "Maximum anaerobic power & stroke rate"},
+    ]
+    st.dataframe(pd.DataFrame(zone_rows), use_container_width=True, hide_index=True)
+
+    # 3. Swimming Charts
+    st.markdown("### 📈 Swimming Trends")
+    sw_chart_col1, sw_chart_col2 = st.columns(2)
+
+    with sw_chart_col1:
+        if weekly_trends:
+            w_df = pd.DataFrame(weekly_trends)
+            c_dist = alt.Chart(w_df).mark_bar(color="#0284C7", cornerRadiusTopLeft=6, cornerRadiusTopRight=6).encode(
+                x=alt.X("week:N", title="Training Week"),
+                y=alt.Y("distance_km:Q", title="Volume (km)"),
+                tooltip=["week", "distance_km", "sessions", "time_min", "avg_pace_seconds"],
+            ).properties(title="Weekly Swim Volume Progression")
+            st.altair_chart(apply_chart_theme(c_dist), use_container_width=True)
+
+    with sw_chart_col2:
+        if swim_baseline:
+            b_df = pd.DataFrame(swim_baseline)
+            b_df["date_clean"] = b_df["date"].apply(lambda d: str(d)[:10])
+            b_df["pace_min"] = b_df["pace_seconds"] / 60.0
+            c_pace = alt.Chart(b_df).mark_line(point=True, color="#38BDF8").encode(
+                x=alt.X("date_clean:N", title="Swim Date"),
+                y=alt.Y("pace_seconds:Q", title="Pace (seconds /100m)", scale=alt.Scale(zero=False)),
+                tooltip=["date_clean", "distance_km", "moving_time_min", "pace_formatted", "avg_hr"],
+            ).properties(title="Pace Progression /100m (Continuous Swims)")
+            st.altair_chart(apply_chart_theme(c_pace), use_container_width=True)
+
+    # 4. AI Next Swim Workout Plan (with Accordion Sets & Lap Terminology)
+    st.markdown("---")
+    st.markdown(f"### 🎯 {plan_timing_label} AI Recommended Swim Workout Plan")
+
+    plan_type = plan.get("workout_type", "Endurance")
+    plan_dist = plan.get("distance_m", 2000)
+    plan_dur = plan.get("duration_est", "45-55 min")
+    plan_goal = plan.get("goal", "Build aerobic endurance.")
+    plan_sets = plan.get("sets", [])
+    plan_readiness = plan.get("readiness_score", 85)
+    plan_rationale = plan.get("coach_rationale", "Optimized from your recent Garmin training load and recovery.")
+
     st.markdown(
         f"""
-        <div style="background: #111827; border: 2px solid #0284C7; border-radius: 14px; padding: 22px 26px; margin-bottom: 24px;">
-            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;">
+        <div class="hero-banner" style="border-left-color: #00D2FF; margin-bottom: 16px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
                 <div>
-                    <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 8px;">
-                        <span class="sport-chip chip-swim" style="font-size: 0.95rem;">{plan_type} Workout</span>
-                        <span style="color: #38BDF8; font-weight: 700; font-size: 0.95rem; background: rgba(56,189,248,0.12); padding: 4px 12px; border-radius: 6px; border: 1px solid rgba(56,189,248,0.3);">
-                            📅 {target_plan_date_str} ({plan_timing_badge})
-                        </span>
-                        <span class="sport-chip chip-workout" style="background: #0284C7;">Readiness: {readiness_score:.0f}/100</span>
-                    </div>
-                    <h1 style="margin: 6px 0 6px 0; color: #FFFFFF; font-size: 2.1rem; font-weight: 800;">
-                        {target_dist} m · {duration_str}
-                    </h1>
-                    <div style="color: #E2E8F0; font-size: 1.05rem; font-weight: 600;">
-                        🏊 <strong>{pool_len}m Pool</strong> · <strong>{total_laps} Total Laps</strong> · Baseline Pace: <strong style="color:#38BDF8;">{format_pace(baseline_pace)}</strong>
-                    </div>
+                    <span style="font-size: 0.82rem; font-weight: 800; color: #38BDF8; text-transform: uppercase;">
+                        🏊 {plan_type.upper()} WORKOUT · {plan_timing_badge.upper()} ({target_plan_date_str})
+                    </span>
+                    <h3 style="margin: 2px 0 4px 0; color: #FFFFFF; font-size: 1.35rem;">
+                        {plan_type} Session — {plan_dist:,} m ({plan_dist // 25} Laps)
+                    </h3>
+                    <p style="margin: 0; color: #E2E8F0; font-size: 0.95rem;">
+                        <strong>Estimated Duration:</strong> {plan_dur} · <strong>Target Goal:</strong> {plan_goal}
+                    </p>
                 </div>
-                <div style="max-width: 460px; background: #1E293B; padding: 14px 18px; border-radius: 10px; border-left: 4px solid #38BDF8;">
-                    <div style="font-size: 0.85rem; color: #38BDF8; font-weight: 800; text-transform: uppercase;">🤖 AI Coach Rationale</div>
-                    <div style="font-size: 0.95rem; color: #FFFFFF; font-weight: 500; margin: 4px 0 8px 0; line-height: 1.4;">{coach_rationale}</div>
-                    <div style="font-size: 0.8rem; color: #94A3B8; font-weight: 700; text-transform: uppercase;">Goal: <span style="color:#E2E8F0; font-weight:600; text-transform:none;">{goal_str}</span></div>
+                <div style="text-align: right;">
+                    <div style="font-size: 0.75rem; color: #94A3B8; font-weight: 700; text-transform: uppercase;">Readiness Score</div>
+                    <div style="font-size: 1.6rem; font-weight: 800; color: #34D399;">{plan_readiness}/100</div>
                 </div>
+            </div>
+            <div style="margin-top: 10px; padding-top: 8px; border-top: 1px solid #1E293B; font-size: 0.88rem; color: #94A3B8;">
+                💡 <strong>AI Coach Rationale:</strong> {plan_rationale}
             </div>
         </div>
         """,
         unsafe_allow_html=True,
     )
 
-    st.subheader("📋 Workout Structure & Sets")
+    # Render Accordion Sets
+    st.markdown("#### 📋 Structured Workout Sets (25m Pool — Lap Terminology)")
+    for i, s in enumerate(plan_sets):
+        reps = s.get("reps", 1)
+        dist = s.get("distance", 100)
+        tot_dist = s.get("total_distance", reps * dist)
+        laps_per_rep = s.get("laps", dist // 25)
+        tot_laps = s.get("total_laps", reps * laps_per_rep)
+        purpose = s.get("purpose", "Swim")
+        pattern = s.get("stroke_pattern", s.get("stroke", "Freestyle"))
+        pace_str = s.get("pace", "Controlled")
+        rest_str = s.get("rest", "None")
 
-    sets = plan.get("sets", [])
-    for index, workout_set in enumerate(sets, start=1):
-        if isinstance(workout_set, str):
-            st.info(f"**Set {index}:** {workout_set}")
-            continue
-
-        reps = workout_set.get("reps", 1)
-        dist = workout_set.get("distance", 0)
-        tot_dist = workout_set.get("total_distance", dist * reps)
-        tot_laps = workout_set.get("total_laps", tot_dist // 25)
-        stroke = workout_set.get("stroke", "Freestyle")
-        purpose = workout_set.get("purpose", "")
-        pace = workout_set.get("pace", "")
-        rest = workout_set.get("rest", "None")
-        stroke_pattern = workout_set.get("stroke_pattern", stroke)
-
-        set_title = f"{dist}m" if reps == 1 else f"{reps} × {dist}m"
-        expanded = (index == 1 or index == 2)
-
-        with st.expander(
-            f"🏊 Set {index}: {set_title} · {stroke} · {purpose}",
-            expanded=expanded,
-        ):
-            c1, c2, c3, c4 = st.columns(4)
-            c1.metric("Distance", f"{tot_dist}m", f"{reps} rep(s)" if reps > 1 else None)
-            c2.metric("Total Laps", f"{tot_laps} laps", f"Pool: {pool_len}m")
-            c3.metric("Target Pace", pace)
-            c4.metric("Rest Interval", rest if rest != "None" else "No Rest")
-
-            st.markdown("---")
-            if stroke == "Mixed":
-                st.markdown(f"**Stroke Breakdown:** `{stroke_pattern}`")
-            else:
-                st.markdown(f"**Stroke:** `{stroke}`")
-            st.markdown(f"**Purpose:** {purpose}")
-
-    st.markdown("<br>", unsafe_allow_html=True)
-    st.markdown("---")
-    st.subheader("⚙️ Customize & Save Custom Plan to Library")
-
-    custom_col1, custom_col2, custom_col3, custom_col4 = st.columns([2, 2, 2, 2])
-
-    with custom_col1:
-        workout_types_list = ["Endurance", "Tempo", "Intervals", "Pyramid", "Recovery"]
-        custom_type = st.selectbox(
-            "Workout Type",
-            workout_types_list,
-            index=workout_types_list.index(plan_type) if plan_type in workout_types_list else 0,
-            key="custom_plan_type_select",
-        )
-
-    with custom_col2:
-        custom_date = st.date_input(
-            "Scheduled Date",
-            target_plan_date,
-            key="custom_plan_date_picker",
-        )
-
-    with custom_col3:
-        custom_distance = st.slider(
-            "Target Distance (m)",
-            min_value=1000,
-            max_value=3500,
-            value=int(target_dist),
-            step=100,
-            key="custom_plan_dist_slider",
-        )
-
-    with custom_col4:
-        st.write("")
-        st.write("")
-        if st.button("💾 Save Plan to Library", use_container_width=True, key="save_custom_plan_btn"):
-            if custom_type == "Endurance":
-                new_plan = endurance_workout(
-                    target_distance=custom_distance,
-                    easy_min=pace_zones["easy"]["min"],
-                    easy_max=pace_zones["easy"]["max"],
-                    endurance_min=pace_zones["endurance"]["min"],
-                    endurance_max=pace_zones["endurance"]["max"],
-                )
-            elif custom_type == "Tempo":
-                new_plan = tempo_workout(
-                    target_distance=custom_distance,
-                    easy_min=pace_zones["easy"]["min"],
-                    easy_max=pace_zones["easy"]["max"],
-                    tempo_min=pace_zones["tempo"]["min"],
-                    tempo_max=pace_zones["tempo"]["max"],
-                )
-            elif custom_type == "Intervals":
-                new_plan = interval_workout(
-                    target_distance=custom_distance,
-                    easy_min=pace_zones["easy"]["min"],
-                    easy_max=pace_zones["easy"]["max"],
-                    interval_min=pace_zones["interval"]["min"],
-                    interval_max=pace_zones["interval"]["max"],
-                )
-            elif custom_type == "Pyramid":
-                new_plan = pyramid_workout(
-                    target_distance=custom_distance,
-                    easy_min=pace_zones["easy"]["min"],
-                    easy_max=pace_zones["easy"]["max"],
-                    tempo_min=pace_zones["tempo"]["min"],
-                    tempo_max=pace_zones["tempo"]["max"],
-                    interval_min=pace_zones["interval"]["min"],
-                    interval_max=pace_zones["interval"]["max"],
-                )
-            else:
-                new_plan = recovery_workout(
-                    target_distance=custom_distance,
-                    easy_min=pace_zones["easy"]["min"],
-                    easy_max=pace_zones["easy"]["max"],
-                )
-
-            import uuid
-            new_plan["plan_id"] = str(uuid.uuid4())
-            new_plan["planned_date"] = str(custom_date)
-            new_plan["coaching_rationale"] = f"Custom {custom_type} workout scheduled by athlete."
-            save_plan(new_plan)
-            st.success(f"✅ {custom_type} workout saved for {custom_date} to `training_plans.json`!")
-            st.rerun()
-
-    st.markdown("<br>", unsafe_allow_html=True)
-    st.markdown("#### 🎯 Personalized Swim Pace Zones")
-    st.caption(f"Calculated from your {len(swim_baseline)} long endurance baseline swims ({format_pace(baseline_pace)}/100m)")
-
-    zone_rows = [
-        {"Zone": "Easy / Warm-up / Cool-down", "Pace Range (/100m)": f"{format_pace(pace_zones['easy']['min'])} - {format_pace(pace_zones['easy']['max'])}", "Target Purpose": "Aerobic warm-up & active recovery"},
-        {"Zone": "Endurance (Baseline)", "Pace Range (/100m)": f"{format_pace(pace_zones['endurance']['min'])} - {format_pace(pace_zones['endurance']['max'])}", "Target Purpose": "Sustainable aerobic volume"},
-        {"Zone": "Tempo", "Pace Range (/100m)": f"{format_pace(pace_zones['tempo']['min'])} - {format_pace(pace_zones['tempo']['max'])}", "Target Purpose": "Lactate threshold & rhythm"},
-        {"Zone": "Intervals / Speed", "Pace Range (/100m)": f"{format_pace(pace_zones['interval']['min'])} - {format_pace(pace_zones['interval']['max'])}", "Target Purpose": "VO2 max & high cadence speed"},
-    ]
-    st.dataframe(pd.DataFrame(zone_rows), use_container_width=True, hide_index=True)
-
-
-# ============================================================
-# TAB 3: TRAINING CALENDAR
-# ============================================================
-
-with tab_calendar:
-    st.header("📅 Training Calendar Grid")
-    st.caption("🏊 Swim   🚴 Ride   🚶 Walk   🏃 Run   💪 Workout")
-
-    # Group activities by date
-    activities_by_date = {}
-    available_months_set = set()
-
-    for activity in all_activities:
-        date_str = activity.get("date", "")[:10]
-        if date_str:
-            if date_str not in activities_by_date:
-                activities_by_date[date_str] = []
-            activities_by_date[date_str].append(activity)
-            try:
-                dt_obj = datetime.fromisoformat(date_str)
-                available_months_set.add((dt_obj.year, dt_obj.month))
-            except Exception:
-                pass
-
-    sorted_months = sorted(list(available_months_set), reverse=True)
-    if not sorted_months:
-        sorted_months = [(2026, 8), (2026, 7)]
-
-    month_display_names = [f"{calendar.month_name[m]} {y}" for y, m in sorted_months]
-
-    cal_col1, cal_col2 = st.columns([2, 4])
-    with cal_col1:
-        month_choice = st.selectbox(
-            "Select Calendar Month",
-            month_display_names,
-            index=0,
-        )
-
-    chosen_idx = month_display_names.index(month_choice)
-    cal_year, cal_month = sorted_months[chosen_idx]
-
-    st.subheader(f"{calendar.month_name[cal_month]} {cal_year}")
-
-    weekday_cols = st.columns(7)
-    weekdays = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
-    for idx, day in enumerate(weekdays):
-        with weekday_cols[idx]:
-            st.markdown(f"<div style='text-align:center; font-weight:800; color:#38BDF8; font-size:1rem; margin-bottom:8px;'>{day}</div>", unsafe_allow_html=True)
-
-    month_weeks = calendar.monthcalendar(cal_year, cal_month)
-
-    for week in month_weeks:
-        cols = st.columns(7)
-        for idx, day_number in enumerate(week):
-            with cols[idx]:
-                if day_number == 0:
-                    st.write("")
-                    continue
-
-                d_str = f"{cal_year:04d}-{cal_month:02d}-{day_number:02d}"
-                day_acts = activities_by_date.get(d_str, [])
-
-                with st.container(border=True):
-                    st.markdown(f"<div class='cal-date-num'>{day_number}</div>", unsafe_allow_html=True)
-                    if not day_acts:
-                        st.markdown("<span style='color: #64748B; font-size: 0.8rem;'>Rest</span>", unsafe_allow_html=True)
-                    for act in day_acts:
-                        sport = act.get("sport", "Activity")
-                        dist = act.get("distance_km") or 0
-                        load = act.get("training_load") or 0
-                        dur = act.get("duration_min") or 0
-
-                        if sport == "Swim":
-                            st.markdown(f"<span class='cal-badge chip-swim'>🏊 {dist:.2f}k · L{load:.0f}</span>", unsafe_allow_html=True)
-                        elif sport == "Ride":
-                            st.markdown(f"<span class='cal-badge chip-ride'>🚴 {dist:.2f}k · L{load:.0f}</span>", unsafe_allow_html=True)
-                        elif sport == "Walk":
-                            st.markdown(f"<span class='cal-badge chip-walk'>🚶 {dist:.2f}k · L{load:.0f}</span>", unsafe_allow_html=True)
-                        elif sport == "Run":
-                            st.markdown(f"<span class='cal-badge chip-run'>🏃 {dist:.2f}k · L{load:.0f}</span>", unsafe_allow_html=True)
-                        elif sport == "Workout":
-                            st.markdown(f"<span class='cal-badge chip-workout'>💪 {dur:.0f}m · L{load:.0f}</span>", unsafe_allow_html=True)
-                        else:
-                            st.markdown(f"<span class='cal-badge chip-rest'>⚡ {dist:.1f}k · L{load:.0f}</span>", unsafe_allow_html=True)
-
-    st.markdown("---")
-    st.subheader("🔍 Inspect Day Details from Calendar")
-    available_dates = sorted(activities_by_date.keys(), reverse=True)
-    if available_dates:
-        insp_date = st.selectbox(
-            "Choose a date to view full workout details",
-            available_dates,
-            format_func=format_date_clean,
-            key="calendar_date_inspector",
-        )
-        insp_activities = activities_by_date.get(insp_date, [])
-
-        st.markdown(f"#### Activities on `{format_date_clean(insp_date)}` ({len(insp_activities)} session(s))")
-        for a_idx, act in enumerate(insp_activities, 1):
-            sport = act.get("sport", "")
-            icon = get_sport_icon(sport)
-            source_tag = act.get("source", "Activity")
-            with st.expander(f"{icon} {act.get('name', 'Activity')} · {act.get('distance_km', 0):.2f} km · {act.get('duration_min', 0):.0f} min · Load {act.get('training_load', 0):.0f} ({source_tag})", expanded=True):
-                m1, m2, m3, m4 = st.columns(4)
-                m1.metric("Distance", f"{act.get('distance_km', 0):.2f} km")
-                m2.metric("Duration", f"{act.get('duration_min', 0):.1f} min")
-                m3.metric("Avg HR", f"{act.get('avg_hr', '—')} bpm" if act.get("avg_hr") else "—")
-                m4.metric("Load", f"{act.get('training_load', 0):.0f}")
-
-                if act.get("description"):
-                    st.markdown(f"**Notes:** {act.get('description')}")
-
-                # Display media if available
-                media_items = act.get("media", [])
-                if media_items:
-                    st.markdown("##### 📸 Attached Photos:")
-                    m_cols = st.columns(min(len(media_items), 4) or 1)
-                    for m_idx, m_rel in enumerate(media_items):
-                        m_path = get_strava_media_path(m_rel)
-                        if m_path and m_path.exists():
-                            with m_cols[m_idx % len(m_cols)]:
-                                st.image(str(m_path), caption=f"Photo #{m_idx+1}", width=220)
-
-
-# ============================================================
-# TAB 4: WEEKLY COMPARISON
-# ============================================================
-
-with tab_comparison:
-    st.header("📊 Weekly Training Comparison")
-    st.markdown(
-        f"<span style='color:#94A3B8; font-size:1rem;'>"
-        f"Current 7-Day Window (<strong>{format_date_clean(last_7d_start_str)} – {format_date_clean(end_date_str)}</strong>) vs "
-        f"Previous 7-Day Window (<strong>{format_date_clean(str(prev_7d_start))} – {format_date_clean(str(prev_7d_end))}</strong>)"
-        f"</span>",
-        unsafe_allow_html=True,
-    )
-    st.markdown("<br>", unsafe_allow_html=True)
-
-    comparison_rows = []
-    sports = sorted(set(list(current_week.keys()) + list(previous_week.keys())))
-
-    for sp in sports:
-        curr = current_week.get(sp, {})
-        prev = previous_week.get(sp, {})
-
-        c_dist = round(curr.get("distance_km", 0), 2)
-        p_dist = round(prev.get("distance_km", 0), 2)
-        c_load = round(curr.get("training_load", 0), 1)
-        p_load = round(prev.get("training_load", 0), 1)
-        c_dur = round(curr.get("duration_min", 0), 1)
-        p_dur = round(prev.get("duration_min", 0), 1)
-
-        comparison_rows.append({
-            "Sport": sp,
-            "Current Sessions": curr.get("sessions", 0),
-            "Previous Sessions": prev.get("sessions", 0),
-            "Current Distance (km)": c_dist,
-            "Previous Distance (km)": p_dist,
-            "Current Duration (min)": c_dur,
-            "Previous Duration (min)": p_dur,
-            "Current Load": c_load,
-            "Previous Load": p_load,
-        })
-
-    if comparison_rows:
-        st.dataframe(pd.DataFrame(comparison_rows), use_container_width=True, hide_index=True)
-
-        st.markdown("<br>", unsafe_allow_html=True)
-        v_col1, v_col2 = st.columns(2)
-
-        with v_col1:
-            st.markdown("#### 🏃 Distance Comparison (km)")
-            chart_df = []
-            for row in comparison_rows:
-                chart_df.append({"Sport": row["Sport"], "Period": "Current 7d", "Distance": row["Current Distance (km)"]})
-                chart_df.append({"Sport": row["Sport"], "Period": "Previous 7d", "Distance": row["Previous Distance (km)"]})
-            df_dist_comp = pd.DataFrame(chart_df)
-            dist_bar = (
-                alt.Chart(df_dist_comp)
-                .mark_bar(cornerRadiusTopLeft=4, cornerRadiusTopRight=4)
-                .encode(
-                    x=alt.X("Period:N", title=None, axis=alt.Axis(labels=True)),
-                    y=alt.Y("Distance:Q", title="Distance (km)"),
-                    color=alt.Color("Period:N", scale=alt.Scale(domain=["Current 7d", "Previous 7d"], range=["#00D2FF", "#475569"]), title="Window"),
-                    column=alt.Column("Sport:N", title="Sport", header=alt.Header(titleColor="#FFFFFF", labelColor="#FFFFFF", labelFontSize=13)),
-                    tooltip=["Sport", "Period", alt.Tooltip("Distance:Q", format=".2f")],
-                )
+        exp_title = f"{'▾' if i == 1 else '▸'} Set {i+1}: {purpose.upper()} — {tot_dist}m ({tot_laps} Laps) · {reps} × {dist}m"
+        with st.expander(exp_title, expanded=(i == 1)):
+            st.markdown(
+                f"""
+                - **Repetition:** `{reps} × {dist}m` ({laps_per_rep} Laps per rep)
+                - **Stroke Pattern:** `{pattern}`
+                - **Target Pace:** `{pace_str}`
+                - **Rest Interval:** `{rest_str}`
+                - **Set Purpose:** {purpose}
+                """
             )
-            st.altair_chart(apply_chart_theme(dist_bar, height=280))
 
-        with v_col2:
-            st.markdown("#### 🔥 Training Load Comparison")
-            chart_df_load = []
-            for row in comparison_rows:
-                chart_df_load.append({"Sport": row["Sport"], "Period": "Current 7d", "Load": row["Current Load"]})
-                chart_df_load.append({"Sport": row["Sport"], "Period": "Previous 7d", "Load": row["Previous Load"]})
-            df_load_comp = pd.DataFrame(chart_df_load)
-            load_bar = (
-                alt.Chart(df_load_comp)
-                .mark_bar(cornerRadiusTopLeft=4, cornerRadiusTopRight=4)
-                .encode(
-                    x=alt.X("Period:N", title=None, axis=alt.Axis(labels=True)),
-                    y=alt.Y("Load:Q", title="Training Load"),
-                    color=alt.Color("Period:N", scale=alt.Scale(domain=["Current 7d", "Previous 7d"], range=["#F87171", "#475569"]), title="Window"),
-                    column=alt.Column("Sport:N", title="Sport", header=alt.Header(titleColor="#FFFFFF", labelColor="#FFFFFF", labelFontSize=13)),
-                    tooltip=["Sport", "Period", alt.Tooltip("Load:Q", format=".0f")],
-                )
-            )
-            st.altair_chart(apply_chart_theme(load_bar, height=280))
-
+    # 5. Interactive Swim Workout Builder & Customizer
     st.markdown("---")
-    st.subheader("📋 Entire Query Window Multi-Sport Summary")
-    summary_rows = []
-    for sp, val in summary.items():
-        summary_rows.append({
-            "Sport": sp,
-            "Total Sessions": val.get("sessions", 0),
-            "Total Distance (km)": val.get("distance_km", 0),
-            "Total Duration (min)": val.get("duration_min", 0),
-            "Moving Time (min)": val.get("moving_time_min", 0),
-            "Total Training Load": val.get("training_load", 0),
-            "Total Calories (kcal)": val.get("calories", 0),
-        })
-    if summary_rows:
-        st.dataframe(pd.DataFrame(summary_rows), use_container_width=True, hide_index=True)
+    st.markdown("### 🛠️ Interactive Swim Workout Builder & Customizer")
+    b_col1, b_col2 = st.columns([1, 2])
 
+    with b_col1:
+        custom_focus = st.selectbox("Workout Focus", ["Endurance", "Tempo", "Intervals", "Pyramid Ladder", "Recovery"], index=0)
+        custom_dist = st.slider("Target Distance (m)", min_value=1000, max_value=3500, value=plan_dist, step=250)
 
-# ============================================================
-# TAB 5: SWIM ANALYTICS & BASELINE
-# ============================================================
-
-with tab_trends:
-    st.header("📈 Swimming Trends & Long-Swim Baseline")
-
-    t_col1, t_col2 = st.columns(2)
-
-    with t_col1:
-        st.subheader("Weekly Swimming Progression")
-        if weekly_trends:
-            df_trends = pd.DataFrame(weekly_trends)
-            trend_chart = (
-                alt.Chart(df_trends)
-                .mark_bar(color="#00D2FF", cornerRadiusTopLeft=5, cornerRadiusTopRight=5)
-                .encode(
-                    x=alt.X("week:N", title="ISO Week", axis=alt.Axis(labelAngle=-40)),
-                    y=alt.Y("distance_km:Q", title="Weekly Volume (km)"),
-                    tooltip=[
-                        alt.Tooltip("week:N", title="Week"),
-                        alt.Tooltip("sessions:Q", title="Sessions"),
-                        alt.Tooltip("distance_km:Q", title="Volume (km)", format=".2f"),
-                        alt.Tooltip("time_min:Q", title="Total Time (min)", format=".0f"),
-                        alt.Tooltip("training_load:Q", title="Load", format=".0f"),
-                        alt.Tooltip("avg_hr:Q", title="Avg HR (bpm)", format=".0f"),
-                    ],
-                )
-            )
-            st.altair_chart(apply_chart_theme(trend_chart, height=300), use_container_width=True)
-            st.dataframe(df_trends, use_container_width=True, hide_index=True)
+        # Generate dynamically
+        if custom_focus == "Endurance":
+            custom_plan = endurance_workout(baseline_pace, custom_dist)
+        elif custom_focus == "Tempo":
+            custom_plan = tempo_workout(baseline_pace, custom_dist)
+        elif custom_focus == "Intervals":
+            custom_plan = interval_workout(baseline_pace, custom_dist)
+        elif custom_focus == "Pyramid Ladder":
+            custom_plan = pyramid_workout(baseline_pace, custom_dist)
         else:
-            st.info("No swimming trend records available.")
+            custom_plan = recovery_workout(baseline_pace, custom_dist)
 
-    with t_col2:
-        st.subheader(f"Endurance Swims Baseline (≥ 1.5 km · {len(swim_baseline)} sessions)")
-        if swim_baseline:
-            df_base = pd.DataFrame(swim_baseline)
-            df_base["pace_formatted"] = df_base["pace_seconds"].apply(lambda p: format_pace(p) if pd.notnull(p) else "—")
-            df_base["date_formatted"] = df_base["date"].apply(format_date_clean)
+        if st.button("💾 Save Custom Plan to Library", use_container_width=True):
+            save_plan(custom_plan, target_date=str(target_plan_date))
+            st.success(f"Saved {custom_focus} ({custom_dist}m) plan to your Library!")
 
-            pace_chart = (
-                alt.Chart(df_base)
-                .mark_line(point=alt.OverlayMarkDef(color="#00D2FF", size=70), color="#38BDF8", strokeWidth=3)
-                .encode(
-                    x=alt.X("date_formatted:N", title="Activity Date"),
-                    y=alt.Y("pace_seconds:Q", title="Pace (seconds / 100m)", scale=alt.Scale(zero=False)),
-                    tooltip=[
-                        alt.Tooltip("date_formatted:N", title="Date"),
-                        alt.Tooltip("distance_km:Q", title="Distance (km)", format=".2f"),
-                        alt.Tooltip("pace_formatted:N", title="Pace (/100m)"),
-                        alt.Tooltip("avg_hr:Q", title="Avg HR (bpm)", format=".0f"),
-                        alt.Tooltip("training_load:Q", title="Load", format=".0f"),
-                    ],
-                )
+    with b_col2:
+        st.markdown(f"**Custom Plan Preview:** `{custom_plan.get('name', custom_focus)}` · `{custom_plan.get('distance_m')}m` ({custom_plan.get('distance_m')//25} Laps)")
+        st.caption(f"Estimated Time: **{custom_plan.get('duration_est')}** · Goal: **{custom_plan.get('goal')}**")
+        for j, cs in enumerate(custom_plan.get("sets", [])):
+            st.markdown(
+                f"- **Set {j+1}:** `{cs.get('reps')} × {cs.get('distance')}m` ({cs.get('total_laps')} total laps) — `{cs.get('stroke_pattern', cs.get('stroke'))}` · Pace: `{cs.get('pace')}` · Rest: `{cs.get('rest')}`"
             )
-            st.altair_chart(apply_chart_theme(pace_chart, height=300), use_container_width=True)
-            st.dataframe(
-                df_base[["date_formatted", "distance_km", "pace_formatted", "avg_hr", "training_load"]].rename(
-                    columns={"date_formatted": "Date", "distance_km": "Distance (km)", "pace_formatted": "Pace (/100m)", "avg_hr": "Avg HR", "training_load": "Load"}
-                ),
-                use_container_width=True,
-                hide_index=True,
-            )
-        else:
-            st.info("No swims of 1.5 km or longer found to establish endurance baseline.")
 
 
 # ============================================================
-# TAB 6: RUNNING ANALYTICS & SPLITS
+# TAB 3: 🏃 RUNNING
 # ============================================================
 
 with tab_running:
-    st.header("🏃 Running Analytics & Kilometer Splits")
-    st.caption("Extracted from your Strava GPS runs, race events & outdoor sessions")
+    st.markdown("## 🏃 Running Analytics, Splits & Race Guidelines")
+    st.markdown("Extracted from your Garmin & Strava GPS running sessions, including 1-km split telemetry.")
 
-    r_runs = running_analytics.get("runs", [])
-    r_tot_runs = running_analytics.get("total_runs", 0)
-    r_tot_dist = running_analytics.get("total_distance_km", 0.0)
-    r_tot_time = running_analytics.get("total_duration_min", 0.0)
-    r_best_pace = running_analytics.get("best_pace_formatted", "—")
-    r_longest = running_analytics.get("longest_run_km", 0.0)
-    r_peak_hr = running_analytics.get("max_hr")
-    r_avg_hr = running_analytics.get("avg_hr")
-    r_tot_load = running_analytics.get("total_load", 0.0)
-    r_zones = running_analytics.get("pace_zones", [])
+    runs_list = running_analytics.get("runs", [])
+    tot_run_dist = running_analytics.get("total_distance_km", 0.0)
+    best_run_pace = running_analytics.get("fastest_pace_formatted", "—")
+    longest_run = running_analytics.get("longest_run_km", 0.0)
+    peak_run_hr = running_analytics.get("peak_hr")
+    tot_run_load = running_analytics.get("total_load", 0)
 
-    if r_runs:
-        # High-Contrast Running KPI Cards
-        rc1, rc2, rc3, rc4, rc5 = st.columns(5)
-
-        with rc1:
-            st.markdown(
-                f"""
-                <div class="kpi-card">
-                    <div class="kpi-label label-run">🏃 Total Distance</div>
-                    <div class="kpi-value">{r_tot_dist:.2f} <span style="font-size: 1.1rem; color: #94A3B8;">km</span></div>
-                    <div class="kpi-sub">{r_tot_runs} completed runs</div>
-                </div>
-                """,
-                unsafe_allow_html=True,
-            )
-
-        with rc2:
-            st.markdown(
-                f"""
-                <div class="kpi-card">
-                    <div class="kpi-label label-swim">⚡ Best Pace</div>
-                    <div class="kpi-value" style="font-size: 1.6rem;">{r_best_pace}</div>
-                    <div class="kpi-sub">Fastest average pace</div>
-                </div>
-                """,
-                unsafe_allow_html=True,
-            )
-
-        with rc3:
-            st.markdown(
-                f"""
-                <div class="kpi-card">
-                    <div class="kpi-label label-ride">📍 Longest Run</div>
-                    <div class="kpi-value">{r_longest:.2f} <span style="font-size: 1.1rem; color: #94A3B8;">km</span></div>
-                    <div class="kpi-sub">Max single session</div>
-                </div>
-                """,
-                unsafe_allow_html=True,
-            )
-
-        with rc4:
-            st.markdown(
-                f"""
-                <div class="kpi-card">
-                    <div class="kpi-label label-load">💓 Peak Heart Rate</div>
-                    <div class="kpi-value">{f"{r_peak_hr:.0f}" if r_peak_hr else "—"} <span style="font-size: 1.1rem; color: #94A3B8;">bpm</span></div>
-                    <div class="kpi-sub">Avg HR: {f"{r_avg_hr:.0f} bpm" if r_avg_hr else "—"}</div>
-                </div>
-                """,
-                unsafe_allow_html=True,
-            )
-
-        with rc5:
-            st.markdown(
-                f"""
-                <div class="kpi-card">
-                    <div class="kpi-label label-total">🔥 Total Run Load</div>
-                    <div class="kpi-value">{r_tot_load:.0f}</div>
-                    <div class="kpi-sub">{r_tot_time / 60:.1f} hours on road</div>
-                </div>
-                """,
-                unsafe_allow_html=True,
-            )
-
-        st.markdown("<br>", unsafe_allow_html=True)
-
-        # Charts Row
-        r_col1, r_col2 = st.columns(2)
-
-        with r_col1:
-            st.subheader("📊 Running Sessions Progression")
-            df_r_chart = pd.DataFrame(r_runs)
-            df_r_chart["formatted_date"] = df_r_chart["date"].apply(format_date_clean)
-
-            run_bar_chart = (
-                alt.Chart(df_r_chart)
-                .mark_bar(color="#EC4899", cornerRadiusTopLeft=5, cornerRadiusTopRight=5)
-                .encode(
-                    x=alt.X("formatted_date:N", title="Run Date", sort=None),
-                    y=alt.Y("distance_km:Q", title="Distance (km)"),
-                    tooltip=[
-                        alt.Tooltip("formatted_date:N", title="Date"),
-                        alt.Tooltip("name:N", title="Event / Name"),
-                        alt.Tooltip("distance_km:Q", title="Distance (km)", format=".2f"),
-                        alt.Tooltip("duration_min:Q", title="Duration (min)", format=".1f"),
-                        alt.Tooltip("pace_formatted:N", title="Avg Pace"),
-                        alt.Tooltip("avg_hr:Q", title="Avg HR (bpm)", format=".0f"),
-                        alt.Tooltip("training_load:Q", title="Load", format=".0f"),
-                    ],
-                )
-            )
-            st.altair_chart(apply_chart_theme(run_bar_chart, height=290), use_container_width=True)
-
-        with r_col2:
-            st.subheader("🔥 Cardiovascular Load & Heart Rate")
-            hr_runs = [r for r in r_runs if r.get("avg_hr")]
-            if hr_runs:
-                df_hr_chart = pd.DataFrame(hr_runs)
-                df_hr_chart["formatted_date"] = df_hr_chart["date"].apply(format_date_clean)
-                hr_chart = (
-                    alt.Chart(df_hr_chart)
-                    .mark_bar(color="#F43F5E", cornerRadiusTopLeft=5, cornerRadiusTopRight=5)
-                    .encode(
-                        x=alt.X("formatted_date:N", title="Run Date", sort=None),
-                        y=alt.Y("avg_hr:Q", title="Average Heart Rate (bpm)", scale=alt.Scale(domain=[100, 210])),
-                        tooltip=[
-                            alt.Tooltip("formatted_date:N", title="Date"),
-                            alt.Tooltip("name:N", title="Name"),
-                            alt.Tooltip("avg_hr:Q", title="Avg HR (bpm)", format=".0f"),
-                            alt.Tooltip("max_hr:Q", title="Max HR (bpm)", format=".0f"),
-                            alt.Tooltip("training_load:Q", title="Relative Effort", format=".0f"),
-                        ],
-                    )
-                )
-                st.altair_chart(apply_chart_theme(hr_chart, height=290), use_container_width=True)
-            else:
-                st.info("Heart rate data is available on NoiseFit / Strava synced runs.")
-
-        st.markdown("---")
-
-        # Kilometer Splits Explorer
-        st.subheader("⏱️ GPS Kilometer Splits Breakdown")
-        st.caption("Exact per-kilometer pace breakdown parsed directly from GPX track telemetry")
-
-        run_options = {
-            f"{format_date_clean(r.get('date'))} · {r.get('name')} ({r.get('distance_km', 0):.2f} km · Pace: {r.get('pace_formatted')})": r
-            for r in r_runs
-        }
-
-        selected_run_label = st.selectbox(
-            "Select Run Session to Inspect Splits",
-            list(run_options.keys()),
-            index=0,
-            key="running_splits_selector",
+    # 1. Running KPIs
+    c_r1, c_r2, c_r3, c_r4, c_r5 = st.columns(5)
+    with c_r1:
+        st.markdown(
+            f"""
+            <div class="kpi-card">
+                <div class="kpi-label label-run">🏃 Total Distance</div>
+                <div class="kpi-value">{tot_run_dist:.2f} <span style="font-size: 1rem; color: #94A3B8;">km</span></div>
+                <div class="kpi-sub">{len(runs_list)} completed runs</div>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
+    with c_r2:
+        st.markdown(
+            f"""
+            <div class="kpi-card">
+                <div class="kpi-label label-run">⚡ Best Pace</div>
+                <div class="kpi-value">{best_run_pace}</div>
+                <div class="kpi-sub">Fastest average pace</div>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
+    with c_r3:
+        st.markdown(
+            f"""
+            <div class="kpi-card">
+                <div class="kpi-label label-run">📍 Longest Run</div>
+                <div class="kpi-value">{longest_run:.2f} <span style="font-size: 1rem; color: #94A3B8;">km</span></div>
+                <div class="kpi-sub">Max single session</div>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
+    with c_r4:
+        st.markdown(
+            f"""
+            <div class="kpi-card">
+                <div class="kpi-label label-run">❤️ Peak Heart Rate</div>
+                <div class="kpi-value">{f"{peak_run_hr}" if peak_run_hr else "—"} <span style="font-size: 1rem; color: #94A3B8;">bpm</span></div>
+                <div class="kpi-sub">Garmin HR monitor</div>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
+    with c_r5:
+        st.markdown(
+            f"""
+            <div class="kpi-card">
+                <div class="kpi-label label-run">🔥 Total Run Load</div>
+                <div class="kpi-value">{tot_run_load:.0f}</div>
+                <div class="kpi-sub">Cardiovascular load</div>
+            </div>
+            """,
+            unsafe_allow_html=True,
         )
 
-        chosen_run = run_options[selected_run_label]
-        splits = chosen_run.get("splits", [])
+    # 2. Running Pace Zones
+    st.markdown("### 🎯 5-Zone Running Pace Guidelines")
+    r_zones = running_analytics.get("pace_zones", {})
+    if r_zones:
+        r_zone_rows = [
+            {"Zone": "Zone 1: Recovery / Easy", "Pace Range (/km)": f"{r_zones.get('easy', {}).get('pace_range', '—')}", "Effort": "Zone 1-2 (60-70% Max HR)", "Purpose": "Warm-up, cool-down, active recovery"},
+            {"Zone": "Zone 2: Aerobic Base", "Pace Range (/km)": f"{r_zones.get('aerobic', {}).get('pace_range', '—')}", "Effort": "Zone 2 (70-78% Max HR)", "Purpose": "Aerobic endurance & fat oxidation"},
+            {"Zone": "Zone 3: Tempo / Marathon", "Pace Range (/km)": f"{r_zones.get('tempo', {}).get('pace_range', '—')}", "Effort": "Zone 3 (78-85% Max HR)", "Purpose": "Sustained rhythm & race stamina"},
+            {"Zone": "Zone 4: Threshold / 5K-10K", "Pace Range (/km)": f"{r_zones.get('threshold', {}).get('pace_range', '—')}", "Effort": "Zone 4 (85-92% Max HR)", "Purpose": "Lactate threshold & VO2 max capacity"},
+            {"Zone": "Zone 5: Interval / Sprint", "Pace Range (/km)": f"{r_zones.get('interval', {}).get('pace_range', '—')}", "Effort": "Zone 5 (92-100% Max HR)", "Purpose": "Top speed, neuromuscular power"},
+        ]
+        st.dataframe(pd.DataFrame(r_zone_rows), use_container_width=True, hide_index=True)
 
-        if splits:
-            split_cols = st.columns([3, 2])
+    # 3. Running Charts
+    if runs_list:
+        st.markdown("### 📈 Running Progression")
+        r_df = pd.DataFrame(runs_list)
+        r_df["date_clean"] = r_df["date"].apply(lambda d: str(d)[:10])
+        r_c1, r_c2 = st.columns(2)
+        with r_c1:
+            c_r_dist = alt.Chart(r_df).mark_bar(color="#DB2777", cornerRadiusTopLeft=6, cornerRadiusTopRight=6).encode(
+                x=alt.X("date_clean:N", title="Run Date"),
+                y=alt.Y("distance_km:Q", title="Distance (km)"),
+                tooltip=["date_clean", "name", "distance_km", "duration_min", "pace_formatted", "avg_hr"],
+            ).properties(title="Running Sessions Progression")
+            st.altair_chart(apply_chart_theme(c_r_dist), use_container_width=True)
 
-            with split_cols[0]:
-                st.markdown("##### 🏃 Kilometer Splits Chart")
-                df_splits = pd.DataFrame(splits)
-                df_splits["pace_sec"] = df_splits["duration_sec"]
+        with r_c2:
+            c_r_hr = alt.Chart(r_df).mark_line(point=True, color="#F87171").encode(
+                x=alt.X("date_clean:N", title="Run Date"),
+                y=alt.Y("avg_hr:Q", title="Avg HR (bpm)", scale=alt.Scale(zero=False)),
+                tooltip=["date_clean", "name", "avg_hr", "max_hr", "calories", "training_load"],
+            ).properties(title="Cardiovascular Load & Heart Rate")
+            st.altair_chart(apply_chart_theme(c_r_hr), use_container_width=True)
 
-                splits_bar = (
-                    alt.Chart(df_splits)
-                    .mark_bar(color="#38BDF8", cornerRadiusTopLeft=4, cornerRadiusTopRight=4)
-                    .encode(
-                        x=alt.X("split:N", title="Kilometer Split", sort=None),
-                        y=alt.Y("duration_sec:Q", title="Split Duration (seconds)"),
-                        tooltip=[
-                            alt.Tooltip("split:N", title="Split"),
-                            alt.Tooltip("distance:N", title="Distance"),
-                            alt.Tooltip("pace:N", title="Pace"),
-                            alt.Tooltip("duration_sec:Q", title="Seconds", format=".1f"),
-                        ],
+    # 4. GPS 1-km Splits Inspector
+    st.markdown("---")
+    st.markdown("### ⏱️ GPS Kilometer Splits Breakdown")
+    splits_found = False
+    for r_act in runs_list:
+        s_list = r_act.get("splits", [])
+        if s_list:
+            splits_found = True
+            with st.expander(f"🏃 {r_act.get('name', 'Run')} — {format_date_clean(r_act.get('date'))} ({r_act.get('distance_km', 0):.2f} km @ {r_act.get('pace_formatted', '—')})", expanded=True):
+                split_rows = []
+                for sp in s_list:
+                    split_rows.append({
+                        "Kilometer": f"Km {sp.get('split_km')}",
+                        "Split Time": sp.get("split_time_formatted"),
+                        "Pace (/km)": sp.get("pace_formatted"),
+                        "Elapsed Time": sp.get("elapsed_time_formatted"),
+                        "Elev Gain": f"+{sp.get('elevation_gain_m', 0):.0f} m",
+                        "Diff vs Avg": sp.get("pace_diff_formatted"),
+                    })
+                st.dataframe(pd.DataFrame(split_rows), use_container_width=True, hide_index=True)
+
+    # 5. Media Gallery (Photos)
+    st.markdown("---")
+    st.markdown("### 📸 Race & Workout Gallery")
+    media_runs = [r for r in runs_list if r.get("media")]
+    if media_runs:
+        g_cols = st.columns(4)
+        col_idx = 0
+        for m_act in media_runs:
+            for m_item in m_act.get("media", []):
+                p_file = get_strava_media_path(m_item.get("filename"))
+                if p_file and p_file.exists():
+                    with g_cols[col_idx % 4]:
+                        st.image(str(p_file), caption=f"{m_act.get('name')} ({format_date_clean(m_act.get('date'))})", use_container_width=True)
+                    col_idx += 1
+
+
+# ============================================================
+# TAB 4: 🚴 CYCLING
+# ============================================================
+
+with tab_cycling:
+    st.markdown("## 🚴 Cycling Analytics & Power Telemetry")
+    st.markdown("Aggregated from Garmin & Strava cycling sessions.")
+
+    rides_list = cycling_analytics.get("rides", [])
+    tot_ride_dist = cycling_analytics.get("total_distance_km", 0.0)
+    tot_ride_time = cycling_analytics.get("total_moving_min", 0.0)
+    avg_ride_speed = cycling_analytics.get("avg_speed_kmh")
+    fastest_ride_speed = cycling_analytics.get("fastest_speed_kmh")
+    tot_ride_elev = cycling_analytics.get("total_elevation_m", 0.0)
+    longest_ride_val = cycling_analytics.get("longest_ride_km", 0.0)
+
+    # 1. Cycling KPIs
+    c_b1, c_b2, c_b3, c_b4, c_b5, c_b6 = st.columns(6)
+    with c_b1:
+        st.markdown(
+            f"""
+            <div class="kpi-card">
+                <div class="kpi-label label-ride">Total Distance</div>
+                <div class="kpi-value">{tot_ride_dist:.2f} <span style="font-size: 1rem; color: #94A3B8;">km</span></div>
+                <div class="kpi-sub">{len(rides_list)} rides completed</div>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
+    with c_b2:
+        st.markdown(
+            f"""
+            <div class="kpi-card">
+                <div class="kpi-label label-ride">Active Time</div>
+                <div class="kpi-value">{format_duration_hm(tot_ride_time)}</div>
+                <div class="kpi-sub">{tot_ride_time:.0f} moving mins</div>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
+    with c_b3:
+        st.markdown(
+            f"""
+            <div class="kpi-card">
+                <div class="kpi-label label-ride">Avg Speed</div>
+                <div class="kpi-value">{f"{avg_ride_speed:.1f}" if avg_ride_speed else "—"} <span style="font-size: 1rem; color: #94A3B8;">km/h</span></div>
+                <div class="kpi-sub">Overall average</div>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
+    with c_b4:
+        st.markdown(
+            f"""
+            <div class="kpi-card">
+                <div class="kpi-label label-ride">Fastest Speed</div>
+                <div class="kpi-value">{f"{fastest_ride_speed:.1f}" if fastest_ride_speed else "—"} <span style="font-size: 1rem; color: #94A3B8;">km/h</span></div>
+                <div class="kpi-sub">Top sustained avg</div>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
+    with c_b5:
+        st.markdown(
+            f"""
+            <div class="kpi-card">
+                <div class="kpi-label label-ride">Elevation Gain</div>
+                <div class="kpi-value">{tot_ride_elev:.0f} <span style="font-size: 1rem; color: #94A3B8;">m</span></div>
+                <div class="kpi-sub">Climbing elevation</div>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
+    with c_b6:
+        st.markdown(
+            f"""
+            <div class="kpi-card">
+                <div class="kpi-label label-ride">Longest Ride</div>
+                <div class="kpi-value">{longest_ride_val:.2f} <span style="font-size: 1rem; color: #94A3B8;">km</span></div>
+                <div class="kpi-sub">Single session record</div>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
+
+    # 2. Cycling Charts
+    if rides_list:
+        st.markdown("### 📈 Cycling Progression")
+        ride_df = pd.DataFrame(rides_list)
+        ride_df["date_clean"] = ride_df["date"].apply(lambda d: str(d)[:10])
+        b_c1, b_c2 = st.columns(2)
+        with b_c1:
+            c_b_dist = alt.Chart(ride_df).mark_bar(color="#059669", cornerRadiusTopLeft=6, cornerRadiusTopRight=6).encode(
+                x=alt.X("date_clean:N", title="Ride Date"),
+                y=alt.Y("distance_km:Q", title="Distance (km)"),
+                tooltip=["date_clean", "name", "distance_km", "moving_time_min", "computed_speed_kmh", "avg_hr"],
+            ).properties(title="Ride Distance Progression")
+            st.altair_chart(apply_chart_theme(c_b_dist), use_container_width=True)
+
+        with b_c2:
+            c_b_spd = alt.Chart(ride_df).mark_line(point=True, color="#4ADE80").encode(
+                x=alt.X("date_clean:N", title="Ride Date"),
+                y=alt.Y("computed_speed_kmh:Q", title="Speed (km/h)", scale=alt.Scale(zero=False)),
+                tooltip=["date_clean", "name", "computed_speed_kmh", "elevation_m", "avg_hr"],
+            ).properties(title="Speed (km/h) Progression")
+            st.altair_chart(apply_chart_theme(c_b_spd), use_container_width=True)
+
+    # 3. Cycling Activity Log
+    st.markdown("### 📋 Cycling Activity History")
+    if rides_list:
+        r_table_rows = []
+        for r in rides_list:
+            r_table_rows.append({
+                "Date": format_date_clean(r.get("date")),
+                "Ride Name": r.get("name", "Ride"),
+                "Distance (km)": f"{r.get('distance_km', 0):.2f} km",
+                "Duration": format_duration_hm(r.get("moving_time_min", 0)),
+                "Avg Speed": f"{r.get('computed_speed_kmh', 0):.1f} km/h" if r.get("computed_speed_kmh") else "—",
+                "Elevation Gain": f"{r.get('elevation_m', 0):.0f} m" if r.get("elevation_m") else "—",
+                "Avg HR": f"{r.get('avg_hr', 0):.0f} bpm" if r.get("avg_hr") else "—",
+                "Calories": f"{r.get('calories', 0):,} kcal" if r.get("calories") else "—",
+            })
+        st.dataframe(pd.DataFrame(r_table_rows), use_container_width=True, hide_index=True)
+
+
+# ============================================================
+# TAB 5: 🚶 WALKING
+# ============================================================
+
+with tab_walking:
+    st.markdown("## 🚶 Walking Analytics & Consistency")
+    st.markdown("Tracked walking sessions and daily step telemetry from Garmin.")
+
+    walks_list = walking_analytics.get("walks", [])
+    tot_walk_dist = walking_analytics.get("total_distance_km", 0.0)
+    tot_walk_time = walking_analytics.get("total_moving_min", 0.0)
+    avg_walk_pace = walking_analytics.get("avg_pace_formatted", "—")
+    longest_walk_val = walking_analytics.get("longest_walk_km", 0.0)
+    active_walk_days = walking_analytics.get("active_days", 0)
+    avg_daily_walk_km = walking_analytics.get("avg_daily_km", 0.0)
+
+    # 1. Walking KPIs
+    c_w1, c_w2, c_w3, c_w4, c_w5 = st.columns(5)
+    with c_w1:
+        st.markdown(
+            f"""
+            <div class="kpi-card">
+                <div class="kpi-label label-walk">Total Distance</div>
+                <div class="kpi-value">{tot_walk_dist:.2f} <span style="font-size: 1rem; color: #94A3B8;">km</span></div>
+                <div class="kpi-sub">{len(walks_list)} recorded walks</div>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
+    with c_w2:
+        st.markdown(
+            f"""
+            <div class="kpi-card">
+                <div class="kpi-label label-walk">Active Time</div>
+                <div class="kpi-value">{format_duration_hm(tot_walk_time)}</div>
+                <div class="kpi-sub">{tot_walk_time:.0f} moving mins</div>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
+    with c_w3:
+        st.markdown(
+            f"""
+            <div class="kpi-card">
+                <div class="kpi-label label-walk">Average Pace</div>
+                <div class="kpi-value">{avg_walk_pace}</div>
+                <div class="kpi-sub">Overall pace /km</div>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
+    with c_w4:
+        st.markdown(
+            f"""
+            <div class="kpi-card">
+                <div class="kpi-label label-walk">Longest Walk</div>
+                <div class="kpi-value">{longest_walk_val:.2f} <span style="font-size: 1rem; color: #94A3B8;">km</span></div>
+                <div class="kpi-sub">Max single session</div>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
+    with c_w5:
+        st.markdown(
+            f"""
+            <div class="kpi-card">
+                <div class="kpi-label label-walk">Daily Average</div>
+                <div class="kpi-value">{avg_daily_walk_km:.2f} <span style="font-size: 1rem; color: #94A3B8;">km</span></div>
+                <div class="kpi-sub">across {active_walk_days} active days</div>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
+
+    # 2. Walking Charts
+    if walks_list:
+        st.markdown("### 📈 Walking Progression")
+        w_df = pd.DataFrame(walks_list)
+        w_df["date_clean"] = w_df["date"].apply(lambda d: str(d)[:10])
+        w_c1, w_c2 = st.columns(2)
+        with w_c1:
+            c_w_dist = alt.Chart(w_df).mark_bar(color="#D97706", cornerRadiusTopLeft=6, cornerRadiusTopRight=6).encode(
+                x=alt.X("date_clean:N", title="Walk Date"),
+                y=alt.Y("distance_km:Q", title="Distance (km)"),
+                tooltip=["date_clean", "name", "distance_km", "duration_min", "computed_pace_formatted", "avg_hr"],
+            ).properties(title="Walk Distance Progression")
+            st.altair_chart(apply_chart_theme(c_w_dist), use_container_width=True)
+
+        with w_c2:
+            c_w_hr = alt.Chart(w_df).mark_line(point=True, color="#FBBF24").encode(
+                x=alt.X("date_clean:N", title="Walk Date"),
+                y=alt.Y("avg_hr:Q", title="Avg HR (bpm)", scale=alt.Scale(zero=False)),
+                tooltip=["date_clean", "name", "avg_hr", "max_hr", "calories"],
+            ).properties(title="Heart Rate & Exertion")
+            st.altair_chart(apply_chart_theme(c_w_hr), use_container_width=True)
+
+
+# ============================================================
+# TAB 6: 😴 SLEEP & RECOVERY
+# ============================================================
+
+with tab_sleep:
+    st.markdown("## 😴 Garmin Sleep & Recovery Telemetry")
+    st.markdown("Comprehensive sleep duration, sleep scores, overnight HRV, and resting heart rate trends.")
+
+    sl_dur_fmt = sleep_analytics.get("avg_duration_formatted", "—")
+    sl_score = sleep_analytics.get("avg_sleep_score")
+    sl_hrv = sleep_analytics.get("avg_hrv")
+    sl_rhr = sleep_analytics.get("avg_resting_hr")
+    sl_days = sleep_analytics.get("total_days_tracked", 0)
+    sl_dur_diff = sleep_analytics.get("duration_vs_prev_min")
+    sl_score_diff = sleep_analytics.get("score_vs_prev")
+
+    # 1. Sleep KPIs
+    c_sl1, c_sl2, c_sl3, c_sl4, c_sl5 = st.columns(5)
+    with c_sl1:
+        st.markdown(
+            f"""
+            <div class="kpi-card">
+                <div class="kpi-label label-workout">Average Sleep</div>
+                <div class="kpi-value">{sl_dur_fmt}</div>
+                <div class="kpi-sub">{f"{sl_dur_diff:+d} min vs prior" if sl_dur_diff is not None else "Baseline period"}</div>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
+    with c_sl2:
+        st.markdown(
+            f"""
+            <div class="kpi-card">
+                <div class="kpi-label label-workout">Avg Sleep Score</div>
+                <div class="kpi-value">{f"{sl_score:.0f}" if sl_score else "—"} <span style="font-size: 1rem; color: #94A3B8;">/ 100</span></div>
+                <div class="kpi-sub">{f"{sl_score_diff:+.1f} pts vs prior" if sl_score_diff is not None else "Garmin Score"}</div>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
+    with c_sl3:
+        st.markdown(
+            f"""
+            <div class="kpi-card">
+                <div class="kpi-label label-swim">Avg Overnight HRV</div>
+                <div class="kpi-value">{f"{sl_hrv:.0f}" if sl_hrv else "—"} <span style="font-size: 1rem; color: #94A3B8;">ms</span></div>
+                <div class="kpi-sub">Autonomic recovery</div>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
+    with c_sl4:
+        st.markdown(
+            f"""
+            <div class="kpi-card">
+                <div class="kpi-label label-ride">Avg Resting HR</div>
+                <div class="kpi-value">{f"{sl_rhr:.0f}" if sl_rhr else "—"} <span style="font-size: 1rem; color: #94A3B8;">bpm</span></div>
+                <div class="kpi-sub">Cardiovascular rest</div>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
+    with c_sl5:
+        st.markdown(
+            f"""
+            <div class="kpi-card">
+                <div class="kpi-label label-total">Tracked Nights</div>
+                <div class="kpi-value">{sl_days}</div>
+                <div class="kpi-sub">Garmin 965 sensor</div>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
+
+    # 2. Sleep Charts
+    sl_trends = sleep_analytics.get("daily_trends", [])
+    if sl_trends:
+        st.markdown("### 📈 Sleep & Recovery Progression")
+        sl_df = pd.DataFrame(sl_trends)
+        sl_c1, sl_c2 = st.columns(2)
+        with sl_c1:
+            c_sl_dur = alt.Chart(sl_df).mark_bar(color="#8B5CF6", cornerRadiusTopLeft=6, cornerRadiusTopRight=6).encode(
+                x=alt.X("date:N", title="Date"),
+                y=alt.Y("duration_hours:Q", title="Sleep Duration (hours)"),
+                tooltip=["date", "duration_formatted", "score", "quality", "resting_hr", "hrv"],
+            ).properties(title="Daily Sleep Duration (Hours)")
+            st.altair_chart(apply_chart_theme(c_sl_dur), use_container_width=True)
+
+        with sl_c2:
+            c_sl_hrv = alt.Chart(sl_df).mark_line(point=True, color="#00D2FF").encode(
+                x=alt.X("date:N", title="Date"),
+                y=alt.Y("hrv:Q", title="Overnight HRV (ms)", scale=alt.Scale(zero=False)),
+                tooltip=["date", "hrv", "resting_hr", "score"],
+            ).properties(title="Overnight HRV & Resting HR Progression")
+            st.altair_chart(apply_chart_theme(c_sl_hrv), use_container_width=True)
+
+        st.markdown("### 📋 Sleep & Recovery Telemetry Log")
+        sl_table = []
+        for st_item in reversed(sl_trends):
+            if st_item.get("duration_hours") or st_item.get("resting_hr"):
+                sl_table.append({
+                    "Date": format_date_clean(st_item.get("date")),
+                    "Sleep Duration": st_item.get("duration_formatted", "—"),
+                    "Sleep Score": f"{st_item.get('score'):.0f} / 100" if st_item.get("score") else "—",
+                    "Overnight HRV": f"{st_item.get('hrv'):.0f} ms" if st_item.get("hrv") else "—",
+                    "Resting HR": f"{st_item.get('resting_hr'):.0f} bpm" if st_item.get("resting_hr") else "—",
+                    "Daily Steps": f"{st_item.get('steps'):,}" if st_item.get("steps") else "—",
+                })
+        st.dataframe(pd.DataFrame(sl_table), use_container_width=True, hide_index=True)
+
+
+# ============================================================
+# TAB 7: 📊 PERFORMANCE
+# ============================================================
+
+with tab_performance:
+    st.markdown("## 📊 Cross-Sport Performance & Volume")
+    st.markdown("Multi-sport training distribution, cross-training volume, and cardiovascular progression.")
+
+    # 1. Multi-Sport Stacked Weekly Volume
+    w_multi = performance_analytics.get("weekly_multi_sport", [])
+    if w_multi:
+        st.markdown("### 📈 Weekly Multi-Sport Volume Breakdown")
+        w_m_df = pd.DataFrame(w_multi)
+        c_multi = alt.Chart(w_m_df).mark_bar().encode(
+            x=alt.X("week:N", title="Training Week"),
+            y=alt.Y("hours:Q", title="Active Volume (Hours)"),
+            color=alt.Color(
+                "sport:N",
+                scale=alt.Scale(
+                    domain=["Swim", "Run", "Ride", "Walk", "Workout", "Other"],
+                    range=["#0284C7", "#DB2777", "#059669", "#D97706", "#7C3AED", "#94A3B8"],
+                ),
+                title="Sport",
+            ),
+            tooltip=["week", "sport", "hours", "distance_km", "sessions", "load"],
+        ).properties(title="Weekly Active Hours by Sport (Stacked)")
+        st.altair_chart(apply_chart_theme(c_multi), use_container_width=True)
+
+    # 2. Sport Distribution & Time Split
+    st.markdown("### 🍰 Sport Distribution & Training Allocation")
+    dist_map = performance_analytics.get("sport_distribution", {})
+    if dist_map:
+        dist_rows = []
+        for sp_k, sp_v in dist_map.items():
+            dist_rows.append({
+                "Sport": f"{get_sport_icon(sp_k)} {sp_k}",
+                "Sessions": sp_v.get("count"),
+                "Total Distance": f"{sp_v.get('distance_km', 0):.2f} km",
+                "Total Time": f"{sp_v.get('hours', 0):.1f} hours",
+                "Training Load": f"{sp_v.get('load', 0):.0f}",
+                "Energy (Calories)": f"{sp_v.get('calories', 0):,} kcal",
+                "% of Total Time": f"{sp_v.get('percentage_time', 0):.1f}%",
+            })
+        st.dataframe(pd.DataFrame(dist_rows), use_container_width=True, hide_index=True)
+
+
+# ============================================================
+# TAB 8: 📅 CALENDAR
+# ============================================================
+
+with tab_calendar:
+    st.markdown("## 📅 Interactive Fitness Calendar")
+    st.markdown("Color-coded activity calendar with multi-sport session inspector.")
+
+    # Month selector
+    cal_col1, cal_col2 = st.columns([1, 3])
+    with cal_col1:
+        current_year = today_date.year
+        current_month = today_date.month
+        month_names = list(calendar.month_name)[1:]
+        sel_month_name = st.selectbox("Select Month", month_names, index=current_month - 1)
+        sel_month = month_names.index(sel_month_name) + 1
+        sel_year = st.selectbox("Select Year", [2024, 2025, 2026], index=2)
+
+    # Activity map by date
+    act_by_date = {}
+    for a in all_activities:
+        d = a.get("date")
+        if d:
+            k = d[:10]
+            if k not in act_by_date:
+                act_by_date[k] = []
+            act_by_date[k].append(a)
+
+    cal_matrix = calendar.monthcalendar(sel_year, sel_month)
+    day_headers = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
+
+    # Header row
+    h_cols = st.columns(7)
+    for idx, day_name in enumerate(day_headers):
+        h_cols[idx].markdown(f"**{day_name}**")
+
+    # Calendar rows
+    for week in cal_matrix:
+        w_cols = st.columns(7)
+        for d_idx, day_num in enumerate(week):
+            if day_num == 0:
+                w_cols[d_idx].markdown("<div class='cal-cell' style='opacity: 0.2;'></div>", unsafe_allow_html=True)
+            else:
+                d_str = f"{sel_year:04d}-{sel_month:02d}-{day_num:02d}"
+                acts = act_by_date.get(d_str, [])
+
+                badge_html = ""
+                if acts:
+                    for act_item in acts:
+                        sp_name = act_item.get("sport", "Activity")
+                        chip_cls = get_sport_chip_class(sp_name)
+                        d_km = act_item.get("distance_km") or 0.0
+                        dur_m = act_item.get("moving_time_min") or act_item.get("duration_min") or 0.0
+                        label = f"{get_sport_icon(sp_name)} {d_km:.1f}k" if d_km > 0 else f"{get_sport_icon(sp_name)} {dur_m:.0f}m"
+                        badge_html += f"<span class='cal-badge {chip_cls}'>{label}</span>"
+                else:
+                    badge_html = "<span style='font-size: 0.72rem; color: #475569;'>Rest</span>"
+
+                is_today = (d_str == str(today_date))
+                border_style = "border: 2px solid #00D2FF;" if is_today else "border: 1px solid #23324A;"
+
+                w_cols[d_idx].markdown(
+                    f"""
+                    <div class="cal-cell" style="{border_style}">
+                        <div class="cal-date-num" style="{'color: #00D2FF !important;' if is_today else ''}">{day_num}</div>
+                        {badge_html}
+                    </div>
+                    """,
+                    unsafe_allow_html=True,
+                )
+
+    # Interactive Day Inspector
+    st.markdown("---")
+    st.markdown("### 🔍 Day Inspector")
+    insp_date = st.date_input("Select Date to Inspect", value=today_date)
+    insp_str = str(insp_date)
+    day_acts = act_by_date.get(insp_str, [])
+    day_wel = next((w for w in wellness_records if str(w.get("id") or w.get("date") or "")[:10] == insp_str), None)
+
+    if day_acts or day_wel:
+        st.markdown(f"#### Activities & Sleep on `{format_date_clean(insp_str)}`")
+        if day_wel and day_wel.get("sleepSecs"):
+            sl_s = day_wel.get("sleepSecs", 0)
+            st.info(f"🛌 **Garmin Sleep Log:** `{sl_s//3600}h {(sl_s%3600)//60:02d}m` · Score: `{day_wel.get('sleepScore', '—')}/100` · HRV: `{day_wel.get('hrv', '—')} ms` · RHR: `{day_wel.get('restingHR', '—')} bpm`")
+
+        if day_acts:
+            for da in day_acts:
+                sp = da.get("sport", "Activity")
+                with st.expander(f"{get_sport_icon(sp)} {da.get('name', sp)} ({sp}) — {da.get('distance_km', 0):.2f} km in {format_duration_hm(da.get('moving_time_min', 0))}", expanded=True):
+                    st.markdown(
+                        f"""
+                        - **Distance:** `{da.get('distance_km', 0):.2f} km`
+                        - **Moving Time:** `{da.get('moving_time_min', 0):.1f} min` (Elapsed: `{da.get('duration_min', 0):.1f} min`)
+                        - **Average Heart Rate:** `{da.get('avg_hr', '—')} bpm` (Max: `{da.get('max_hr', '—')} bpm`)
+                        - **Active Energy:** `{da.get('calories', '—')} kcal`
+                        - **Training Load:** `{da.get('training_load', '—')}`
+                        - **Source:** `{da.get('source', 'Garmin')}`
+                        """
                     )
-                )
-                st.altair_chart(apply_chart_theme(splits_bar, height=260), use_container_width=True)
-
-            with split_cols[1]:
-                st.markdown("##### 📋 Split Telemetry Log")
-                st.dataframe(
-                    df_splits[["split", "distance", "pace"]].rename(
-                        columns={"split": "Split", "distance": "Segment Dist", "pace": "Pace (/km)"}
-                    ),
-                    use_container_width=True,
-                    hide_index=True,
-                )
         else:
-            st.info("Kilometer splits are generated from GPX track files attached to this run.")
-
-        st.markdown("---")
-
-        # Personalized Running Pace Zones
-        st.subheader("🎯 Personalized Running Pace Zones")
-        st.caption(f"Calculated from your best 5K race pace ({r_best_pace})")
-
-        if r_zones:
-            st.dataframe(pd.DataFrame(r_zones), use_container_width=True, hide_index=True)
-
-        st.markdown("---")
-
-        # Race Photos & Media Gallery
-        media_runs = [r for r in r_runs if r.get("media")]
-        if media_runs:
-            st.subheader("📸 Race & Run Photos Gallery")
-            for mr in media_runs:
-                st.markdown(f"**{format_date_clean(mr.get('date'))} · {mr.get('name')} ({mr.get('distance_km', 0):.2f} km)**")
-                if mr.get("description"):
-                    st.caption(f"*{mr.get('description')}*")
-                m_list = mr.get("media", [])
-                p_cols = st.columns(min(len(m_list), 4) or 1)
-                for p_idx, p_rel in enumerate(m_list):
-                    img_path = get_strava_media_path(p_rel)
-                    if img_path and img_path.exists():
-                        with p_cols[p_idx % len(p_cols)]:
-                            st.image(str(img_path), caption=f"Photo #{p_idx+1}", width=240)
+            st.info("Rest day — no workout sessions logged.")
     else:
-        st.info("No running sessions recorded in the selected window. Switch time window to 'All Time' to view all historical runs.")
+        st.info(f"No activities or sleep records on {format_date_clean(insp_str)}.")
 
 
 # ============================================================
-# TAB 7: DAILY ACTIVITY DEEP DIVE
+# TAB 9: 📈 TRAINING LOAD
 # ============================================================
 
-with tab_activities:
-    st.header("📋 Daily Activity Deep Dive")
+with tab_load:
+    st.markdown("## 📈 Training Load, Volume & Form")
+    st.markdown("Physiological load, weekly stress progression, and recovery balance.")
 
-    filter_col1, filter_col2, filter_col3, filter_col4 = st.columns([2, 2, 2, 3])
-
-    with filter_col1:
-        sport_filter = st.selectbox("Filter by Sport", ["All Sports", "Swim", "Ride", "Walk", "Run", "Workout"])
-
-    with filter_col2:
-        source_filter_deep = st.selectbox("Filter by Source", ["All Sources", "Garmin / Intervals.icu", "Strava"])
-
-    with filter_col3:
-        sort_order = st.selectbox("Sort Order", ["Newest First", "Oldest First", "Highest Load", "Longest Distance"])
-
-    with filter_col4:
-        search_query = st.text_input("🔍 Search Activity Name / Date / Notes", "")
-
-    filtered_acts = [
-        a for a in activities
-        if (sport_filter == "All Sports" or a.get("sport") == sport_filter)
-    ]
-
-    if source_filter_deep != "All Sources":
-        filtered_acts = [
-            a for a in filtered_acts
-            if source_filter_deep.lower() in a.get("source", "").lower()
-        ]
-
-    if search_query:
-        q = search_query.lower()
-        filtered_acts = [
-            a for a in filtered_acts
-            if q in a.get("name", "").lower() or q in a.get("date", "").lower() or q in a.get("description", "").lower()
-        ]
-
-    if sort_order == "Newest First":
-        filtered_acts = sorted(filtered_acts, key=lambda x: x.get("date", ""), reverse=True)
-    elif sort_order == "Oldest First":
-        filtered_acts = sorted(filtered_acts, key=lambda x: x.get("date", ""))
-    elif sort_order == "Highest Load":
-        filtered_acts = sorted(filtered_acts, key=lambda x: x.get("training_load") or 0, reverse=True)
-    elif sort_order == "Longest Distance":
-        filtered_acts = sorted(filtered_acts, key=lambda x: x.get("distance_km") or 0, reverse=True)
-
-    st.markdown(f"**Showing {len(filtered_acts)} activities**")
-
-    for a_idx, act in enumerate(filtered_acts, start=1):
-        sport = act.get("sport", "")
-        name = act.get("name", "Activity")
-        clean_date = format_date_clean(act.get("date", ""))
-        dist = act.get("distance_km") or 0
-        dur = act.get("duration_min") or 0
-        moving_time = act.get("moving_time_min") or 0
-        avg_hr = act.get("avg_hr")
-        max_hr = act.get("max_hr")
-        load = act.get("training_load") or 0
-        calories = act.get("calories")
-        source = act.get("source", "")
-        desc = act.get("description", "")
-        media_list = act.get("media", [])
-
-        icon = get_sport_icon(sport)
-
-        with st.expander(
-            f"{icon} {clean_date} · {name} · {dist:.2f} km · {dur:.0f} min · Load {load:.0f} [{source}]",
-            expanded=a_idx == 1,
-        ):
-            c1, c2, c3, c4, c5, c6 = st.columns(6)
-            c1.metric("Distance", f"{dist:.2f} km")
-            c2.metric("Duration", f"{dur:.1f} min")
-            c3.metric("Moving Time", f"{moving_time:.1f} min" if moving_time else "—")
-            c4.metric("Avg HR", f"{avg_hr:.0f} bpm" if avg_hr else "—")
-            c5.metric("Max HR", f"{max_hr:.0f} bpm" if max_hr else "—")
-            c6.metric("Training Load", f"{load:.0f}")
-
-            if desc:
-                st.markdown(f"📝 **Description / Athlete Notes:** *{desc}*")
-
-            if sport == "Swim":
-                st.markdown("##### 🏊 Swimming Breakdown")
-                sc1, sc2, sc3, sc4 = st.columns(4)
-                pool_l = act.get("pool_length_m")
-                pace_raw = act.get("pace")
-                laps_ct = act.get("lengths") or act.get("lap_count")
-
-                sc1.metric("Pool Length", f"{pool_l:.0f}m" if pool_l else "25m")
-                sc2.metric("Total Laps", laps_ct if laps_ct else "—")
-
-                if pace_raw is not None:
-                    p_sec = pace_raw * 100
-                    p_min = int(p_sec // 60)
-                    p_rem = int(round(p_sec % 60))
-                    sc3.metric("Avg Pace", f"{p_min}:{p_rem:02d}/100m")
-                else:
-                    sc3.metric("Avg Pace", "—")
-
-                sc4.metric("Calories", f"{calories:.0f} kcal" if calories else "—")
-
-                if act.get("interval_summary"):
-                    st.caption(f"**Interval Summary:** {act.get('interval_summary')}")
-
-            elif sport == "Ride":
-                st.markdown("##### 🚴 Cycling Breakdown")
-                rc1, rc2, rc3, rc4 = st.columns(4)
-                avg_speed = act.get("avg_speed")
-                max_speed = act.get("max_speed")
-                elevation = act.get("elevation_m")
-                power = act.get("avg_power")
-
-                rc1.metric("Avg Speed", f"{avg_speed * 3.6:.1f} km/h" if avg_speed else "—")
-                rc2.metric("Max Speed", f"{max_speed * 3.6:.1f} km/h" if max_speed else "—")
-                rc3.metric("Elevation Gain", f"{elevation:.0f}m" if elevation else "—")
-                rc4.metric("Avg Power", f"{power:.0f} W" if power else "—")
-
-            elif sport == "Run":
-                st.markdown("##### 🏃 Running Breakdown")
-                rnc1, rnc2, rnc3, rnc4 = st.columns(4)
-                avg_speed = act.get("avg_speed")
-                if avg_speed and avg_speed > 0:
-                    sec_per_km = 1000.0 / avg_speed
-                    run_pace_str = f"{int(sec_per_km // 60)}:{int(sec_per_km % 60):02d} /km"
-                else:
-                    run_pace_str = "—"
-
-                rnc1.metric("Avg Pace", run_pace_str)
-                rnc2.metric("Avg Speed", f"{avg_speed * 3.6:.1f} km/h" if avg_speed else "—")
-                rnc3.metric("Elevation Gain", f"{act.get('elevation_m', 0):.0f}m" if act.get('elevation_m') else "—")
-                rnc4.metric("Relative Effort", f"{act.get('relative_effort', '—')}")
-
-            # Photos & Media Gallery
-            if media_list:
-                st.markdown("##### 📸 Attached Photos & Media")
-                img_cols = st.columns(min(len(media_list), 4) or 1)
-                for m_idx, m_rel in enumerate(media_list):
-                    img_p = get_strava_media_path(m_rel)
-                    if img_p and img_p.exists():
-                        with img_cols[m_idx % len(img_cols)]:
-                            st.image(str(img_p), caption=f"Photo #{m_idx+1}", width=220)
-
-
-# ============================================================
-# TAB 7: WELLNESS & RECOVERY
-# ============================================================
-
-with tab_wellness:
-    st.header("💓 Wellness & Recovery (Intervals.icu)")
-
-    if wellness_records:
-        df_well = pd.DataFrame(wellness_records)
-        df_well["date"] = df_well["id"]
-        df_well["formatted_date"] = df_well["date"].apply(format_date_clean)
-
-        st.caption(f"Loaded **{len(wellness_records)}** daily wellness records")
-
-        w_col1, w_col2 = st.columns(2)
-
-        with w_col1:
-            st.subheader("Resting Heart Rate Trend")
-            if "restingHR" in df_well.columns and df_well["restingHR"].notnull().any():
-                chart_rhr = (
-                    alt.Chart(df_well.dropna(subset=["restingHR"]))
-                    .mark_line(point=alt.OverlayMarkDef(color="#F43F5E", size=50), color="#FB7185", strokeWidth=2.5)
-                    .encode(
-                        x=alt.X("formatted_date:N", title="Date"),
-                        y=alt.Y("restingHR:Q", title="Resting HR (bpm)", scale=alt.Scale(zero=False)),
-                        tooltip=[
-                            alt.Tooltip("formatted_date:N", title="Date"),
-                            alt.Tooltip("restingHR:Q", title="Resting HR (bpm)"),
-                            alt.Tooltip("ctl:Q", title="Fitness (CTL)", format=".1f"),
-                            alt.Tooltip("atl:Q", title="Fatigue (ATL)", format=".1f"),
-                        ],
-                    )
-                )
-                st.altair_chart(apply_chart_theme(chart_rhr, height=300), use_container_width=True)
-            else:
-                st.info("No resting heart rate data available.")
-
-        with w_col2:
-            st.subheader("Daily Step Count")
-            if "steps" in df_well.columns and df_well["steps"].notnull().any():
-                chart_steps = (
-                    alt.Chart(df_well.dropna(subset=["steps"]))
-                    .mark_bar(color="#FBBF24", cornerRadiusTopLeft=4, cornerRadiusTopRight=4)
-                    .encode(
-                        x=alt.X("formatted_date:N", title="Date"),
-                        y=alt.Y("steps:Q", title="Daily Steps"),
-                        tooltip=[
-                            alt.Tooltip("formatted_date:N", title="Date"),
-                            alt.Tooltip("steps:Q", title="Steps", format=","),
-                        ],
-                    )
-                )
-                st.altair_chart(apply_chart_theme(chart_steps, height=300), use_container_width=True)
-            else:
-                st.info("No step data available.")
-
-        st.markdown("---")
-        st.subheader("Daily Wellness Records Log")
-        display_cols = [c for c in ["date", "restingHR", "steps", "ctl", "atl", "rampRate", "readiness", "sleepSecs"] if c in df_well.columns]
-        
-        rename_map = {
-            "date": "Date",
-            "restingHR": "Resting HR (bpm)",
-            "steps": "Steps",
-            "ctl": "Fitness (CTL)",
-            "atl": "Fatigue (ATL)",
-            "rampRate": "Ramp Rate",
-            "readiness": "Readiness",
-            "sleepSecs": "Sleep (Sec)",
-        }
-        st.dataframe(
-            df_well[display_cols].rename(columns=rename_map).sort_values("Date", ascending=False),
-            use_container_width=True,
-            hide_index=True,
+    # Current vs Previous Week Comparison
+    c_wk1, c_wk2 = st.columns(2)
+    with c_wk1:
+        st.markdown(
+            f"""
+            <div class="kpi-card" style="border-left: 6px solid #00D2FF;">
+                <div class="kpi-label label-swim">Current 7-Day Window</div>
+                <div class="kpi-value">{sum(s.get('distance_km', 0) for s in current_week.values()):.2f} <span style="font-size: 1rem; color: #94A3B8;">km</span></div>
+                <div class="kpi-sub">Load: {sum(s.get('training_load', 0) for s in current_week.values()):.0f} · {sum(s.get('sessions', 0) for s in current_week.values())} sessions</div>
+            </div>
+            """,
+            unsafe_allow_html=True,
         )
-    else:
-        st.info("No wellness records found in the selected date range.")
+    with c_wk2:
+        st.markdown(
+            f"""
+            <div class="kpi-card" style="border-left: 6px solid #F59E0B;">
+                <div class="kpi-label" style="color: #F59E0B;">Previous 7-Day Window</div>
+                <div class="kpi-value">{sum(s.get('distance_km', 0) for s in previous_week.values()):.2f} <span style="font-size: 1rem; color: #94A3B8;">km</span></div>
+                <div class="kpi-sub">Load: {sum(s.get('training_load', 0) for s in previous_week.values()):.0f} · {sum(s.get('sessions', 0) for s in previous_week.values())} sessions</div>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
+
+    # Weekly Load Comparison Table
+    st.markdown("### 📊 Sport-by-Sport 7-Day Comparison")
+    comp_rows = []
+    for sp_name in ["Swim", "Ride", "Walk", "Run"]:
+        curr = current_week.get(sp_name, {})
+        prev = previous_week.get(sp_name, {})
+        c_dist = curr.get("distance_km", 0.0)
+        p_dist = prev.get("distance_km", 0.0)
+        c_load = curr.get("training_load", 0.0)
+        p_load = prev.get("training_load", 0.0)
+
+        comp_rows.append({
+            "Sport": f"{get_sport_icon(sp_name)} {sp_name}",
+            "Current Dist": f"{c_dist:.2f} km",
+            "Prior Dist": f"{p_dist:.2f} km",
+            "Distance Diff": f"{c_dist - p_dist:+.2f} km",
+            "Current Load": f"{c_load:.0f}",
+            "Prior Load": f"{p_load:.0f}",
+            "Load Diff": f"{c_load - p_load:+.0f}",
+        })
+    st.dataframe(pd.DataFrame(comp_rows), use_container_width=True, hide_index=True)
 
 
 # ============================================================
-# TAB 8: SAVED PLANS LIBRARY
+# TAB 10: 🏆 PERSONAL RECORDS
 # ============================================================
 
-with tab_history:
-    st.header("🗄️ Saved Training Plans Library")
-    st.caption("Workout plans stored in `training_plans.json`")
+with tab_records:
+    st.markdown("## 🏆 Personal Records & Benchmark Bests")
+    st.markdown("Verified best performances across all sports, calculated directly from your Garmin & Strava data.")
 
-    plans = get_plans()
+    pr_sw = personal_records.get("Swimming", [])
+    pr_rn = personal_records.get("Running", [])
+    pr_bk = personal_records.get("Cycling", [])
+    pr_wk = personal_records.get("Walking", [])
 
-    if plans:
-        top_c1, top_c2 = st.columns([4, 2])
-        with top_c1:
-            st.markdown(f"**Total Plans Saved:** `{len(plans)} workouts`")
-        with top_c2:
-            if st.button("🧹 Clear All Saved Plans", type="secondary", use_container_width=True):
-                clear_plans()
-                st.success("Cleared all saved plans!")
-                st.rerun()
+    pr_tab_sw, pr_tab_rn, pr_tab_bk, pr_tab_wk = st.tabs([
+        "🏊 Swimming PRs",
+        "🏃 Running PRs",
+        "🚴 Cycling PRs",
+        "🚶 Walking PRs",
+    ])
 
-        st.markdown("<br>", unsafe_allow_html=True)
+    with pr_tab_sw:
+        if pr_sw:
+            st.dataframe(pd.DataFrame(pr_sw), use_container_width=True, hide_index=True)
+        else:
+            st.info("No swimming records calculated yet.")
 
-        for p_idx, saved_p in enumerate(reversed(plans), start=1):
-            p_type = saved_p.get("type", "Workout")
-            p_dist = saved_p.get("target_distance", 0)
-            p_date = format_date_clean(saved_p.get("planned_date", ""))
-            p_id = saved_p.get("plan_id", "")
-            p_id_short = p_id[:8] if p_id else f"{p_idx}"
+    with pr_tab_rn:
+        if pr_rn:
+            st.dataframe(pd.DataFrame(pr_rn), use_container_width=True, hide_index=True)
+        else:
+            st.info("No running records calculated yet.")
 
-            chip_color = (
-                "chip-swim" if p_type == "Endurance"
-                else "chip-ride" if p_type == "Tempo"
-                else "chip-run" if p_type == "Intervals"
-                else "chip-rest"
-            )
+    with pr_tab_bk:
+        if pr_bk:
+            st.dataframe(pd.DataFrame(pr_bk), use_container_width=True, hide_index=True)
+        else:
+            st.info("No cycling records calculated yet.")
 
-            with st.expander(f"🏊 Workout Plan #{p_idx}: {p_type} · {p_dist}m · Planned: {p_date} (ID: {p_id_short})", expanded=(p_idx == 1)):
-                col_info, col_del = st.columns([5, 1])
-                with col_info:
-                    st.markdown(f"**Type:** <span class='sport-chip {chip_color}'>{p_type}</span> · **Scheduled Date:** `{p_date}` · **Total Distance:** `{p_dist}m`", unsafe_allow_html=True)
-                    st.markdown(f"**Goal:** {saved_p.get('goal', '—')}")
-                    st.markdown(f"**Duration:** {saved_p.get('duration', '—')}")
-                with col_del:
-                    if st.button("🗑️ Delete", key=f"del_plan_{p_id}_{p_idx}", use_container_width=True):
-                        delete_plan(p_id)
-                        st.success(f"Deleted plan #{p_idx}")
-                        st.rerun()
+    with pr_tab_wk:
+        if pr_wk:
+            st.dataframe(pd.DataFrame(pr_wk), use_container_width=True, hide_index=True)
+        else:
+            st.info("No walking records calculated yet.")
 
-                p_sets = saved_p.get("sets", [])
-                st.markdown("##### Sets Breakdown:")
-                for s_i, s_item in enumerate(p_sets, start=1):
-                    if isinstance(s_item, dict):
-                        st.markdown(f"- **Set {s_i}:** {s_item.get('reps', 1)} × {s_item.get('distance', 0)}m ({s_item.get('stroke', 'Freestyle')}) · Pace: `{s_item.get('pace', '—')}` · Rest: `{s_item.get('rest', 'None')}` · Purpose: *{s_item.get('purpose', '')}*")
-                    else:
-                        st.markdown(f"- **Set {s_i}:** {s_item}")
-    else:
-        st.info(f"No saved plans yet. Generate and customize a workout in the '{plan_timing_label} Swim Plan' tab and click 'Save Plan to Library'.")
+
+# ============================================================
+# TAB 11: ⚙️ DATA & SETTINGS
+# ============================================================
+
+with tab_settings:
+    st.markdown("## ⚙️ Data Pipeline & Settings")
+    st.markdown("Telemetry sources, caching status, and sync diagnostics.")
+
+    c_st1, c_st2 = st.columns(2)
+    with c_st1:
+        st.markdown("### 🔌 Connected Data Sources")
+        st.markdown(
+            f"""
+            - **Garmin Forerunner 965:** Synced via Intervals.icu API
+            - **Intervals.icu API:** `{api_status.upper()}` ({tot_intervals} activities)
+            - **Strava Archive:** `{strava_added} archive sessions loaded` ({tot_strava} total)
+            - **Total Master Activities:** `{len(all_activities)} sessions`
+            - **Wellness / Sleep Days:** `{len(wellness_records)} days`
+            """
+        )
+
+    with c_st2:
+        st.markdown("### 🔄 Cache & Maintenance")
+        if st.button("🧹 Clear All Caches & Resync", use_container_width=True):
+            st.cache_data.clear()
+            st.success("Caches cleared! Reloading data...")
+            st.rerun()
+
+        if st.button("🗑️ Clear Saved Workout Plans", use_container_width=True):
+            clear_plans()
+            st.warning("All saved workout plans cleared.")
+            st.rerun()
+
+    # Saved plans preview
+    saved_plans_list = get_plans()
+    if saved_plans_list:
+        st.markdown("---")
+        st.markdown(f"### 🗄️ Saved Workout Plans ({len(saved_plans_list)} Plans)")
+        for p_item in saved_plans_list:
+            p_id = p_item.get("id")
+            with st.expander(f"🏊 {p_item.get('name', 'Plan')} ({p_item.get('distance_m')}m) — Saved on {p_item.get('created_at', '')[:10]}"):
+                st.json(p_item)
+                if st.button(f"Delete Plan {p_id}", key=f"del_plan_{p_id}"):
+                    delete_plan(p_id)
+                    st.rerun()

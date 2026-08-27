@@ -11,6 +11,11 @@ from src.analytics.swim_pace import swim_pace_baseline
 from src.analytics.swim_trend import swimming_weekly_trend
 from src.analytics.summary import training_summary
 from src.analytics.running import get_running_analytics
+from src.analytics.cycling import get_cycling_analytics
+from src.analytics.walking import get_walking_analytics
+from src.analytics.sleep import get_sleep_analytics
+from src.analytics.performance import get_performance_analytics
+from src.analytics.personal_records import calculate_all_personal_records
 from src.training.swim_plan import generate_swim_plan, calculate_baseline
 from src.training.swim_paces import swim_pace_zones
 from src.training.decision import training_recommendation, days_since_last
@@ -233,6 +238,21 @@ def get_dashboard_data(start_date, end_date, source_filter="all", strava_path=No
     # 13. Running analytics
     running_analytics = get_running_analytics(clean_activities, strava_path)
 
+    # 14. Cycling analytics
+    cycling_analytics = get_cycling_analytics(clean_activities)
+
+    # 15. Walking analytics
+    walking_analytics = get_walking_analytics(clean_activities)
+
+    # 16. Sleep & Recovery analytics
+    sleep_analytics = get_sleep_analytics(wellness_data, start_date, end_date)
+
+    # 17. Cross-sport Performance analytics
+    performance_analytics = get_performance_analytics(window_activities if window_activities else clean_activities, wellness_data)
+
+    # 18. Unified Personal Records (PBs)
+    personal_records = calculate_all_personal_records(clean_activities)
+
     return {
         "activities": window_activities,
         "all_activities": clean_activities,
@@ -251,6 +271,11 @@ def get_dashboard_data(start_date, end_date, source_filter="all", strava_path=No
         "summary": summary,
         "weekly_trends": weekly_trends,
         "running_analytics": running_analytics,
+        "cycling_analytics": cycling_analytics,
+        "walking_analytics": walking_analytics,
+        "sleep_analytics": sleep_analytics,
+        "performance_analytics": performance_analytics,
+        "personal_records": personal_records,
         "wellness": wellness_data,
         "api_status": api_status,
         "strava_found": strava_found,
