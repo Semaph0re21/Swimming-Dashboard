@@ -5,6 +5,13 @@ from dotenv import load_dotenv
 load_dotenv()
 
 API_KEY = os.getenv("INTERVALS_API_KEY")
+if not API_KEY:
+    try:
+        import streamlit as st
+        if hasattr(st, "secrets") and "INTERVALS_API_KEY" in st.secrets:
+            API_KEY = st.secrets["INTERVALS_API_KEY"]
+    except Exception:
+        pass
 
 BASE_URL = "https://intervals.icu/api/v1"
 

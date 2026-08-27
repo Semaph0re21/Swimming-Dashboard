@@ -69,12 +69,24 @@ def normalize_activity(activity):
         ),
     }
 
+    # Retain optional enriched fields
+    if activity.get("description"):
+        result["description"] = activity.get("description")
+    if activity.get("media"):
+        result["media"] = activity.get("media")
+    if activity.get("strava_id"):
+        result["strava_id"] = activity.get("strava_id")
+    if activity.get("relative_effort"):
+        result["relative_effort"] = activity.get("relative_effort")
+    if activity.get("total_steps"):
+        result["total_steps"] = activity.get("total_steps")
+
     # Swimming-specific data
     if activity_type == "Swim":
         result.update({
             "pool_length_m": activity.get(
                 "pool_length"
-            ),
+            ) or activity.get("pool_length_m"),
 
             "lengths": activity.get(
                 "lengths"
@@ -82,7 +94,7 @@ def normalize_activity(activity):
 
             "lap_count": activity.get(
                 "icu_lap_count"
-            ),
+            ) or activity.get("lengths"),
 
             "pace": activity.get(
                 "pace"
