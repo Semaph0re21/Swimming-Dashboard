@@ -83,6 +83,10 @@ def normalize_activity(activity):
 
     # Swimming-specific data
     if activity_type == "Swim":
+        elapsed_s = activity.get("elapsed_time") or 0
+        moving_s = activity.get("moving_time") or 0
+        rest_s = max(0, elapsed_s - moving_s)
+
         result.update({
             "pool_length_m": activity.get(
                 "pool_length"
@@ -103,6 +107,16 @@ def normalize_activity(activity):
             "interval_summary": activity.get(
                 "interval_summary"
             ),
+
+            "rest_time_sec": rest_s,
+            "rest_time_min": round(rest_s / 60.0, 1),
+            "moving_time_sec": moving_s,
+            "elapsed_time_sec": elapsed_s,
+            "icu_hr_zone_times": activity.get("icu_hr_zone_times"),
+            "icu_hr_zones": activity.get("icu_hr_zones"),
+            "icu_warmup_time": activity.get("icu_warmup_time"),
+            "icu_cooldown_time": activity.get("icu_cooldown_time"),
+            "threshold_pace": activity.get("threshold_pace"),
         })
 
     return result
