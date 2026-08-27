@@ -1924,11 +1924,11 @@ with tab_calendar:
     header_html = "".join(f"<div class='cal-header-cell'>{h}</div>" for h in day_headers)
 
     # All calendar cells in a single uniform CSS grid
-    cells_html = ""
+    cells_list = []
     for week in cal_matrix:
         for day_num in week:
             if day_num == 0:
-                cells_html += "<div class='cal-cell-empty'></div>"
+                cells_list.append("<div class='cal-cell-empty'></div>")
             else:
                 d_str = f"{sel_year:04d}-{sel_month:02d}-{day_num:02d}"
                 acts = act_by_date.get(d_str, [])
@@ -1948,24 +1948,21 @@ with tab_calendar:
                 else:
                     badge_html = "<span class='cal-rest'>Rest</span>"
 
-                cells_html += f"""
-                <div class="{cell_class}">
-                    <div class="cal-date-num" style="{num_style}">{day_num}</div>
-                    {badge_html}
-                </div>
-                """
+                cells_list.append(
+                    f"<div class='{cell_class}'><div class='cal-date-num' style='{num_style}'>{day_num}</div>{badge_html}</div>"
+                )
 
-    full_calendar_html = f"""
-    <div style="width: 100%; margin-top: 10px;">
-        <div class="cal-grid-header">
-            {header_html}
-        </div>
-        <div class="cal-grid-body">
-            {cells_html}
-        </div>
-    </div>
-    """
-    st.markdown(full_calendar_html, unsafe_allow_html=True)
+    cells_html = "".join(cells_list)
+    full_calendar_html = (
+        f"<div style='width: 100%; margin-top: 10px;'>"
+        f"<div class='cal-grid-header'>{header_html}</div>"
+        f"<div class='cal-grid-body'>{cells_html}</div>"
+        f"</div>"
+    )
+    if hasattr(st, "html"):
+        st.html(full_calendar_html)
+    else:
+        st.markdown(full_calendar_html, unsafe_allow_html=True)
 
     # Interactive Day Inspector
     st.markdown("---")
