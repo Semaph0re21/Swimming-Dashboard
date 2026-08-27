@@ -584,18 +584,6 @@ total_time_all = sum(s.get("moving_time_min", 0) for s in summary.values())
 total_load_all = sum(s.get("training_load", 0) for s in summary.values())
 
 st.sidebar.markdown("---")
-with st.sidebar.expander("📱 View on iPhone / Mobile"):
-    st.markdown(
-        """
-        **1. Ensure iPhone is on same Wi-Fi**  
-        **2. Open Safari & visit:**  
-        `http://192.168.0.10:8501`  
-        
-        *(Replace `192.168.0.10` with your PC's IP if changed)*  
-        
-        💡 **Tip:** Tap the Share button (📤) in Safari and choose **"Add to Home Screen"** to save it as an app icon!
-        """
-    )
 st.sidebar.markdown("### 📊 Window Totals")
 st.sidebar.markdown(f"**Total Distance:** `{total_dist_all:.1f} km`")
 st.sidebar.markdown(f"**Total Active Time:** `{total_time_all / 60:.1f} hours`")
