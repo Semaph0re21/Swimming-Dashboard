@@ -180,29 +180,84 @@ st.markdown(
         transform: translateY(-2px);
     }
 
-    /* Calendar Styling */
+    /* Calendar Grid Styling */
+    .cal-grid-header {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        gap: 8px;
+        margin-bottom: 8px;
+    }
+    .cal-header-cell {
+        font-size: 0.85rem;
+        font-weight: 800;
+        color: #94A3B8;
+        text-transform: uppercase;
+        text-align: center;
+        padding: 4px 0;
+        letter-spacing: 0.05em;
+    }
+    .cal-grid-body {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        gap: 8px;
+        margin-bottom: 24px;
+    }
     .cal-cell {
         background: #151D2C;
         border: 1px solid #23324A;
-        border-radius: 8px;
-        padding: 8px 10px;
-        min-height: 88px;
+        border-radius: 10px;
+        padding: 8px 8px;
+        height: 116px;
+        min-height: 116px;
+        max-height: 116px;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        overflow-y: auto;
+        transition: border-color 0.15s ease-in-out;
+    }
+    .cal-cell:hover {
+        border-color: #38BDF8;
+    }
+    .cal-cell-empty {
+        background: rgba(15, 23, 42, 0.4);
+        border: 1px dashed #1E293B;
+        border-radius: 10px;
+        height: 116px;
+        min-height: 116px;
+        max-height: 116px;
+        box-sizing: border-box;
+        opacity: 0.3;
+    }
+    .cal-cell-today {
+        border: 2px solid #00D2FF !important;
+        background: #132238;
     }
     .cal-date-num {
-        font-size: 0.95rem;
+        font-size: 0.92rem;
         font-weight: 800;
         color: #FFFFFF !important;
-        margin-bottom: 6px;
+        margin-bottom: 4px;
+        line-height: 1.1;
     }
     .cal-badge {
         display: block;
-        padding: 3px 6px;
+        padding: 2px 4px;
         border-radius: 4px;
-        font-size: 0.78rem;
+        font-size: 0.75rem;
         font-weight: 700;
-        margin-bottom: 4px;
+        margin-bottom: 3px;
         text-align: center;
-        text-decoration: none;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        line-height: 1.3;
+    }
+    .cal-rest {
+        font-size: 0.75rem;
+        color: #475569;
+        font-weight: 600;
+        margin-top: 2px;
     }
 
     /* Section Divider */
@@ -290,9 +345,24 @@ st.markdown(
         .hero-banner { padding: 14px 16px !important; }
         .hero-title { font-size: 1.2rem !important; }
         .hero-text { font-size: 0.88rem !important; }
-        .cal-cell { padding: 4px 4px !important; min-height: 60px !important; }
-        .cal-date-num { font-size: 0.78rem !important; }
-        .cal-badge { font-size: 0.65rem !important; }
+        .cal-grid-header { gap: 4px !important; }
+        .cal-grid-body { gap: 4px !important; }
+        .cal-cell {
+            height: 80px !important;
+            min-height: 80px !important;
+            max-height: 80px !important;
+            padding: 4px 4px !important;
+            border-radius: 6px !important;
+        }
+        .cal-cell-empty {
+            height: 80px !important;
+            min-height: 80px !important;
+            max-height: 80px !important;
+            border-radius: 6px !important;
+        }
+        .cal-date-num { font-size: 0.72rem !important; }
+        .cal-badge { font-size: 0.60rem !important; padding: 1px 2px !important; margin-bottom: 2px !important; }
+        .cal-header-cell { font-size: 0.70rem !important; }
         .stImage img { max-width: 100% !important; max-height: 160px !important; }
         [data-baseweb="tab"] { padding: 6px 10px !important; font-size: 0.8rem !important; min-height: 36px !important; }
     }
@@ -1810,20 +1880,21 @@ with tab_calendar:
     cal_matrix = calendar.monthcalendar(sel_year, sel_month)
     day_headers = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
 
-    # Header row
-    h_cols = st.columns(7)
-    for idx, day_name in enumerate(day_headers):
-        h_cols[idx].markdown(f"**{day_name}**")
+    # Header row HTML
+    header_html = "".join(f"<div class='cal-header-cell'>{h}</div>" for h in day_headers)
 
-    # Calendar rows
+    # All calendar cells in a single uniform CSS grid
+    cells_html = ""
     for week in cal_matrix:
-        w_cols = st.columns(7)
-        for d_idx, day_num in enumerate(week):
+        for day_num in week:
             if day_num == 0:
-                w_cols[d_idx].markdown("<div class='cal-cell' style='opacity: 0.2;'></div>", unsafe_allow_html=True)
+                cells_html += "<div class='cal-cell-empty'></div>"
             else:
                 d_str = f"{sel_year:04d}-{sel_month:02d}-{day_num:02d}"
                 acts = act_by_date.get(d_str, [])
+                is_today = (d_str == str(today_date))
+                cell_class = "cal-cell cal-cell-today" if is_today else "cal-cell"
+                num_style = "color: #00D2FF !important;" if is_today else ""
 
                 badge_html = ""
                 if acts:
@@ -1835,20 +1906,26 @@ with tab_calendar:
                         label = f"{get_sport_icon(sp_name)} {d_km:.1f}k" if d_km > 0 else f"{get_sport_icon(sp_name)} {dur_m:.0f}m"
                         badge_html += f"<span class='cal-badge {chip_cls}'>{label}</span>"
                 else:
-                    badge_html = "<span style='font-size: 0.72rem; color: #475569;'>Rest</span>"
+                    badge_html = "<span class='cal-rest'>Rest</span>"
 
-                is_today = (d_str == str(today_date))
-                border_style = "border: 2px solid #00D2FF;" if is_today else "border: 1px solid #23324A;"
+                cells_html += f"""
+                <div class="{cell_class}">
+                    <div class="cal-date-num" style="{num_style}">{day_num}</div>
+                    {badge_html}
+                </div>
+                """
 
-                w_cols[d_idx].markdown(
-                    f"""
-                    <div class="cal-cell" style="{border_style}">
-                        <div class="cal-date-num" style="{'color: #00D2FF !important;' if is_today else ''}">{day_num}</div>
-                        {badge_html}
-                    </div>
-                    """,
-                    unsafe_allow_html=True,
-                )
+    full_calendar_html = f"""
+    <div style="width: 100%; margin-top: 10px;">
+        <div class="cal-grid-header">
+            {header_html}
+        </div>
+        <div class="cal-grid-body">
+            {cells_html}
+        </div>
+    </div>
+    """
+    st.markdown(full_calendar_html, unsafe_allow_html=True)
 
     # Interactive Day Inspector
     st.markdown("---")
