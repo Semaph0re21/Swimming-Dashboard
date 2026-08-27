@@ -1034,12 +1034,48 @@ with tab_swimming:
 
     # 2. 5-Zone Pace Guidelines
     st.markdown("### 🎯 5-Zone Swim Pace Guidelines (25m Pool)")
+    z_easy = pace_zones.get("easy", {})
+    z_end = pace_zones.get("endurance", {})
+    z_tempo = pace_zones.get("tempo", {})
+    z_int = pace_zones.get("interval", {})
+    z_sprint = pace_zones.get("sprint", {})
+
     zone_rows = [
-        {"Zone": "Zone 1: Recovery", "Pace /100m": f"{format_pace(pace_zones['recovery'][0])} – {format_pace(pace_zones['recovery'][1])}", "200m (8 Laps)": f"{format_pace(pace_zones['recovery'][0]*2)}", "400m (16 Laps)": f"{format_pace(pace_zones['recovery'][0]*4)}", "Purpose": "Warm-up, active recovery & drill sets"},
-        {"Zone": "Zone 2: Aerobic Base", "Pace /100m": f"{format_pace(pace_zones['aerobic'][0])} – {format_pace(pace_zones['aerobic'][1])}", "200m (8 Laps)": f"{format_pace(pace_zones['aerobic'][0]*2)}", "400m (16 Laps)": f"{format_pace(pace_zones['aerobic'][0]*4)}", "Purpose": "Sustainable continuous aerobic endurance"},
-        {"Zone": "Zone 3: Tempo", "Pace /100m": f"{format_pace(pace_zones['tempo'][0])} – {format_pace(pace_zones['tempo'][1])}", "200m (8 Laps)": f"{format_pace(pace_zones['tempo'][0]*2)}", "400m (16 Laps)": f"{format_pace(pace_zones['tempo'][0]*4)}", "Purpose": "Lactate threshold & race pace endurance"},
-        {"Zone": "Zone 4: Threshold / Interval", "Pace /100m": f"{format_pace(pace_zones['threshold'][0])} – {format_pace(pace_zones['threshold'][1])}", "200m (8 Laps)": f"{format_pace(pace_zones['threshold'][0]*2)}", "400m (16 Laps)": f"{format_pace(pace_zones['threshold'][0]*4)}", "Purpose": "Speed-endurance with structured rest"},
-        {"Zone": "Zone 5: Sprint", "Pace /100m": f"{format_pace(pace_zones['sprint'][0])} – {format_pace(pace_zones['sprint'][1])}", "200m (8 Laps)": f"{format_pace(pace_zones['sprint'][0]*2)}", "400m (16 Laps)": f"{format_pace(pace_zones['sprint'][0]*4)}", "Purpose": "Maximum anaerobic power & stroke rate"},
+        {
+            "Zone": "Zone 1 · Easy / Recovery",
+            "Pace /100m": z_easy.get("formatted", f"{format_pace(baseline_pace + 15)} – {format_pace(baseline_pace + 30)}"),
+            "200m (8 Laps)": f"{format_pace((z_easy.get('min', baseline_pace + 15)) * 2)}",
+            "400m (16 Laps)": f"{format_pace((z_easy.get('min', baseline_pace + 15)) * 4)}",
+            "Purpose": z_easy.get("purpose", "Warm-up, cool-down, active recovery & drills"),
+        },
+        {
+            "Zone": "Zone 2 · Aerobic Base (Cruise)",
+            "Pace /100m": z_end.get("formatted", f"{format_pace(baseline_pace)} – {format_pace(baseline_pace + 10)}"),
+            "200m (8 Laps)": f"{format_pace((z_end.get('min', baseline_pace)) * 2)}",
+            "400m (16 Laps)": f"{format_pace((z_end.get('min', baseline_pace)) * 4)}",
+            "Purpose": z_end.get("purpose", "Aerobic conditioning, continuous mixed sets"),
+        },
+        {
+            "Zone": "Zone 3 · Tempo (Lactate Threshold)",
+            "Pace /100m": z_tempo.get("formatted", f"{format_pace(baseline_pace - 10)} – {format_pace(baseline_pace)}"),
+            "200m (8 Laps)": f"{format_pace((z_tempo.get('min', baseline_pace - 10)) * 2)}",
+            "400m (16 Laps)": f"{format_pace((z_tempo.get('min', baseline_pace - 10)) * 4)}",
+            "Purpose": z_tempo.get("purpose", "Lactate threshold & sustainable speed endurance"),
+        },
+        {
+            "Zone": "Zone 4 · Threshold & Speed Intervals",
+            "Pace /100m": z_int.get("formatted", f"{format_pace(baseline_pace - 20)} – {format_pace(baseline_pace - 10)}"),
+            "200m (8 Laps)": f"{format_pace((z_int.get('min', baseline_pace - 20)) * 2)}",
+            "400m (16 Laps)": f"{format_pace((z_int.get('min', baseline_pace - 20)) * 4)}",
+            "Purpose": z_int.get("purpose", "100m freestyle speed repeats with rest"),
+        },
+        {
+            "Zone": "Zone 5 · Anaerobic Power / Sprint",
+            "Pace /100m": z_sprint.get("formatted", f"{format_pace(baseline_pace - 30)} – {format_pace(baseline_pace - 20)}"),
+            "200m (8 Laps)": f"{format_pace((z_sprint.get('min', baseline_pace - 30)) * 2)}",
+            "400m (16 Laps)": f"{format_pace((z_sprint.get('min', baseline_pace - 30)) * 4)}",
+            "Purpose": z_sprint.get("purpose", "25m-50m max cadence & explosive push-offs"),
+        },
     ]
     st.dataframe(pd.DataFrame(zone_rows), use_container_width=True, hide_index=True)
 
@@ -1053,7 +1089,12 @@ with tab_swimming:
             c_dist = alt.Chart(w_df).mark_bar(color="#0284C7", cornerRadiusTopLeft=6, cornerRadiusTopRight=6).encode(
                 x=alt.X("week:N", title="Training Week"),
                 y=alt.Y("distance_km:Q", title="Volume (km)"),
-                tooltip=["week", "distance_km", "sessions", "time_min", "avg_pace_seconds"],
+                tooltip=[
+                    alt.Tooltip("week:N", title="Week"),
+                    alt.Tooltip("distance_km:Q", title="Distance (km)"),
+                    alt.Tooltip("sessions:Q", title="Sessions"),
+                    alt.Tooltip("time_min:Q", title="Time (min)"),
+                ],
             ).properties(title="Weekly Swim Volume Progression")
             st.altair_chart(apply_chart_theme(c_dist), use_container_width=True)
 
@@ -1065,7 +1106,12 @@ with tab_swimming:
             c_pace = alt.Chart(b_df).mark_line(point=True, color="#38BDF8").encode(
                 x=alt.X("date_clean:N", title="Swim Date"),
                 y=alt.Y("pace_seconds:Q", title="Pace (seconds /100m)", scale=alt.Scale(zero=False)),
-                tooltip=["date_clean", "distance_km", "moving_time_min", "pace_formatted", "avg_hr"],
+                tooltip=[
+                    alt.Tooltip("date_clean:N", title="Date"),
+                    alt.Tooltip("distance_km:Q", title="Distance (km)"),
+                    alt.Tooltip("time_min:Q", title="Time (min)"),
+                    alt.Tooltip("pace_formatted:N", title="Pace"),
+                ],
             ).properties(title="Pace Progression /100m (Continuous Swims)")
             st.altair_chart(apply_chart_theme(c_pace), use_container_width=True)
 
@@ -1145,23 +1191,28 @@ with tab_swimming:
 
         # Generate dynamically
         if custom_focus == "Endurance":
-            custom_plan = endurance_workout(baseline_pace, custom_dist)
+            custom_plan = endurance_workout(target_distance=custom_dist)
         elif custom_focus == "Tempo":
-            custom_plan = tempo_workout(baseline_pace, custom_dist)
+            custom_plan = tempo_workout(target_distance=custom_dist)
         elif custom_focus == "Intervals":
-            custom_plan = interval_workout(baseline_pace, custom_dist)
+            custom_plan = interval_workout(target_distance=custom_dist)
         elif custom_focus == "Pyramid Ladder":
-            custom_plan = pyramid_workout(baseline_pace, custom_dist)
+            custom_plan = pyramid_workout(target_distance=custom_dist)
         else:
-            custom_plan = recovery_workout(baseline_pace, custom_dist)
+            custom_plan = recovery_workout(target_distance=custom_dist)
+
+        cust_target_d = custom_plan.get("target_distance") or custom_dist
+        cust_laps = custom_plan.get("total_laps") or (cust_target_d // 25)
+        cust_dur = custom_plan.get("duration") or "45-55 min"
+        cust_goal = custom_plan.get("goal") or "Maintain swimming consistency."
 
         if st.button("💾 Save Custom Plan to Library", use_container_width=True):
             save_plan(custom_plan, target_date=str(target_plan_date))
-            st.success(f"Saved {custom_focus} ({custom_dist}m) plan to your Library!")
+            st.success(f"Saved {custom_focus} ({cust_target_d}m) plan to your Library!")
 
     with b_col2:
-        st.markdown(f"**Custom Plan Preview:** `{custom_plan.get('name', custom_focus)}` · `{custom_plan.get('distance_m')}m` ({custom_plan.get('distance_m')//25} Laps)")
-        st.caption(f"Estimated Time: **{custom_plan.get('duration_est')}** · Goal: **{custom_plan.get('goal')}**")
+        st.markdown(f"**Custom Plan Preview:** `{custom_plan.get('type', custom_focus)}` · `{cust_target_d}m` ({cust_laps} Laps)")
+        st.caption(f"Estimated Time: **{cust_dur}** · Goal: **{cust_goal}**")
         for j, cs in enumerate(custom_plan.get("sets", [])):
             st.markdown(
                 f"- **Set {j+1}:** `{cs.get('reps')} × {cs.get('distance')}m` ({cs.get('total_laps')} total laps) — `{cs.get('stroke_pattern', cs.get('stroke'))}` · Pace: `{cs.get('pace')}` · Rest: `{cs.get('rest')}`"
@@ -1243,16 +1294,9 @@ with tab_running:
 
     # 2. Running Pace Zones
     st.markdown("### 🎯 5-Zone Running Pace Guidelines")
-    r_zones = running_analytics.get("pace_zones", {})
+    r_zones = running_analytics.get("pace_zones", [])
     if r_zones:
-        r_zone_rows = [
-            {"Zone": "Zone 1: Recovery / Easy", "Pace Range (/km)": f"{r_zones.get('easy', {}).get('pace_range', '—')}", "Effort": "Zone 1-2 (60-70% Max HR)", "Purpose": "Warm-up, cool-down, active recovery"},
-            {"Zone": "Zone 2: Aerobic Base", "Pace Range (/km)": f"{r_zones.get('aerobic', {}).get('pace_range', '—')}", "Effort": "Zone 2 (70-78% Max HR)", "Purpose": "Aerobic endurance & fat oxidation"},
-            {"Zone": "Zone 3: Tempo / Marathon", "Pace Range (/km)": f"{r_zones.get('tempo', {}).get('pace_range', '—')}", "Effort": "Zone 3 (78-85% Max HR)", "Purpose": "Sustained rhythm & race stamina"},
-            {"Zone": "Zone 4: Threshold / 5K-10K", "Pace Range (/km)": f"{r_zones.get('threshold', {}).get('pace_range', '—')}", "Effort": "Zone 4 (85-92% Max HR)", "Purpose": "Lactate threshold & VO2 max capacity"},
-            {"Zone": "Zone 5: Interval / Sprint", "Pace Range (/km)": f"{r_zones.get('interval', {}).get('pace_range', '—')}", "Effort": "Zone 5 (92-100% Max HR)", "Purpose": "Top speed, neuromuscular power"},
-        ]
-        st.dataframe(pd.DataFrame(r_zone_rows), use_container_width=True, hide_index=True)
+        st.dataframe(pd.DataFrame(r_zones), use_container_width=True, hide_index=True)
 
     # 3. Running Charts
     if runs_list:
@@ -1264,7 +1308,13 @@ with tab_running:
             c_r_dist = alt.Chart(r_df).mark_bar(color="#DB2777", cornerRadiusTopLeft=6, cornerRadiusTopRight=6).encode(
                 x=alt.X("date_clean:N", title="Run Date"),
                 y=alt.Y("distance_km:Q", title="Distance (km)"),
-                tooltip=["date_clean", "name", "distance_km", "duration_min", "pace_formatted", "avg_hr"],
+                tooltip=[
+                    alt.Tooltip("date_clean:N", title="Date"),
+                    alt.Tooltip("name:N", title="Name"),
+                    alt.Tooltip("distance_km:Q", title="Distance (km)"),
+                    alt.Tooltip("duration_min:Q", title="Duration (min)"),
+                    alt.Tooltip("pace_formatted:N", title="Pace"),
+                ],
             ).properties(title="Running Sessions Progression")
             st.altair_chart(apply_chart_theme(c_r_dist), use_container_width=True)
 
@@ -1272,7 +1322,12 @@ with tab_running:
             c_r_hr = alt.Chart(r_df).mark_line(point=True, color="#F87171").encode(
                 x=alt.X("date_clean:N", title="Run Date"),
                 y=alt.Y("avg_hr:Q", title="Avg HR (bpm)", scale=alt.Scale(zero=False)),
-                tooltip=["date_clean", "name", "avg_hr", "max_hr", "calories", "training_load"],
+                tooltip=[
+                    alt.Tooltip("date_clean:N", title="Date"),
+                    alt.Tooltip("name:N", title="Name"),
+                    alt.Tooltip("avg_hr:Q", title="Avg HR"),
+                    alt.Tooltip("max_hr:Q", title="Max HR"),
+                ],
             ).properties(title="Cardiovascular Load & Heart Rate")
             st.altair_chart(apply_chart_theme(c_r_hr), use_container_width=True)
 
@@ -1306,7 +1361,8 @@ with tab_running:
         col_idx = 0
         for m_act in media_runs:
             for m_item in m_act.get("media", []):
-                p_file = get_strava_media_path(m_item.get("filename"))
+                fn = m_item.get("filename") if isinstance(m_item, dict) else str(m_item)
+                p_file = get_strava_media_path(fn)
                 if p_file and p_file.exists():
                     with g_cols[col_idx % 4]:
                         st.image(str(p_file), caption=f"{m_act.get('name')} ({format_date_clean(m_act.get('date'))})", use_container_width=True)
@@ -1408,7 +1464,12 @@ with tab_cycling:
             c_b_dist = alt.Chart(ride_df).mark_bar(color="#059669", cornerRadiusTopLeft=6, cornerRadiusTopRight=6).encode(
                 x=alt.X("date_clean:N", title="Ride Date"),
                 y=alt.Y("distance_km:Q", title="Distance (km)"),
-                tooltip=["date_clean", "name", "distance_km", "moving_time_min", "computed_speed_kmh", "avg_hr"],
+                tooltip=[
+                    alt.Tooltip("date_clean:N", title="Date"),
+                    alt.Tooltip("name:N", title="Name"),
+                    alt.Tooltip("distance_km:Q", title="Distance (km)"),
+                    alt.Tooltip("moving_time_min:Q", title="Moving Time (min)"),
+                ],
             ).properties(title="Ride Distance Progression")
             st.altair_chart(apply_chart_theme(c_b_dist), use_container_width=True)
 
@@ -1416,7 +1477,11 @@ with tab_cycling:
             c_b_spd = alt.Chart(ride_df).mark_line(point=True, color="#4ADE80").encode(
                 x=alt.X("date_clean:N", title="Ride Date"),
                 y=alt.Y("computed_speed_kmh:Q", title="Speed (km/h)", scale=alt.Scale(zero=False)),
-                tooltip=["date_clean", "name", "computed_speed_kmh", "elevation_m", "avg_hr"],
+                tooltip=[
+                    alt.Tooltip("date_clean:N", title="Date"),
+                    alt.Tooltip("name:N", title="Name"),
+                    alt.Tooltip("computed_speed_kmh:Q", title="Speed (km/h)"),
+                ],
             ).properties(title="Speed (km/h) Progression")
             st.altair_chart(apply_chart_theme(c_b_spd), use_container_width=True)
 
@@ -1522,7 +1587,12 @@ with tab_walking:
             c_w_dist = alt.Chart(w_df).mark_bar(color="#D97706", cornerRadiusTopLeft=6, cornerRadiusTopRight=6).encode(
                 x=alt.X("date_clean:N", title="Walk Date"),
                 y=alt.Y("distance_km:Q", title="Distance (km)"),
-                tooltip=["date_clean", "name", "distance_km", "duration_min", "computed_pace_formatted", "avg_hr"],
+                tooltip=[
+                    alt.Tooltip("date_clean:N", title="Date"),
+                    alt.Tooltip("name:N", title="Name"),
+                    alt.Tooltip("distance_km:Q", title="Distance (km)"),
+                    alt.Tooltip("duration_min:Q", title="Duration (min)"),
+                ],
             ).properties(title="Walk Distance Progression")
             st.altair_chart(apply_chart_theme(c_w_dist), use_container_width=True)
 
@@ -1530,7 +1600,11 @@ with tab_walking:
             c_w_hr = alt.Chart(w_df).mark_line(point=True, color="#FBBF24").encode(
                 x=alt.X("date_clean:N", title="Walk Date"),
                 y=alt.Y("avg_hr:Q", title="Avg HR (bpm)", scale=alt.Scale(zero=False)),
-                tooltip=["date_clean", "name", "avg_hr", "max_hr", "calories"],
+                tooltip=[
+                    alt.Tooltip("date_clean:N", title="Date"),
+                    alt.Tooltip("name:N", title="Name"),
+                    alt.Tooltip("avg_hr:Q", title="Avg HR"),
+                ],
             ).properties(title="Heart Rate & Exertion")
             st.altair_chart(apply_chart_theme(c_w_hr), use_container_width=True)
 
@@ -1619,7 +1693,11 @@ with tab_sleep:
             c_sl_dur = alt.Chart(sl_df).mark_bar(color="#8B5CF6", cornerRadiusTopLeft=6, cornerRadiusTopRight=6).encode(
                 x=alt.X("date:N", title="Date"),
                 y=alt.Y("duration_hours:Q", title="Sleep Duration (hours)"),
-                tooltip=["date", "duration_formatted", "score", "quality", "resting_hr", "hrv"],
+                tooltip=[
+                    alt.Tooltip("date:N", title="Date"),
+                    alt.Tooltip("duration_formatted:N", title="Duration"),
+                    alt.Tooltip("score:Q", title="Score"),
+                ],
             ).properties(title="Daily Sleep Duration (Hours)")
             st.altair_chart(apply_chart_theme(c_sl_dur), use_container_width=True)
 
@@ -1627,7 +1705,11 @@ with tab_sleep:
             c_sl_hrv = alt.Chart(sl_df).mark_line(point=True, color="#00D2FF").encode(
                 x=alt.X("date:N", title="Date"),
                 y=alt.Y("hrv:Q", title="Overnight HRV (ms)", scale=alt.Scale(zero=False)),
-                tooltip=["date", "hrv", "resting_hr", "score"],
+                tooltip=[
+                    alt.Tooltip("date:N", title="Date"),
+                    alt.Tooltip("hrv:Q", title="HRV (ms)"),
+                    alt.Tooltip("resting_hr:Q", title="Resting HR"),
+                ],
             ).properties(title="Overnight HRV & Resting HR Progression")
             st.altair_chart(apply_chart_theme(c_sl_hrv), use_container_width=True)
 
@@ -1670,7 +1752,12 @@ with tab_performance:
                 ),
                 title="Sport",
             ),
-            tooltip=["week", "sport", "hours", "distance_km", "sessions", "load"],
+            tooltip=[
+                alt.Tooltip("week:N", title="Week"),
+                alt.Tooltip("sport:N", title="Sport"),
+                alt.Tooltip("hours:Q", title="Hours"),
+                alt.Tooltip("distance_km:Q", title="Distance (km)"),
+            ],
         ).properties(title="Weekly Active Hours by Sport (Stacked)")
         st.altair_chart(apply_chart_theme(c_multi), use_container_width=True)
 
