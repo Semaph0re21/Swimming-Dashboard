@@ -27,22 +27,44 @@ DATE_FORMATS = (
 def find_strava_export_path(custom_path=None):
     """
     Find the Strava export directory or zip file.
+    Works seamlessly on Local Windows, Cloud Linux, and nested repositories.
     """
     if custom_path:
         p = Path(custom_path)
         if p.exists():
             return p
 
-    for loc in DEFAULT_LOCATIONS:
-        if loc.exists():
-            return loc
+    module_dir = Path(__file__).resolve().parent
+    project_dir = module_dir.parent.parent
+
+    candidates = [
+        project_dir / "data" / "strava",
+        project_dir / "data" / "strava" / "activities.csv",
+        project_dir.parent / "data" / "strava",
+        project_dir.parent / "fitness-dashboard" / "data" / "strava",
+        Path("fitness-dashboard/data/strava"),
+        Path("data/strava"),
+        Path("data/strava/activities.csv"),
+        Path(r"C:\Users\ranit\Downloads\export_122045206"),
+        Path(r"C:\Users\ranit\Downloads\export_122045206.zip"),
+        Path("data/strava.zip"),
+    ]
+
+    for cand in candidates:
+        if cand.exists():
+            if cand.is_file() and cand.name == "activities.csv":
+                return cand.parent
+            return cand
 
     # Try searching in user Downloads for any export_*.zip or export_* folder
-    downloads_dir = Path.home() / "Downloads"
-    if downloads_dir.exists():
-        for item in downloads_dir.glob("export_*"):
-            if item.is_dir() or item.suffix.lower() == ".zip":
-                return item
+    try:
+        downloads_dir = Path.home() / "Downloads"
+        if downloads_dir.exists():
+            for item in downloads_dir.glob("export_*"):
+                if item.is_dir() or item.suffix.lower() == ".zip":
+                    return item
+    except Exception:
+        pass
 
     return None
 
@@ -313,14 +335,19 @@ def get_strava_media_path(media_rel_path, custom_path=None):
         if cand.exists():
             return cand
 
-    # Check local project data directory
-    local_cand = Path("data/strava") / media_rel_path
-    if local_cand.exists():
-        return local_cand
+    module_dir = Path(__file__).resolve().parent
+    project_dir = module_dir.parent.parent
 
-    # Check downloads folder
-    dl_cand = Path(r"C:\Users\ranit\Downloads\export_122045206") / media_rel_path
-    if dl_cand.exists():
-        return dl_cand
+    for base in [
+        project_dir / "data" / "strava",
+        project_dir.parent / "fitness-dashboard" / "data" / "strava",
+        project_dir.parent / "data" / "strava",
+        Path("fitness-dashboard/data/strava"),
+        Path("data/strava"),
+        Path(r"C:\Users\ranit\Downloads\export_122045206"),
+    ]:
+        cand = base / media_rel_path
+        if cand.exists():
+            return cand
 
     return None
