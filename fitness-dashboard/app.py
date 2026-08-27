@@ -9,6 +9,7 @@ if str(_app_dir) not in sys.path:
 import calendar
 from datetime import datetime, date, timedelta
 import json
+import uuid
 import streamlit as st
 import pandas as pd
 import altair as alt
@@ -1258,30 +1259,69 @@ with tab_swimming:
     with b_col1:
         custom_focus = st.selectbox("Workout Focus", ["Endurance", "Tempo", "Intervals", "Pyramid Ladder", "Recovery"], index=0)
         custom_dist = st.slider("Target Distance (m)", min_value=1000, max_value=3500, value=plan_dist, step=250)
+        custom_date = st.date_input("Target / Planned Date", value=target_plan_date, key="custom_swim_workout_date")
 
-        # Generate dynamically
+        # Generate dynamically with user's baseline pace zones
         if custom_focus == "Endurance":
-            custom_plan = endurance_workout(target_distance=custom_dist)
+            custom_plan = endurance_workout(
+                target_distance=custom_dist,
+                easy_min=pace_zones["easy"]["min"],
+                easy_max=pace_zones["easy"]["max"],
+                endurance_min=pace_zones["endurance"]["min"],
+                endurance_max=pace_zones["endurance"]["max"],
+            )
         elif custom_focus == "Tempo":
-            custom_plan = tempo_workout(target_distance=custom_dist)
+            custom_plan = tempo_workout(
+                target_distance=custom_dist,
+                easy_min=pace_zones["easy"]["min"],
+                easy_max=pace_zones["easy"]["max"],
+                tempo_min=pace_zones["tempo"]["min"],
+                tempo_max=pace_zones["tempo"]["max"],
+            )
         elif custom_focus == "Intervals":
-            custom_plan = interval_workout(target_distance=custom_dist)
+            custom_plan = interval_workout(
+                target_distance=custom_dist,
+                easy_min=pace_zones["easy"]["min"],
+                easy_max=pace_zones["easy"]["max"],
+                interval_min=pace_zones["interval"]["min"],
+                interval_max=pace_zones["interval"]["max"],
+            )
         elif custom_focus == "Pyramid Ladder":
-            custom_plan = pyramid_workout(target_distance=custom_dist)
+            custom_plan = pyramid_workout(
+                target_distance=custom_dist,
+                easy_min=pace_zones["easy"]["min"],
+                easy_max=pace_zones["easy"]["max"],
+                tempo_min=pace_zones["tempo"]["min"],
+                tempo_max=pace_zones["tempo"]["max"],
+                interval_min=pace_zones["interval"]["min"],
+                interval_max=pace_zones["interval"]["max"],
+            )
         else:
-            custom_plan = recovery_workout(target_distance=custom_dist)
+            custom_plan = recovery_workout(
+                target_distance=custom_dist,
+                easy_min=pace_zones["easy"]["min"],
+                easy_max=pace_zones["easy"]["max"],
+            )
 
         cust_target_d = custom_plan.get("target_distance") or custom_dist
         cust_laps = custom_plan.get("total_laps") or (cust_target_d // 25)
         cust_dur = custom_plan.get("duration") or "45-55 min"
         cust_goal = custom_plan.get("goal") or "Maintain swimming consistency."
 
+        # Attach metadata to custom plan
+        custom_plan["plan_id"] = str(uuid.uuid4())
+        custom_plan["planned_date"] = str(custom_date)
+        custom_plan["created_at"] = datetime.now().isoformat()
+        custom_plan["name"] = f"Custom {custom_focus} Session"
+        custom_plan["distance_m"] = cust_target_d
+
         if st.button("💾 Save Custom Plan to Library", use_container_width=True):
-            save_plan(custom_plan, target_date=str(target_plan_date))
-            st.success(f"Saved {custom_focus} ({cust_target_d}m) plan to your Library!")
+            save_plan(custom_plan, target_date=str(custom_date))
+            st.success(f"Saved {custom_focus} ({cust_target_d}m) for {custom_date.strftime('%A, %b %d, %Y')} to your Library!")
 
     with b_col2:
-        st.markdown(f"**Custom Plan Preview:** `{custom_plan.get('type', custom_focus)}` · `{cust_target_d}m` ({cust_laps} Laps)")
+        custom_date_str = custom_date.strftime("%A, %b %d, %Y")
+        st.markdown(f"**Custom Plan Preview:** `{custom_plan.get('type', custom_focus)}` · `{cust_target_d}m` ({cust_laps} Laps) · 📅 `{custom_date_str}`")
         st.caption(f"Estimated Time: **{cust_dur}** · Goal: **{cust_goal}**")
         for j, cs in enumerate(custom_plan.get("sets", [])):
             st.markdown(
@@ -2101,8 +2141,11 @@ with tab_settings:
         st.markdown("---")
         st.markdown(f"### 🗄️ Saved Workout Plans ({len(saved_plans_list)} Plans)")
         for p_item in saved_plans_list:
-            p_id = p_item.get("id")
-            with st.expander(f"🏊 {p_item.get('name', 'Plan')} ({p_item.get('distance_m')}m) — Saved on {p_item.get('created_at', '')[:10]}"):
+            p_id = p_item.get("plan_id") or p_item.get("id") or str(uuid.uuid4())
+            p_name = p_item.get("name") or f"{p_item.get('type', 'Custom')} Plan"
+            p_dist = p_item.get("distance_m") or p_item.get("target_distance", 0)
+            p_date = p_item.get("planned_date") or (p_item.get("created_at") or "")[:10] or "Unscheduled"
+            with st.expander(f"🏊 {p_name} ({p_dist}m) — For {p_date}"):
                 st.json(p_item)
                 if st.button(f"Delete Plan {p_id}", key=f"del_plan_{p_id}"):
                     delete_plan(p_id)
