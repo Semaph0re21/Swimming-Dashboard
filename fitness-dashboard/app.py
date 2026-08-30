@@ -587,7 +587,7 @@ with top_c2:
             "Year to Date (2026)",
             "Custom Range",
         ],
-        index=0,
+        index=1,
         label_visibility="collapsed",
         key="top_time_filter"
     )
