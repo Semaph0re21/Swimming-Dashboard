@@ -48,41 +48,40 @@ st.set_page_config(
 
 
 # ============================================================
-# CLEAN DARK ATHLETIC DESIGN SYSTEM (CSS)
+# SOOTHING NORDIC DUSK ATHLETIC DESIGN SYSTEM (CSS)
 # ============================================================
 
 st.markdown(
     """
     <style>
-    /* Google Fonts */
     @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap');
 
     :root {
-        --bg-main: #060B12;
-        --bg-card: #0C1420;
-        --bg-card-hover: #101B2B;
-        --bg-surface-elevated: #142236;
-        --border-subtle: #172338;
-        --border-focus: #00E599;
+        --bg-main: #0C1017;
+        --bg-card: #141B26;
+        --bg-card-hover: #182232;
+        --bg-surface-elevated: #1A2436;
+        --border-subtle: rgba(255, 255, 255, 0.06);
+        --border-card: #1E283A;
+        --border-focus: #2DD4BF;
         
-        --color-brand: #00E599;
-        --color-brand-glow: rgba(0, 229, 153, 0.25);
-        --color-swim: #00D2FF;
-        --color-ride: #10B981;
-        --color-run: #F43F5E;
-        --color-walk: #F59E0B;
-        --color-sleep: #8B5CF6;
-        --color-orange: #FF6B00;
+        --color-brand: #2DD4BF;
+        --color-brand-glow: rgba(45, 212, 191, 0.15);
+        --color-swim: #38BDF8;
+        --color-ride: #34D399;
+        --color-run: #FB7185;
+        --color-walk: #FBBF24;
+        --color-sleep: #A78BFA;
         
-        --text-primary: #F8FAFC;
+        --text-primary: #F1F5F9;
         --text-secondary: #94A3B8;
         --text-muted: #64748B;
     }
 
     html, body, [data-testid="stAppViewContainer"] {
         font-family: 'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-        background: #060B12 !important;
-        color: #F8FAFC;
+        background: #0C1017 !important;
+        color: #F1F5F9;
     }
 
     /* Preserve Streamlit Icons */
@@ -110,26 +109,26 @@ st.markdown(
         display: none !important;
     }
 
-    /* Main Container Padding */
+    /* Main Container Spacing */
     .block-container {
-        padding-top: 1.8rem !important;
+        padding-top: 1.4rem !important;
         padding-bottom: 3.5rem !important;
         padding-left: 2rem !important;
         padding-right: 2rem !important;
-        max-width: 1600px !important;
+        max-width: 1550px !important;
         margin: 0 auto;
     }
 
     /* Headings */
     h1, h2, h3, h4, h5, h6 {
         font-family: 'Plus Jakarta Sans', sans-serif !important;
-        color: #FFFFFF !important;
-        font-weight: 800 !important;
-        letter-spacing: -0.025em;
+        color: #F1F5F9 !important;
+        font-weight: 700 !important;
+        letter-spacing: -0.02em;
     }
 
-    /* Brand Header */
-    .forest-header {
+    /* Top Brand Header */
+    .brand-header {
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -137,544 +136,260 @@ st.markdown(
         gap: 16px;
         margin-bottom: 12px;
         padding-bottom: 12px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
     }
-    .forest-brand {
+    .brand-identity {
         display: flex;
         align-items: center;
         gap: 12px;
     }
-    .forest-logo-badge {
-        width: 36px;
-        height: 36px;
+    .brand-logo-badge {
+        width: 38px;
+        height: 38px;
         border-radius: 10px;
-        background: linear-gradient(135deg, #00E599 0%, #059669 100%);
+        background: linear-gradient(135deg, #2DD4BF 0%, #0D9488 100%);
         display: flex;
         align-items: center;
         justify-content: center;
+        font-size: 1.2rem;
+        box-shadow: 0 0 16px rgba(45, 212, 191, 0.2);
+    }
+    .brand-title {
         font-size: 1.25rem;
-        box-shadow: 0 0 16px rgba(0, 229, 153, 0.35);
-    }
-    .forest-title-wrap {
-        display: flex;
-        flex-direction: column;
-    }
-    .forest-title-row {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-    }
-    .forest-title {
-        font-size: 1.3rem;
         font-weight: 800;
-        color: #FFFFFF;
+        color: #F1F5F9;
         margin: 0;
         letter-spacing: -0.02em;
     }
-    .forest-pill-tag {
-        font-size: 0.68rem;
-        font-weight: 800;
-        color: #00E599;
-        background: rgba(0, 229, 153, 0.12);
-        border: 1px solid rgba(0, 229, 153, 0.3);
-        padding: 2px 8px;
-        border-radius: 999px;
-        text-transform: uppercase;
-        letter-spacing: 0.05em;
-    }
-    .forest-subtitle {
+    .brand-subtitle {
         font-size: 0.76rem;
-        color: #64748B;
-        font-weight: 600;
+        color: #8E9DAE;
+        font-weight: 500;
         margin: 0;
     }
-    .forest-actions {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        flex-wrap: wrap;
-    }
+
+    /* Soothing Telemetry Status Pill */
     .status-pill {
         display: inline-flex;
         align-items: center;
         gap: 6px;
-        padding: 6px 12px;
-        border-radius: 8px;
-        font-size: 0.78rem;
-        font-weight: 700;
-        background: #0C1420;
-        border: 1px solid #172338;
+        padding: 5px 12px;
+        border-radius: 999px;
+        font-size: 0.75rem;
+        font-weight: 600;
+        background: #141B26;
+        border: 1px solid #1E283A;
         color: #CBD5E1;
     }
     .live-dot {
-        width: 7px;
-        height: 7px;
+        width: 6px;
+        height: 6px;
         border-radius: 50%;
-        background: #00E599;
-        box-shadow: 0 0 8px #00E599;
+        background: #2DD4BF;
+        box-shadow: 0 0 6px rgba(45, 212, 191, 0.6);
         display: inline-block;
     }
 
-    /* Standard Card Container */
+    /* Card Containers */
     .f-card {
-        background: #0C1420;
-        border: 1px solid #172338;
+        background: #141B26;
+        border: 1px solid #1E283A;
         border-radius: 14px;
-        padding: 20px 22px;
+        padding: 18px 22px;
         margin-bottom: 16px;
-        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
-        transition: border-color 0.18s ease;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+        transition: border-color 0.15s ease, background 0.15s ease;
     }
     .f-card:hover {
-        border-color: #23354E;
+        border-color: #29374E;
     }
 
     .f-card-header {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        margin-bottom: 14px;
+        margin-bottom: 12px;
     }
     .f-card-title {
         display: flex;
         align-items: center;
         gap: 8px;
         font-size: 1.05rem;
-        font-weight: 800;
-        color: #FFFFFF;
+        font-weight: 700;
+        color: #F1F5F9;
         margin: 0;
         letter-spacing: -0.01em;
     }
     .f-card-subtitle {
         font-size: 0.78rem;
-        color: #64748B;
+        color: #8E9DAE;
         font-weight: 500;
         margin-top: 2px;
     }
 
-    /* Unified KPI Grid & Cards (Used Across All Sport Tabs) */
+    /* Unified Modern KPI Grid */
     .kpi-row-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
         gap: 12px;
         margin-bottom: 18px;
     }
-    .forest-kpi-card, .kpi-card-sub {
-        background: #0C1322;
-        border: 1px solid #1A273D;
+    .clean-kpi-card {
+        background: #141B26;
+        border: 1px solid #1E283A;
         border-radius: 12px;
         padding: 14px 16px;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
-        min-height: 100px;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+        min-height: 94px;
         transition: all 0.15s ease;
     }
-    .forest-kpi-card:hover, .kpi-card-sub:hover {
-        border-color: #2D3F5E;
-        background: #0F192C;
+    .clean-kpi-card:hover {
+        border-color: #29374E;
+        background: #172130;
     }
-    .forest-kpi-top {
+    .clean-kpi-top {
         display: flex;
         justify-content: space-between;
         align-items: center;
     }
-    .forest-kpi-label, .kpi-card-label {
-        font-size: 0.72rem;
-        font-weight: 800;
-        color: #94A3B8;
+    .clean-kpi-label {
+        font-size: 0.7rem;
+        font-weight: 700;
+        color: #8E9DAE;
         text-transform: uppercase;
         letter-spacing: 0.04em;
     }
-    .forest-kpi-icon {
-        font-size: 0.95rem;
+    .clean-kpi-icon {
+        font-size: 0.9rem;
     }
-    .forest-kpi-val, .kpi-card-value {
+    .clean-kpi-val {
         font-family: 'JetBrains Mono', monospace;
-        font-size: 1.55rem;
-        font-weight: 800;
-        color: #FFFFFF;
+        font-size: 1.45rem;
+        font-weight: 700;
+        color: #F1F5F9;
         line-height: 1.15;
         letter-spacing: -0.03em;
-        margin: 4px 0 2px 0;
+        margin: 3px 0 1px 0;
     }
-    .forest-kpi-sub, .kpi-card-footer {
+    .clean-kpi-sub {
         font-size: 0.72rem;
-        color: #64748B;
-        font-weight: 600;
-    }
-
-    /* 4 Multi-Sport Breakdown Cards */
-    .sport-breakdown-card {
-        background: #0C1322;
-        border: 1px solid #1A273D;
-        border-radius: 12px;
-        padding: 14px 16px;
-        box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
-        transition: transform 0.15s ease, border-color 0.15s ease;
-    }
-    .sport-breakdown-card:hover {
-        transform: translateY(-2px);
-        border-color: #2D3F5E;
-    }
-
-    /* Heatmap Activity Matrix Grid */
-    .heatmap-container {
-        width: 100%;
-        overflow-x: auto;
-        padding-bottom: 4px;
-    }
-    .heatmap-grid {
-        display: grid;
-        grid-template-rows: repeat(7, 13px);
-        grid-auto-flow: column;
-        grid-auto-columns: 13px;
-        gap: 4px;
-    }
-    .hm-cell {
-        width: 13px;
-        height: 13px;
-        border-radius: 3px;
-        background: #111A27;
-        transition: transform 0.1s ease, border-color 0.1s ease;
-    }
-    .hm-cell:hover {
-        transform: scale(1.3);
-        z-index: 5;
-        box-shadow: 0 0 8px rgba(0, 229, 153, 0.6);
-    }
-    .hm-lvl-0 { background: #111A27; }
-    .hm-lvl-1 { background: #064E3B; }
-    .hm-lvl-2 { background: #059669; }
-    .hm-lvl-3 { background: #10B981; }
-    .hm-lvl-4 { background: #00E599; box-shadow: 0 0 6px rgba(0, 229, 153, 0.35); }
-
-    /* Muscle / Discipline Recovery Status Cards */
-    .recovery-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
-        gap: 10px;
-    }
-    .recovery-card {
-        background: #101A29;
-        border: 1px solid #1A273D;
-        border-radius: 10px;
-        padding: 12px 14px;
-        transition: border-color 0.15s ease;
-    }
-    .recovery-card:hover {
-        border-color: #263852;
-    }
-    .rec-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 6px;
-    }
-    .rec-title {
-        font-size: 0.84rem;
-        font-weight: 800;
-        color: #FFFFFF;
-    }
-    .rec-badge-green {
-        font-size: 0.65rem;
-        font-weight: 700;
-        color: #00E599;
-        background: rgba(0, 229, 153, 0.12);
-        padding: 2px 6px;
-        border-radius: 4px;
-    }
-    .rec-badge-red {
-        font-size: 0.65rem;
-        font-weight: 700;
-        color: #F43F5E;
-        background: rgba(244, 63, 94, 0.12);
-        padding: 2px 6px;
-        border-radius: 4px;
-    }
-    .rec-badge-blue {
-        font-size: 0.65rem;
-        font-weight: 700;
-        color: #38BDF8;
-        background: rgba(56, 189, 248, 0.12);
-        padding: 2px 6px;
-        border-radius: 4px;
-    }
-    .rec-badge-yellow {
-        font-size: 0.65rem;
-        font-weight: 700;
-        color: #F59E0B;
-        background: rgba(245, 158, 11, 0.12);
-        padding: 2px 6px;
-        border-radius: 4px;
-    }
-    .rec-score-row {
-        display: flex;
-        justify-content: space-between;
-        font-size: 0.72rem;
-        color: #94A3B8;
-        font-weight: 600;
-        margin-bottom: 4px;
-    }
-    .rec-progress-bar {
-        width: 100%;
-        height: 4px;
-        background: #172338;
-        border-radius: 2px;
-        overflow: hidden;
-        margin-bottom: 6px;
-    }
-    .rec-progress-fill {
-        height: 100%;
-        background: #00E599;
-        border-radius: 2px;
-    }
-    .rec-progress-fill.fill-low {
-        background: #F43F5E;
-    }
-    .rec-progress-fill.fill-mid {
-        background: #F59E0B;
-    }
-    .rec-progress-fill.fill-good {
-        background: #38BDF8;
-    }
-    .rec-progress-fill.fill-ok {
-        background: #00E599;
-    }
-    .rec-footer {
-        font-size: 0.68rem;
         color: #64748B;
         font-weight: 500;
     }
 
-    /* Clean Streamlit Tab Navigation Bar */
+    /* Sport Summary Cards */
+    .sport-summary-card {
+        background: #141B26;
+        border: 1px solid #1E283A;
+        border-radius: 12px;
+        padding: 16px 18px;
+        transition: transform 0.15s ease, border-color 0.15s ease;
+    }
+    .sport-summary-card:hover {
+        transform: translateY(-2px);
+        border-color: #29374E;
+    }
+
+    /* Soothing Streamlit Tab Navigation Bar */
     [data-baseweb="tab-list"] {
-        gap: 4px !important;
+        gap: 6px !important;
         overflow-x: auto !important;
         flex-wrap: nowrap !important;
         -webkit-overflow-scrolling: touch !important;
         padding-bottom: 8px !important;
-        border-bottom: 1px solid #172338 !important;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.06) !important;
         margin-bottom: 18px !important;
     }
     [data-baseweb="tab"] {
-        padding: 8px 14px !important;
+        padding: 7px 14px !important;
         font-size: 0.84rem !important;
-        font-weight: 700 !important;
+        font-weight: 600 !important;
         white-space: nowrap !important;
         border-radius: 8px !important;
         background: transparent !important;
         border: 1px solid transparent !important;
-        color: #64748B !important;
-        min-height: 38px !important;
+        color: #8E9DAE !important;
+        min-height: 36px !important;
         transition: all 0.15s ease !important;
     }
     [data-baseweb="tab"]:hover {
-        background: #0C1420 !important;
+        background: #172130 !important;
         color: #CBD5E1 !important;
     }
     [data-baseweb="tab"][aria-selected="true"] {
-        background: #0C1420 !important;
-        color: #00E599 !important;
-        border-color: #172338 !important;
-        border-bottom: 2px solid #00E599 !important;
+        background: #172130 !important;
+        color: #2DD4BF !important;
+        border-color: #1E283A !important;
+        border-bottom: 2px solid #2DD4BF !important;
     }
 
-    /* Sport Badge Chips */
+    /* Sport Badge Chips (Muted & Restorative) */
     .sport-chip {
         display: inline-flex;
         align-items: center;
         gap: 5px;
-        padding: 3px 10px;
+        padding: 2px 8px;
         border-radius: 6px;
-        font-size: 0.78rem;
-        font-weight: 700;
+        font-size: 0.74rem;
+        font-weight: 600;
     }
-    .chip-swim { background: rgba(0, 210, 255, 0.12); color: #00D2FF !important; border: 1px solid rgba(0, 210, 255, 0.25); }
-    .chip-ride { background: rgba(16, 185, 129, 0.12); color: #10B981 !important; border: 1px solid rgba(16, 185, 129, 0.25); }
-    .chip-walk { background: rgba(245, 158, 11, 0.12); color: #F59E0B !important; border: 1px solid rgba(245, 158, 11, 0.25); }
-    .chip-run { background: rgba(244, 63, 94, 0.12); color: #F43F5E !important; border: 1px solid rgba(244, 63, 94, 0.25); }
-    .chip-workout { background: rgba(139, 92, 246, 0.12); color: #8B5CF6 !important; border: 1px solid rgba(139, 92, 246, 0.25); }
-    .chip-rest { background: #172338; color: #94A3B8 !important; }
+    .chip-swim { background: rgba(56, 189, 248, 0.1); color: #38BDF8 !important; border: 1px solid rgba(56, 189, 248, 0.22); }
+    .chip-ride { background: rgba(52, 211, 153, 0.1); color: #34D399 !important; border: 1px solid rgba(52, 211, 153, 0.22); }
+    .chip-walk { background: rgba(251, 191, 36, 0.1); color: #FBBF24 !important; border: 1px solid rgba(251, 191, 36, 0.22); }
+    .chip-run { background: rgba(251, 113, 133, 0.1); color: #FB7185 !important; border: 1px solid rgba(251, 113, 133, 0.22); }
+    .chip-workout { background: rgba(167, 139, 250, 0.1); color: #A78BFA !important; border: 1px solid rgba(167, 139, 250, 0.22); }
+    .chip-rest { background: #1E283A; color: #8E9DAE !important; }
 
     /* Buttons */
     button[kind="primary"], button[kind="secondary"], .stButton > button {
-        min-height: 38px !important;
-        font-size: 0.86rem !important;
-        font-weight: 700 !important;
+        min-height: 36px !important;
+        font-size: 0.84rem !important;
+        font-weight: 600 !important;
         border-radius: 8px !important;
-        background: #0C1420 !important;
-        border: 1px solid #172338 !important;
-        color: #FFFFFF !important;
+        background: #141B26 !important;
+        border: 1px solid #1E283A !important;
+        color: #F1F5F9 !important;
         transition: all 0.15s ease !important;
     }
     .stButton > button:hover {
-        border-color: #00E599 !important;
-        color: #00E599 !important;
+        border-color: #2DD4BF !important;
+        color: #2DD4BF !important;
     }
 
     /* Expanders */
     [data-testid="stExpander"] {
-        background: #0C1420 !important;
-        border: 1px solid #172338 !important;
+        background: #141B26 !important;
+        border: 1px solid #1E283A !important;
         border-radius: 10px !important;
         margin-bottom: 8px !important;
     }
 
     /* Dataframes */
     [data-testid="stDataFrame"] {
-        border: 1px solid #172338 !important;
+        border: 1px solid #1E283A !important;
         border-radius: 10px !important;
         overflow: hidden !important;
     }
 
-    /* Images */
-    .stImage img {
-        border-radius: 10px !important;
-        border: 1px solid #172338 !important;
-        object-fit: cover !important;
-        max-height: 200px !important;
-    }
-
-    /* ============================================================
-       RESPONSIVE & MOBILE DESIGN ENHANCEMENTS
-       ============================================================ */
-    @media (max-width: 1024px) {
-        .kpi-row-grid {
-            grid-template-columns: repeat(3, 1fr) !important;
-        }
-    }
-
+    /* Responsive adjustments */
     @media (max-width: 768px) {
-        /* Container Spacing */
         .block-container {
             padding-top: 1rem !important;
-            padding-bottom: 3rem !important;
             padding-left: 0.75rem !important;
             padding-right: 0.75rem !important;
         }
-
-        /* Top Brand & Filter Bar */
-        .forest-header {
-            flex-direction: column !important;
-            align-items: flex-start !important;
-            gap: 10px !important;
-        }
-        .forest-title {
-            font-size: 1.15rem !important;
-        }
-        .forest-subtitle {
-            font-size: 0.72rem !important;
-        }
-        .forest-brand {
-            gap: 8px !important;
-        }
-        .forest-logo-badge {
-            width: 32px !important;
-            height: 32px !important;
-            font-size: 1.1rem !important;
-        }
-
-        /* Top Filter Selectboxes - stack neatly on mobile */
-        [data-testid="column"] {
-            width: 100% !important;
-            flex: 1 1 100% !important;
-            min-width: 100% !important;
-            margin-bottom: 4px !important;
-        }
-
-        /* Horizontal Scrollable Tabs */
-        [data-baseweb="tab-list"] {
-            overflow-x: auto !important;
-            flex-wrap: nowrap !important;
-            -webkit-overflow-scrolling: touch !important;
-            gap: 4px !important;
-            padding-bottom: 6px !important;
-            scrollbar-width: none !important;
-        }
-        [data-baseweb="tab-list"]::-webkit-scrollbar {
-            display: none !important;
-        }
-        [data-baseweb="tab"] {
-            font-size: 0.78rem !important;
-            padding: 6px 10px !important;
-            min-height: 34px !important;
-            flex-shrink: 0 !important;
-        }
-
-        /* KPI Cards Grid */
         .kpi-row-grid {
             grid-template-columns: repeat(2, 1fr) !important;
             gap: 8px !important;
-            margin-bottom: 14px !important;
         }
-        .forest-kpi-card, .kpi-card-sub {
+        .clean-kpi-card {
             padding: 10px 12px !important;
-            min-height: 85px !important;
-            border-radius: 10px !important;
+            min-height: 80px !important;
         }
-        .forest-kpi-val, .kpi-card-value {
-            font-size: 1.3rem !important;
-            margin: 2px 0 !important;
-        }
-        .forest-kpi-label, .kpi-card-label {
-            font-size: 0.66rem !important;
-        }
-        .forest-kpi-sub, .kpi-card-footer {
-            font-size: 0.68rem !important;
-        }
-
-        /* Standard Cards */
-        .f-card {
-            padding: 14px 14px !important;
-            border-radius: 12px !important;
-            margin-bottom: 12px !important;
-        }
-        .f-card-header {
-            flex-direction: column !important;
-            align-items: flex-start !important;
-            gap: 8px !important;
-        }
-        .f-card-title {
-            font-size: 1.1rem !important;
-        }
-
-        /* Structured Workout Sets Grid */
-        .sets-grid-responsive {
-            grid-template-columns: 1fr !important;
-            gap: 10px !important;
-        }
-
-        /* Recovery Matrix Grid */
-        .recovery-grid {
-            grid-template-columns: repeat(2, 1fr) !important;
-            gap: 8px !important;
-        }
-
-        /* Dataframe overflow touch scroll */
-        [data-testid="stDataFrame"] {
-            -webkit-overflow-scrolling: touch !important;
-        }
-    }
-
-    @media (max-width: 480px) {
-        .block-container {
-            padding-left: 0.5rem !important;
-            padding-right: 0.5rem !important;
-        }
-        .kpi-row-grid {
-            grid-template-columns: 1fr 1fr !important;
-            gap: 6px !important;
-        }
-        .forest-kpi-card {
-            padding: 8px 10px !important;
-        }
-        .forest-kpi-val {
-            font-size: 1.18rem !important;
-        }
-        .status-pill {
-            font-size: 0.72rem !important;
-            padding: 4px 8px !important;
+        .clean-kpi-val {
+            font-size: 1.25rem !important;
         }
     }
     </style>
@@ -684,7 +399,7 @@ st.markdown(
 
 
 # ============================================================
-# HELPER FUNCTIONS & SVG GENERATORS
+# HELPER FUNCTIONS
 # ============================================================
 
 def format_date_clean(date_str):
@@ -737,22 +452,22 @@ def get_sport_chip_class(sport):
     return classes.get(sport, "chip-rest")
 
 
-def apply_forest_chart_theme(chart, height=270):
+def apply_forest_chart_theme(chart, height=240):
     return (
         chart.properties(height=height)
         .configure_axis(
-            labelColor="#64748B",
-            titleColor="#94A3B8",
+            labelColor="#8E9DAE",
+            titleColor="#8E9DAE",
             labelFontSize=10,
             titleFontSize=11,
             titleFontWeight="normal",
-            gridColor="#121D2C",
-            domainColor="#172338",
-            tickColor="#172338",
+            gridColor="rgba(255, 255, 255, 0.04)",
+            domainColor="#1E283A",
+            tickColor="#1E283A",
         )
         .configure_legend(
             labelColor="#CBD5E1",
-            titleColor="#94A3B8",
+            titleColor="#8E9DAE",
             labelFontSize=10,
             titleFontSize=11,
         )
@@ -762,58 +477,11 @@ def apply_forest_chart_theme(chart, height=270):
     )
 
 
-def generate_radar_svg(scores, labels, size=280):
-    """Generate high-tech SVG Radar / Spider chart."""
-    cx, cy, r = size / 2, size / 2, size * 0.36
-    num_vars = len(labels)
-    angles = [i * (2 * math.pi / num_vars) - math.pi / 2 for i in range(num_vars)]
-    
-    rings_svg = ""
-    for step in [0.25, 0.5, 0.75, 1.0]:
-        pts = [f"{cx + r * step * math.cos(a):.1f},{cy + r * step * math.sin(a):.1f}" for a in angles]
-        rings_svg += f'<polygon points="{" ".join(pts)}" fill="none" stroke="#162338" stroke-width="1" />'
-        
-    axes_svg = ""
-    for i, a in enumerate(angles):
-        ax_x = cx + r * math.cos(a)
-        ax_y = cy + r * math.sin(a)
-        axes_svg += f'<line x1="{cx}" y1="{cy}" x2="{ax_x:.1f}" y2="{ax_y:.1f}" stroke="#172338" stroke-width="1" />'
-        lbl_x = cx + (r + 18) * math.cos(a)
-        lbl_y = cy + (r + 14) * math.sin(a)
-        anchor = "middle"
-        if math.cos(a) > 0.3:
-            anchor = "start"
-        elif math.cos(a) < -0.3:
-            anchor = "end"
-        axes_svg += f'<text x="{lbl_x:.1f}" y="{lbl_y:.1f}" fill="#64748B" font-size="9.5" font-family="Plus Jakarta Sans, sans-serif" font-weight="600" text-anchor="{anchor}" dominant-baseline="middle">{labels[i]}</text>'
-        
-    data_pts = []
-    circles_svg = ""
-    for i, (score, a) in enumerate(zip(scores, angles)):
-        val = max(0.18, min(1.0, score))
-        px = cx + r * val * math.cos(a)
-        py = cy + r * val * math.sin(a)
-        data_pts.append(f"{px:.1f},{py:.1f}")
-        circles_svg += f'<circle cx="{px:.1f}" cy="{py:.1f}" r="3.5" fill="#00E599" stroke="#060B12" stroke-width="1.5" />'
-        
-    poly_str = " ".join(data_pts)
-    data_svg = f'<polygon points="{poly_str}" fill="rgba(0, 229, 153, 0.18)" stroke="#00E599" stroke-width="1.8" />'
-    
-    return f'<svg viewBox="0 0 {size} {size}" width="100%" height="220" style="display: block; margin: 0 auto;">{rings_svg}{axes_svg}{data_svg}{circles_svg}</svg>'
-
-
 def calculate_sport_recovery_metric(sport_name, days_ago, acute_load, recent_dist_km, wellness):
-    """
-    Physiologically verified recovery & readiness model combining:
-    1. Acute Muscular Depletion & Time-Course Recovery (Banister / Firstbeat Impulse Model)
-    2. Garmin Biometric Telemetry (Sleep Score, Overnight HRV, Resting HR)
-    3. Recent session workload
-    """
     sleep_score = wellness.get("sleepScore") if isinstance(wellness, dict) else None
     hrv = wellness.get("hrv") if isinstance(wellness, dict) else None
     rhr = wellness.get("restingHR") if isinstance(wellness, dict) else None
 
-    # Biometric modifier (-22% to +11%)
     bio_mod = 0
     if sleep_score is not None:
         if sleep_score >= 80:
@@ -834,51 +502,52 @@ def calculate_sport_recovery_metric(sport_name, days_ago, acute_load, recent_dis
     if rhr is not None and rhr > 65:
         bio_mod -= 5
 
-    # Time-based muscular readiness
-    if days_ago == 0:  # Trained Today
+    if days_ago == 0:
         if (acute_load or 0) > 50 or (recent_dist_km or 0) > 3.0:
-            base_readiness = 40  # Heavy fatigue / active repair
-            status_text = "Trained Today / Fatigued"
+            base_readiness = 40
+            status_text = "Trained Today"
         else:
-            base_readiness = 58  # Light-moderate session
-            status_text = "Trained Today / Rest"
-    elif days_ago == 1:  # Trained Yesterday
+            base_readiness = 58
+            status_text = "Trained Today"
+    elif days_ago == 1:
         base_readiness = 78
-        status_text = "Recovering / Good"
-    elif days_ago in (2, 3):  # Peak supercompensation window
+        status_text = "Recovering"
+    elif days_ago in (2, 3):
         base_readiness = 95
-        status_text = "Optimal / Rested"
+        status_text = "Optimal"
     elif days_ago in (4, 5, 6):
         base_readiness = 90
-        status_text = "Rested / Ready"
+        status_text = "Ready"
     elif days_ago is not None and days_ago >= 7:
         base_readiness = max(65, 85 - (days_ago - 7) * 2)
-        status_text = "Detraining Gap"
+        status_text = "Resting"
     else:
         base_readiness = 85
         status_text = "Ready"
 
     final_readiness = max(15, min(100, int(base_readiness + bio_mod)))
-
-    if final_readiness >= 85:
-        badge_cls = "rec-badge-green"
-        fill_cls = "fill-ok"
-    elif final_readiness >= 70:
-        badge_cls = "rec-badge-blue"
-        fill_cls = "fill-good"
-    elif final_readiness >= 50:
-        badge_cls = "rec-badge-yellow"
-        fill_cls = "fill-mid"
-    else:
-        badge_cls = "rec-badge-red"
-        fill_cls = "fill-low"
-
     return {
         "readiness_pct": final_readiness,
         "status_text": status_text,
-        "badge_cls": badge_cls,
-        "fill_cls": fill_cls,
     }
+
+
+def get_set_badge_meta(purpose):
+    pur = (purpose or "").lower()
+    if "warm" in pur:
+        return {"bg": "rgba(56, 189, 248, 0.1)", "border": "rgba(56, 189, 248, 0.22)", "color": "#38BDF8", "tag": "WARM-UP"}
+    elif any(k in pur for k in ["tech", "drill", "rotation", "kick", "pull"]):
+        return {"bg": "rgba(167, 139, 250, 0.1)", "border": "rgba(167, 139, 250, 0.22)", "color": "#A78BFA", "tag": "TECHNIQUE"}
+    elif any(k in pur for k in ["speed", "interval", "vo2", "sprint"]):
+        return {"bg": "rgba(251, 113, 133, 0.1)", "border": "rgba(251, 113, 133, 0.22)", "color": "#FB7185", "tag": "SPEED"}
+    elif any(k in pur for k in ["tempo", "threshold", "pace"]):
+        return {"bg": "rgba(251, 191, 36, 0.1)", "border": "rgba(251, 191, 36, 0.22)", "color": "#FBBF24", "tag": "TEMPO"}
+    elif any(k in pur for k in ["recovery", "easy", "relax"]):
+        return {"bg": "rgba(45, 212, 191, 0.1)", "border": "rgba(45, 212, 191, 0.22)", "color": "#2DD4BF", "tag": "RECOVERY"}
+    elif any(k in pur for k in ["cool", "down"]):
+        return {"bg": "rgba(148, 163, 184, 0.1)", "border": "rgba(148, 163, 184, 0.22)", "color": "#94A3B8", "tag": "COOL-DOWN"}
+    else:
+        return {"bg": "rgba(45, 212, 191, 0.1)", "border": "rgba(45, 212, 191, 0.22)", "color": "#2DD4BF", "tag": "ENDURANCE"}
 
 
 # ============================================================
@@ -894,14 +563,11 @@ top_c1, top_c2, top_c3 = st.columns([5, 3, 3])
 with top_c1:
     st.markdown(
         """
-        <div class="forest-brand" style="margin-top: 4px;">
-            <div class="forest-logo-badge">⚡</div>
-            <div class="forest-title-wrap">
-                <div class="forest-title-row">
-                    <span class="forest-title">FITNESS DASHBOARD</span>
-                    <span class="forest-pill-tag">TRAINING ENGINE</span>
-                </div>
-                <span class="forest-subtitle">Personal Fitness, Training &amp; Health Intelligence · Garmin 965 &amp; Strava</span>
+        <div class="brand-identity">
+            <div class="brand-logo-badge">⚡</div>
+            <div>
+                <div class="brand-title">ATHLETIC INTELLIGENCE</div>
+                <div class="brand-subtitle">Garmin Forerunner 965 &amp; Strava Telemetry</div>
             </div>
         </div>
         """,
@@ -989,8 +655,6 @@ with st.spinner("Loading telemetry..."):
 
 activities = data.get("activities", [])
 all_activities = data.get("all_activities", [])
-current_week = data.get("current_week", {})
-previous_week = data.get("previous_week", {})
 swim_baseline = data.get("swim_baseline", [])
 baseline_pace = data.get("baseline_pace", 154)
 pace_zones = data.get("pace_zones", swim_pace_zones(baseline_pace))
@@ -1002,8 +666,6 @@ summary = data.get("summary", {})
 weekly_trends = data.get("weekly_trends", [])
 wellness_records = data.get("wellness", [])
 api_status = data.get("api_status", "cache")
-strava_matched = data.get("strava_matched", 0)
-strava_added = data.get("strava_added", 0)
 tot_intervals = data.get("total_intervals_count", 0)
 tot_strava = data.get("total_strava_count", 0)
 
@@ -1018,14 +680,10 @@ show_next_day = is_night_cutoff or today_swim_done
 end_val = datetime.fromisoformat(end_date_str).date()
 if show_next_day:
     target_plan_date = end_val + timedelta(days=1)
-    plan_timing_label = "Tomorrow's"
     plan_timing_badge = "Tomorrow"
 else:
     target_plan_date = end_val
-    plan_timing_label = "Today's"
     plan_timing_badge = "Today"
-
-target_plan_date_str = target_plan_date.strftime("%A, %b %d, %Y")
 
 running_analytics = data.get("running_analytics", {})
 cycling_analytics = data.get("cycling_analytics", {})
@@ -1044,18 +702,18 @@ total_time_all = sum(s.get("moving_time_min", 0) for s in summary.values())
 total_load_all = sum(s.get("training_load", 0) for s in summary.values())
 total_cals_all = sum(a.get("calories", 0) for a in activities if a.get("calories"))
 
-# Telemetry Status Pills Bar
+# Status Pill Bar
 st.markdown(
     f"""
     <div style="display: flex; gap: 8px; flex-wrap: wrap; margin: 4px 0 16px 0;">
         <div class="status-pill">
-            <span class="live-dot"></span> Live Telemetry (Garmin 965)
+            <span class="live-dot"></span> Garmin 965 Connected
         </div>
         <div class="status-pill">
-            🟠 Strava Sync: <strong>{tot_strava}</strong>
+            Strava: <strong>{tot_strava}</strong>
         </div>
-        <div class="status-pill" style="color: #00E599;">
-            ⚡ Window: <strong>{len(activities)}</strong> sessions
+        <div class="status-pill" style="color: #2DD4BF;">
+            Activities: <strong>{len(activities)}</strong>
         </div>
     </div>
     """,
@@ -1064,641 +722,36 @@ st.markdown(
 
 
 # ============================================================
-# NAVIGATION TABS
+# STREAMLINED NAVIGATION TABS (10 FOCUSED TABS)
 # ============================================================
 
 (
-    tab_overview,
     tab_today,
+    tab_overview,
     tab_swimming,
     tab_running,
     tab_cycling,
     tab_walking,
     tab_sleep,
     tab_calendar,
-    tab_performance,
-    tab_load,
-    tab_records,
+    tab_analytics,
     tab_settings,
 ) = st.tabs([
-    "👁️ Overview",
     "☀️ Today",
+    "👁️ Overview",
     "🏊 Swimming",
     "🏃 Running",
     "🚴 Cycling",
     "🚶 Walking",
     "😴 Sleep & Recovery",
-    "📅 Activity Calendar",
-    "📊 Performance",
-    "📈 Training Load",
-    "🏆 Personal Records",
-    "⚙️ Data & Settings",
+    "📅 Calendar & Planner",
+    "📊 Analytics & Load",
+    "⚙️ Settings",
 ])
 
 
 # ============================================================
-# TAB 1: 👁️ OVERVIEW
-# ============================================================
-
-with tab_overview:
-    # 1. Today's Garmin Sleep & Recovery Telemetry Card
-    today_iso = str(today_date)
-    today_wellness = next((w for w in wellness_records if w.get("id") == today_iso or w.get("date") == today_iso), None)
-    if not today_wellness and wellness_records:
-        today_wellness = wellness_records[-1]
-
-    t_sleep_sec = today_wellness.get("sleepSecs") if today_wellness else None
-    t_sleep_score = today_wellness.get("sleepScore") if today_wellness else None
-    t_rhr = today_wellness.get("restingHR") if today_wellness else None
-    t_hrv = today_wellness.get("hrv") if today_wellness else None
-
-    t_hours = int(t_sleep_sec // 3600) if t_sleep_sec else 0
-    t_mins = int((t_sleep_sec % 3600) // 60) if t_sleep_sec else 0
-    dur_display = f"{t_hours}h {t_mins:02d}m" if t_sleep_sec else "—"
-    score_badge = f"{t_sleep_score:.0f}/100" if t_sleep_score else "Tracked"
-    hrv_badge = f"{t_hrv:.0f} ms" if t_hrv else "—"
-    rhr_badge = f"{t_rhr:.0f} bpm" if t_rhr else "—"
-    today_date_str_formatted = format_date_clean(today_wellness.get('id', today_iso) if today_wellness else today_iso).upper()
-
-    st.markdown(
-        f"""
-        <div style="background: #0C1322; border: 1px solid #1A273D; border-radius: 14px; padding: 18px 22px; margin-bottom: 22px; box-shadow: 0 4px 16px rgba(0,0,0,0.3);">
-            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 14px;">
-                <div>
-                    <div style="font-size: 0.76rem; font-weight: 800; color: #A78BFA; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 4px;">
-                        🌙 TODAY'S GARMIN SLEEP &amp; RECOVERY TELEMETRY · {today_date_str_formatted}
-                    </div>
-                    <h3 style="margin: 0; color: #FFFFFF; font-size: 1.25rem; font-weight: 800;">
-                        Sleep Quality, HRV &amp; Recovery State
-                    </h3>
-                </div>
-                <div style="display: flex; gap: 8px; flex-wrap: wrap;">
-                    <span style="background: #6D28D9; color: #FFFFFF; font-size: 0.78rem; font-weight: 700; padding: 4px 12px; border-radius: 6px;">Score: {score_badge}</span>
-                    <span style="background: #0284C7; color: #FFFFFF; font-size: 0.78rem; font-weight: 700; padding: 4px 12px; border-radius: 6px;">HRV: {hrv_badge}</span>
-                    <span style="background: #059669; color: #FFFFFF; font-size: 0.78rem; font-weight: 700; padding: 4px 12px; border-radius: 6px;">RHR: {rhr_badge}</span>
-                </div>
-            </div>
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px;">
-                <div class="kpi-card-sub">
-                    <div class="kpi-card-label" style="color: #38BDF8;">🛌 SLEEP DURATION</div>
-                    <div class="kpi-card-value">{dur_display}</div>
-                    <div class="kpi-card-footer">{f"{t_sleep_sec:,}s log" if t_sleep_sec else "Tracked sleep"}</div>
-                </div>
-                <div class="kpi-card-sub">
-                    <div class="kpi-card-label" style="color: #F472B6;">🎯 SLEEP SCORE</div>
-                    <div class="kpi-card-value">{f"{t_sleep_score:.0f}" if t_sleep_score else "—"} <span style="font-size: 0.85rem; color: #64748B;">/ 100</span></div>
-                    <div class="kpi-card-footer" style="color: #10B981; font-weight: 700;">Restful</div>
-                </div>
-                <div class="kpi-card-sub">
-                    <div class="kpi-card-label" style="color: #00D2FF;">💓 OVERNIGHT HRV</div>
-                    <div class="kpi-card-value">{f"{t_hrv:.0f}" if t_hrv else "—"} <span style="font-size: 0.85rem; color: #64748B;">ms</span></div>
-                    <div class="kpi-card-footer" style="color: #38BDF8; font-weight: 700;">Balanced</div>
-                </div>
-                <div class="kpi-card-sub">
-                    <div class="kpi-card-label" style="color: #10B981;">❤️ RESTING HR</div>
-                    <div class="kpi-card-value">{f"{t_rhr:.0f}" if t_rhr else "—"} <span style="font-size: 0.85rem; color: #64748B;">bpm</span></div>
-                    <div class="kpi-card-footer">Garmin 965</div>
-                </div>
-            </div>
-        </div>
-        """,
-        unsafe_allow_html=True,
-    )
-
-    # 2. Activity Telemetry Overview (7 KPI Cards)
-    daily_steps_list = [w["steps"] for w in wellness_records if w.get("steps")]
-    avg_steps = round(sum(daily_steps_list) / len(daily_steps_list)) if daily_steps_list else None
-    avg_sleep_f = sleep_analytics.get("avg_duration_formatted", "—")
-    streak_count = performance_analytics.get("current_streak", 0)
-    tracked_nights_cnt = sleep_analytics.get('total_days_tracked', 0)
-
-    st.markdown(
-        f"""
-        <div style="margin-bottom: 22px;">
-            <h3 style="margin: 0 0 12px 0; color: #FFFFFF; font-size: 1.25rem; font-weight: 800; display: flex; align-items: center; gap: 8px;">
-                📊 Activity Telemetry Overview
-            </h3>
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 10px;">
-                <div class="kpi-card-sub">
-                    <div class="kpi-card-label" style="color: #A78BFA;">🏃 TOTAL DISTANCE</div>
-                    <div class="kpi-card-value">{total_dist_all:.1f} <span style="font-size: 0.85rem; color: #64748B;">km</span></div>
-                    <div class="kpi-card-footer">{len(activities)} total sessions</div>
-                </div>
-                <div class="kpi-card-sub">
-                    <div class="kpi-card-label" style="color: #38BDF8;">⏱️ ACTIVE TIME</div>
-                    <div class="kpi-card-value">{total_time_all / 60:.1f} <span style="font-size: 0.85rem; color: #64748B;">hrs</span></div>
-                    <div class="kpi-card-footer">{total_time_all:.0f} moving mins</div>
-                </div>
-                <div class="kpi-card-sub">
-                    <div class="kpi-card-label" style="color: #4ADE80;">🔥 ACTIVE CALORIES</div>
-                    <div class="kpi-card-value">{total_cals_all:,} <span style="font-size: 0.85rem; color: #64748B;">kcal</span></div>
-                    <div class="kpi-card-footer">Verified energy</div>
-                </div>
-                <div class="kpi-card-sub">
-                    <div class="kpi-card-label" style="color: #F87171;">📈 TRAINING LOAD</div>
-                    <div class="kpi-card-value">{total_load_all:.0f}</div>
-                    <div class="kpi-card-footer">ICU Training Load</div>
-                </div>
-                <div class="kpi-card-sub">
-                    <div class="kpi-card-label" style="color: #FBBF24;">👟 AVG DAILY STEPS</div>
-                    <div class="kpi-card-value">{f"{avg_steps:,}" if avg_steps else "—"}</div>
-                    <div class="kpi-card-footer">Garmin pedometer</div>
-                </div>
-                <div class="kpi-card-sub">
-                    <div class="kpi-card-label" style="color: #C084FC;">😴 AVG SLEEP</div>
-                    <div class="kpi-card-value">{avg_sleep_f}</div>
-                    <div class="kpi-card-footer">{tracked_nights_cnt} nights tracked</div>
-                </div>
-                <div class="kpi-card-sub">
-                    <div class="kpi-card-label" style="color: #F59E0B;">⚡ ACTIVITY STREAK</div>
-                    <div class="kpi-card-value">{streak_count} <span style="font-size: 0.85rem; color: #64748B;">days</span></div>
-                    <div class="kpi-card-footer">Consecutive active</div>
-                </div>
-            </div>
-        </div>
-        """,
-        unsafe_allow_html=True,
-    )
-
-    # 3. Multi-Sport Breakdown (4 Sport Cards)
-    swim_sum = summary.get("Swim", {})
-    run_sum = summary.get("Run", {})
-    ride_sum = summary.get("Ride", {})
-    walk_sum = summary.get("Walk", {})
-
-    s_pace = swim_sum.get("pace_formatted", "—")
-    r_pace = run_sum.get("pace_formatted", "—")
-    b_speed = cycling_analytics.get("avg_speed_kmh")
-    b_speed_str = f"{b_speed:.1f} km/h" if b_speed else "—"
-    w_pace = walking_analytics.get("avg_pace_formatted", "—")
-
-    st.markdown(
-        f"""
-        <div style="margin-bottom: 22px;">
-            <h3 style="margin: 0 0 12px 0; color: #FFFFFF; font-size: 1.25rem; font-weight: 800; display: flex; align-items: center; gap: 8px;">
-                🏅 Multi-Sport Breakdown
-            </h3>
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px;">
-                <div class="sport-breakdown-card" style="border-top: 4px solid #00D2FF;">
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
-                        <span style="font-size: 0.92rem; font-weight: 800; color: #38BDF8;">🏊 SWIMMING</span>
-                        <span style="background: #0284C7; color: #FFFFFF; font-size: 0.72rem; font-weight: 700; padding: 2px 8px; border-radius: 6px;">{swim_sum.get('sessions', 0)} sessions</span>
-                    </div>
-                    <div style="font-family: 'JetBrains Mono', monospace; font-size: 1.6rem; font-weight: 800; color: #FFFFFF; margin: 4px 0;">{swim_sum.get('distance_km', 0):.2f} km</div>
-                    <div style="font-size: 0.8rem; color: #94A3B8; margin-top: 4px;">⏱️ {format_duration_hm(swim_sum.get('moving_time_min', 0))} · ⚡ {s_pace}</div>
-                    <div style="font-size: 0.75rem; color: #38BDF8; margin-top: 6px; font-weight: 700;">Last: {format_days_ago(days_since_swim)}</div>
-                </div>
-                <div class="sport-breakdown-card" style="border-top: 4px solid #F43F5E;">
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
-                        <span style="font-size: 0.92rem; font-weight: 800; color: #F472B6;">🏃 RUNNING</span>
-                        <span style="background: #DB2777; color: #FFFFFF; font-size: 0.72rem; font-weight: 700; padding: 2px 8px; border-radius: 6px;">{run_sum.get('sessions', 0)} sessions</span>
-                    </div>
-                    <div style="font-family: 'JetBrains Mono', monospace; font-size: 1.6rem; font-weight: 800; color: #FFFFFF; margin: 4px 0;">{run_sum.get('distance_km', 0):.2f} km</div>
-                    <div style="font-size: 0.8rem; color: #94A3B8; margin-top: 4px;">⏱️ {format_duration_hm(run_sum.get('moving_time_min', 0))} · ⚡ {r_pace}</div>
-                    <div style="font-size: 0.75rem; color: #F472B6; margin-top: 6px; font-weight: 700;">Last: {format_days_ago(days_since_run)}</div>
-                </div>
-                <div class="sport-breakdown-card" style="border-top: 4px solid #10B981;">
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
-                        <span style="font-size: 0.92rem; font-weight: 800; color: #4ADE80;">🚴 CYCLING</span>
-                        <span style="background: #059669; color: #FFFFFF; font-size: 0.72rem; font-weight: 700; padding: 2px 8px; border-radius: 6px;">{ride_sum.get('sessions', 0)} sessions</span>
-                    </div>
-                    <div style="font-family: 'JetBrains Mono', monospace; font-size: 1.6rem; font-weight: 800; color: #FFFFFF; margin: 4px 0;">{ride_sum.get('distance_km', 0):.2f} km</div>
-                    <div style="font-size: 0.8rem; color: #94A3B8; margin-top: 4px;">⏱️ {format_duration_hm(ride_sum.get('moving_time_min', 0))} · ⚡ {b_speed_str}</div>
-                    <div style="font-size: 0.75rem; color: #4ADE80; margin-top: 6px; font-weight: 700;">Last: {format_days_ago(days_since_ride)}</div>
-                </div>
-                <div class="sport-breakdown-card" style="border-top: 4px solid #F59E0B;">
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
-                        <span style="font-size: 0.92rem; font-weight: 800; color: #FBBF24;">🚶 WALKING</span>
-                        <span style="background: #D97706; color: #FFFFFF; font-size: 0.72rem; font-weight: 700; padding: 2px 8px; border-radius: 6px;">{walk_sum.get('sessions', 0)} sessions</span>
-                    </div>
-                    <div style="font-family: 'JetBrains Mono', monospace; font-size: 1.6rem; font-weight: 800; color: #FFFFFF; margin: 4px 0;">{walk_sum.get('distance_km', 0):.2f} km</div>
-                    <div style="font-size: 0.8rem; color: #94A3B8; margin-top: 4px;">⏱️ {format_duration_hm(walk_sum.get('moving_time_min', 0))} · ⚡ {w_pace}</div>
-                    <div style="font-size: 0.75rem; color: #FBBF24; margin-top: 6px; font-weight: 700;">Last: {format_days_ago(days_since_walk)}</div>
-                </div>
-            </div>
-        </div>
-        """,
-        unsafe_allow_html=True,
-    )
-
-    # 4. Workout Activity Matrix Heatmap Card
-    act_counts_by_date = {}
-    for a in all_activities:
-        d_str = a.get("date")
-        if d_str:
-            k = d_str[:10]
-            act_counts_by_date[k] = act_counts_by_date.get(k, 0) + 1
-
-    # Build 52-week calendar grid for 2026
-    start_grid_date = date(2026, 1, 1)
-    # Align to Monday
-    start_grid_date -= timedelta(days=start_grid_date.weekday())
-    end_grid_date = date(2026, 12, 31)
-
-    heatmap_cells_html = ""
-    curr_d = start_grid_date
-    total_active_days_2026 = 0
-
-    while curr_d <= end_grid_date:
-        d_iso = curr_d.strftime("%Y-%m-%d")
-        cnt = act_counts_by_date.get(d_iso, 0)
-        if cnt > 0 and curr_d.year == 2026:
-            total_active_days_2026 += 1
-
-        lvl = "hm-lvl-0"
-        if cnt == 1:
-            lvl = "hm-lvl-1"
-        elif cnt == 2:
-            lvl = "hm-lvl-2"
-        elif cnt == 3:
-            lvl = "hm-lvl-3"
-        elif cnt >= 4:
-            lvl = "hm-lvl-4"
-
-        title_tip = f"{curr_d.strftime('%b %d, %Y')}: {cnt} workout(s)"
-        heatmap_cells_html += f'<div class="hm-cell {lvl}" title="{title_tip}"></div>'
-        curr_d += timedelta(days=1)
-
-    st.markdown(
-        f"""
-        <div class="f-card">
-            <div class="f-card-header">
-                <div>
-                    <div class="f-card-title">🗓️ Workout Activity Matrix</div>
-                    <div class="f-card-subtitle">{total_active_days_2026} active workout days in 2026</div>
-                </div>
-                <div style="display: flex; align-items: center; gap: 4px; font-size: 0.72rem; color: #64748B;">
-                    <span>Less</span>
-                    <span class="hm-cell hm-lvl-0" style="display: inline-block;"></span>
-                    <span class="hm-cell hm-lvl-1" style="display: inline-block;"></span>
-                    <span class="hm-cell hm-lvl-2" style="display: inline-block;"></span>
-                    <span class="hm-cell hm-lvl-3" style="display: inline-block;"></span>
-                    <span class="hm-cell hm-lvl-4" style="display: inline-block;"></span>
-                    <span>More</span>
-                </div>
-            </div>
-            <div class="heatmap-container">
-                <div class="heatmap-grid">
-                    {heatmap_cells_html}
-                </div>
-            </div>
-        </div>
-        """,
-        unsafe_allow_html=True,
-    )
-
-    # 5. Middle Row: Volume Progression & Frequency (Left 2/3) + Donut Discipline Split (Right 1/3)
-    chart_c1, chart_c2 = st.columns([2, 1])
-
-    with chart_c1:
-        st.markdown(
-            """
-            <div class="f-card" style="margin-bottom: 16px;">
-                <div class="f-card-header">
-                    <div>
-                        <div class="f-card-title">📈 Volume Progression &amp; Frequency</div>
-                        <div class="f-card-subtitle">Weekly distance volume and sessions completed</div>
-                    </div>
-                </div>
-            """,
-            unsafe_allow_html=True,
-        )
-        if weekly_trends:
-            w_df = pd.DataFrame(weekly_trends)
-            
-            bars = alt.Chart(w_df).mark_bar(
-                color="#14283D",
-                cornerRadiusTopLeft=4,
-                cornerRadiusTopRight=4,
-                opacity=0.85
-            ).encode(
-                x=alt.X("week:N", title=None, axis=alt.Axis(labelAngle=-45)),
-                y=alt.Y("distance_km:Q", title="Volume (km)"),
-                tooltip=[
-                    alt.Tooltip("week:N", title="Week"),
-                    alt.Tooltip("distance_km:Q", title="Distance (km)"),
-                    alt.Tooltip("sessions:Q", title="Sessions"),
-                    alt.Tooltip("time_min:Q", title="Time (min)"),
-                ]
-            )
-
-            line = alt.Chart(w_df).mark_line(
-                color="#00E599",
-                strokeWidth=2.5,
-                point=alt.OverlayMarkDef(color="#00E599", size=40, stroke="#060B12", strokeWidth=2)
-            ).encode(
-                x=alt.X("week:N", title=None),
-                y=alt.Y("distance_km:Q", title=None),
-            )
-
-            combo_chart = (bars + line).properties(height=230)
-            st.altair_chart(apply_forest_chart_theme(combo_chart, height=230), use_container_width=True)
-        else:
-            st.info("No volume trends available for the selected period.")
-        st.markdown("</div>", unsafe_allow_html=True)
-
-    with chart_c2:
-        st.markdown(
-            """
-            <div class="f-card" style="margin-bottom: 16px;">
-                <div class="f-card-header">
-                    <div>
-                        <div class="f-card-title">🍩 Discipline Split</div>
-                        <div class="f-card-subtitle">Distribution of active volume</div>
-                    </div>
-                </div>
-            """,
-            unsafe_allow_html=True,
-        )
-        dist_map = performance_analytics.get("sport_distribution", {})
-        if dist_map:
-            pie_data = []
-            for sp_k, sp_v in dist_map.items():
-                pie_data.append({
-                    "sport": sp_k,
-                    "hours": sp_v.get("hours", 0),
-                    "percentage": sp_v.get("percentage_time", 0),
-                })
-            p_df = pd.DataFrame(pie_data)
-            donut_chart = alt.Chart(p_df).mark_arc(innerRadius=52, outerRadius=82).encode(
-                theta=alt.Theta("hours:Q", title="Hours"),
-                color=alt.Color(
-                    "sport:N",
-                    scale=alt.Scale(
-                        domain=["Swim", "Ride", "Run", "Walk", "Workout", "Other"],
-                        range=["#00D2FF", "#10B981", "#F43F5E", "#F59E0B", "#8B5CF6", "#64748B"],
-                    ),
-                    legend=alt.Legend(orient="right", title=None, labelFontSize=10)
-                ),
-                tooltip=[
-                    alt.Tooltip("sport:N", title="Sport"),
-                    alt.Tooltip("hours:Q", title="Hours"),
-                    alt.Tooltip("percentage:Q", title="Percentage (%)"),
-                ]
-            ).properties(height=230)
-            st.altair_chart(apply_forest_chart_theme(donut_chart, height=230), use_container_width=True)
-        else:
-            st.info("No discipline data available.")
-        st.markdown("</div>", unsafe_allow_html=True)
-
-    # 6. Bottom Row: Muscle/Discipline Recovery Index (Left 2/3) + Training Balance Radar (Right 1/3)
-    rec_c1, rec_c2 = st.columns([2, 1])
-
-    with rec_c1:
-        # Compute exact physiological recovery & readiness metrics for each discipline
-        rec_swim = calculate_sport_recovery_metric(
-            "Swim", days_since_swim,
-            summary.get("Swim", {}).get("training_load", 0),
-            summary.get("Swim", {}).get("distance_km", 0),
-            today_wellness
-        )
-        rec_run = calculate_sport_recovery_metric(
-            "Run", days_since_run,
-            summary.get("Run", {}).get("training_load", 0),
-            summary.get("Run", {}).get("distance_km", 0),
-            today_wellness
-        )
-        rec_ride = calculate_sport_recovery_metric(
-            "Ride", days_since_ride,
-            summary.get("Ride", {}).get("training_load", 0),
-            summary.get("Ride", {}).get("distance_km", 0),
-            today_wellness
-        )
-        rec_walk = calculate_sport_recovery_metric(
-            "Walk", days_since_walk,
-            summary.get("Walk", {}).get("training_load", 0),
-            summary.get("Walk", {}).get("distance_km", 0),
-            today_wellness
-        )
-
-        # Sleep quality status from Garmin
-        sl_score_val = t_sleep_score if t_sleep_score is not None else sleep_analytics.get("avg_sleep_score", 75)
-        if sl_score_val >= 80:
-            sl_badge_cls = "rec-badge-green"
-            sl_status_text = f"Score: {sl_score_val:.0f}"
-            sl_fill_cls = "fill-ok"
-        elif sl_score_val >= 65:
-            sl_badge_cls = "rec-badge-blue"
-            sl_status_text = f"Score: {sl_score_val:.0f}"
-            sl_fill_cls = "fill-good"
-        elif sl_score_val >= 50:
-            sl_badge_cls = "rec-badge-yellow"
-            sl_status_text = f"Score: {sl_score_val:.0f}"
-            sl_fill_cls = "fill-mid"
-        else:
-            sl_badge_cls = "rec-badge-red"
-            sl_status_text = f"Score: {sl_score_val:.0f}"
-            sl_fill_cls = "fill-low"
-
-        # Cardio / Form load (Acute vs Chronic Training Balance)
-        if total_load_all >= 200:
-            cardio_badge_cls = "rec-badge-red"
-            cardio_status = "High Fatigue"
-            cardio_desc = "Overreaching"
-            cardio_fill_pct = 50
-            cardio_fill_cls = "fill-low"
-        elif total_load_all >= 50:
-            cardio_badge_cls = "rec-badge-green"
-            cardio_status = "Balanced"
-            cardio_desc = "Optimal Base"
-            cardio_fill_pct = 88
-            cardio_fill_cls = "fill-ok"
-        elif total_load_all > 0:
-            cardio_badge_cls = "rec-badge-blue"
-            cardio_status = "Recovered"
-            cardio_desc = "Light / Taper"
-            cardio_fill_pct = 75
-            cardio_fill_cls = "fill-good"
-        else:
-            cardio_badge_cls = "rec-badge-blue"
-            cardio_status = "Rested"
-            cardio_desc = "Zero Load"
-            cardio_fill_pct = 100
-            cardio_fill_cls = "fill-ok"
-
-        st.markdown(
-            f"""
-            <div class="f-card">
-                <div class="f-card-header">
-                    <div>
-                        <div class="f-card-title">❤️ Discipline Recovery &amp; Fatigue Index</div>
-                        <div class="f-card-subtitle">Rest and readiness status based on recent volume and Garmin telemetry</div>
-                    </div>
-                </div>
-                <div class="recovery-grid">
-                    <div class="recovery-card">
-                        <div class="rec-header">
-                            <span class="rec-title">🏊 Swim</span>
-                            <span class="{rec_swim['badge_cls']}">{rec_swim['status_text']}</span>
-                        </div>
-                        <div class="rec-score-row">
-                            <span>Readiness</span>
-                            <span>{rec_swim['readiness_pct']}%</span>
-                        </div>
-                        <div class="rec-progress-bar">
-                            <div class="rec-progress-fill {rec_swim['fill_cls']}" style="width: {rec_swim['readiness_pct']}%;"></div>
-                        </div>
-                        <div class="rec-footer">{format_days_ago(days_since_swim)} · {summary.get('Swim',{}).get('distance_km',0):.1f}km (win)</div>
-                    </div>
-                    <div class="recovery-card">
-                        <div class="rec-header">
-                            <span class="rec-title">🏃 Run</span>
-                            <span class="{rec_run['badge_cls']}">{rec_run['status_text']}</span>
-                        </div>
-                        <div class="rec-score-row">
-                            <span>Readiness</span>
-                            <span>{rec_run['readiness_pct']}%</span>
-                        </div>
-                        <div class="rec-progress-bar">
-                            <div class="rec-progress-fill {rec_run['fill_cls']}" style="width: {rec_run['readiness_pct']}%;"></div>
-                        </div>
-                        <div class="rec-footer">{format_days_ago(days_since_run)} · {summary.get('Run',{}).get('distance_km',0):.1f}km (win)</div>
-                    </div>
-                    <div class="recovery-card">
-                        <div class="rec-header">
-                            <span class="rec-title">🚴 Ride</span>
-                            <span class="{rec_ride['badge_cls']}">{rec_ride['status_text']}</span>
-                        </div>
-                        <div class="rec-score-row">
-                            <span>Readiness</span>
-                            <span>{rec_ride['readiness_pct']}%</span>
-                        </div>
-                        <div class="rec-progress-bar">
-                            <div class="rec-progress-fill {rec_ride['fill_cls']}" style="width: {rec_ride['readiness_pct']}%;"></div>
-                        </div>
-                        <div class="rec-footer">{format_days_ago(days_since_ride)} · {summary.get('Ride',{}).get('distance_km',0):.1f}km (win)</div>
-                    </div>
-                    <div class="recovery-card">
-                        <div class="rec-header">
-                            <span class="rec-title">🚶 Walk</span>
-                            <span class="{rec_walk['badge_cls']}">{rec_walk['status_text']}</span>
-                        </div>
-                        <div class="rec-score-row">
-                            <span>Readiness</span>
-                            <span>{rec_walk['readiness_pct']}%</span>
-                        </div>
-                        <div class="rec-progress-bar">
-                            <div class="rec-progress-fill {rec_walk['fill_cls']}" style="width: {rec_walk['readiness_pct']}%;"></div>
-                        </div>
-                        <div class="rec-footer">{format_days_ago(days_since_walk)} · {summary.get('Walk',{}).get('distance_km',0):.1f}km (win)</div>
-                    </div>
-                    <div class="recovery-card">
-                        <div class="rec-header">
-                            <span class="rec-title">😴 Sleep</span>
-                            <span class="{sl_badge_cls}">{sl_status_text}</span>
-                        </div>
-                        <div class="rec-score-row">
-                            <span>Quality</span>
-                            <span>{dur_display}</span>
-                        </div>
-                        <div class="rec-progress-bar">
-                            <div class="rec-progress-fill {sl_fill_cls}" style="width: {min(100, int(sl_score_val))}%;"></div>
-                        </div>
-                        <div class="rec-footer">HRV: {f"{t_hrv:.0f}" if t_hrv else "—"}ms · RHR: {f"{t_rhr:.0f}" if t_rhr else "—"}bpm</div>
-                    </div>
-                    <div class="recovery-card">
-                        <div class="rec-header">
-                            <span class="rec-title">⚡ Cardio</span>
-                            <span class="{cardio_badge_cls}">{cardio_status}</span>
-                        </div>
-                        <div class="rec-score-row">
-                            <span>Form Load</span>
-                            <span>{cardio_desc}</span>
-                        </div>
-                        <div class="rec-progress-bar">
-                            <div class="rec-progress-fill {cardio_fill_cls}" style="width: {cardio_fill_pct}%;"></div>
-                        </div>
-                        <div class="rec-footer">ICU Load: {total_load_all:.0f} · {cardio_desc}</div>
-                    </div>
-                </div>
-            </div>
-            """,
-            unsafe_allow_html=True,
-        )
-
-    with rec_c2:
-        # Dynamic Multi-Sport Balance Radar Scores (0.0 to 1.0)
-        swim_radar_score = min(1.0, max(0.15, (summary.get('Swim', {}).get('distance_km', 0) / 8.0) * 0.5 + (rec_swim['readiness_pct'] / 100) * 0.5))
-        run_radar_score = min(1.0, max(0.15, (summary.get('Run', {}).get('distance_km', 0) / 15.0) * 0.5 + (rec_run['readiness_pct'] / 100) * 0.5))
-        ride_radar_score = min(1.0, max(0.15, (summary.get('Ride', {}).get('distance_km', 0) / 30.0) * 0.5 + (rec_ride['readiness_pct'] / 100) * 0.5))
-        walk_radar_score = min(1.0, max(0.15, (summary.get('Walk', {}).get('distance_km', 0) / 10.0) * 0.5 + (rec_walk['readiness_pct'] / 100) * 0.5))
-        rec_radar_score = min(1.0, max(0.15, ((sl_score_val or 75) / 100 * 0.6 + (t_hrv or 60) / 80 * 0.4)))
-        cons_radar_score = min(1.0, max(0.15, (streak_count / 7.0 if streak_count else len(activities) / 10.0)))
-
-        radar_svg = generate_radar_svg(
-            scores=[swim_radar_score, run_radar_score, ride_radar_score, walk_radar_score, rec_radar_score, cons_radar_score],
-            labels=["Swimming", "Running", "Cycling", "Walking", "Recovery", "Consistency"]
-        )
-        st.markdown(
-            f"""
-            <div class="f-card">
-                <div class="f-card-header">
-                    <div>
-                        <div class="f-card-title">🛡️ Training Balance Radar</div>
-                        <div class="f-card-subtitle">Multi-sport symmetry &amp; volume balance</div>
-                    </div>
-                </div>
-                {radar_svg}
-            </div>
-            """,
-            unsafe_allow_html=True,
-        )
-
-    # 7. Recent Training Activity Feed Table
-    st.markdown(
-        """
-        <div class="f-card">
-            <div class="f-card-header">
-                <div>
-                    <div class="f-card-title">📋 Recent Training Activities Log</div>
-                    <div class="f-card-subtitle">Detailed telemetry from Garmin 965 and Strava</div>
-                </div>
-            </div>
-        """,
-        unsafe_allow_html=True,
-    )
-    if activities:
-        recent_rows = []
-        for a in activities[:15]:
-            sp = a.get("sport", "Other")
-            d_km = a.get("distance_km") or 0.0
-            dur_m = a.get("moving_time_min") or a.get("duration_min") or 0.0
-            hr_val = f"{a['avg_hr']:.0f} bpm" if a.get("avg_hr") else "—"
-            cals_val = f"{a['calories']} kcal" if a.get("calories") else "—"
-            load_val = f"{a['training_load']:.0f}" if a.get("training_load") else "—"
-
-            pace_speed = "—"
-            if sp == "Swim" and d_km > 0 and dur_m > 0:
-                p_sec = (dur_m * 60) / (d_km * 10)
-                pace_speed = f"{int(p_sec//60)}:{int(p_sec%60):02d} /100m"
-            elif sp == "Run" and d_km > 0 and dur_m > 0:
-                p_sec = (dur_m * 60) / d_km
-                pace_speed = f"{int(p_sec//60)}:{int(p_sec%60):02d} /km"
-            elif sp == "Ride" and d_km > 0 and dur_m > 0:
-                spd = d_km / (dur_m / 60)
-                pace_speed = f"{spd:.1f} km/h"
-            elif sp == "Walk" and d_km > 0 and dur_m > 0:
-                p_sec = (dur_m * 60) / d_km
-                pace_speed = f"{int(p_sec//60)}:{int(p_sec%60):02d} /km"
-
-            recent_rows.append({
-                "Date": format_date_clean(a.get("date")),
-                "Sport": f"{get_sport_icon(sp)} {sp}",
-                "Activity Name": a.get("name", "Workout"),
-                "Distance": f"{d_km:.2f} km" if d_km > 0 else "—",
-                "Duration": format_duration_hm(dur_m),
-                "Pace / Speed": pace_speed,
-                "Avg HR": hr_val,
-                "Calories": cals_val,
-                "Training Load": load_val,
-                "Source": a.get("source", "Garmin"),
-            })
-        st.dataframe(pd.DataFrame(recent_rows), use_container_width=True, hide_index=True)
-    st.markdown("</div>", unsafe_allow_html=True)
-
-
-# ============================================================
-# TAB 2: ☀️ TODAY
+# TAB 1: ☀️ TODAY
 # ============================================================
 
 with tab_today:
@@ -1706,7 +759,6 @@ with tab_today:
     today_iso = str(today_real_date)
     today_formatted = format_date_clean(today_iso).upper()
 
-    # Always use real-time live today's wellness and activities independent of top filter!
     t_wellness = data.get("today_wellness")
     if not t_wellness:
         all_w = data.get("all_wellness", [])
@@ -1723,7 +775,6 @@ with tab_today:
     t_mins = int((t_sleep_sec % 3600) // 60) if t_sleep_sec else 0
     dur_display = f"{t_hours}h {t_mins:02d}m" if t_sleep_sec else "—"
 
-    # Always use real-time live today's activities independent of top filter!
     today_acts = data.get("today_activities")
     if today_acts is None:
         today_acts = [
@@ -1736,58 +787,47 @@ with tab_today:
     today_cals_all = sum(a.get("calories") or 0 for a in today_acts)
     today_load_all = sum(a.get("training_load") or 0.0 for a in today_acts)
 
-    saved_plans_all = get_plans()
-    today_scheduled_plans = [
-        p for p in saved_plans_all
-        if p.get("planned_date") == today_iso
-    ]
+    # 1. Today's Readiness & Sleep Snapshot Card
+    readiness_status = "Optimal" if (t_sleep_score or 75) >= 65 else "Moderate"
+    readiness_color = "#2DD4BF" if (t_sleep_score or 75) >= 65 else "#FBBF24"
 
-    # 1. Today's Header & Sleep Recovery Telemetry
     st.markdown(
         f"""
-        <div style="background: #0C1322; border: 1px solid #1A273D; border-radius: 14px; padding: 18px 22px; margin-bottom: 22px; box-shadow: 0 4px 16px rgba(0,0,0,0.3);">
-            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 14px;">
+        <div class="f-card" style="margin-bottom: 16px;">
+            <div class="f-card-header" style="margin-bottom: 12px;">
                 <div>
-                    <div style="font-size: 0.76rem; font-weight: 800; color: #38BDF8; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 4px;">
-                        ☀️ TODAY'S PERFORMANCE &amp; TRAINING HUB · {today_formatted}
+                    <div style="font-size: 0.72rem; font-weight: 700; color: #8E9DAE; text-transform: uppercase; letter-spacing: 0.04em;">
+                        ☀️ DAILY READINESS &amp; TELEMETRY · {today_formatted}
                     </div>
-                    <h3 style="margin: 0; color: #FFFFFF; font-size: 1.35rem; font-weight: 800;">
-                        Daily Overview, Today's Workouts &amp; Readiness
-                    </h3>
+                    <div class="f-card-title" style="margin-top: 2px;">
+                        Today's Recovery Status: <span style="color: {readiness_color};">{readiness_status}</span>
+                    </div>
                 </div>
-                <div style="display: flex; gap: 8px; flex-wrap: wrap;">
-                    <span style="background: {'#059669' if len(today_acts)>0 else '#334155'}; color: #FFFFFF; font-size: 0.78rem; font-weight: 700; padding: 4px 12px; border-radius: 6px;">
-                        {'⚡ ' + str(len(today_acts)) + ' Sessions Completed Today' if len(today_acts)>0 else '🌅 Fresh Training Day'}
-                    </span>
-                    <span style="background: #6D28D9; color: #FFFFFF; font-size: 0.78rem; font-weight: 700; padding: 4px 12px; border-radius: 6px;">Sleep: {f"{t_sleep_score:.0f}/100" if t_sleep_score else "Tracked"}</span>
-                    <span style="background: #0284C7; color: #FFFFFF; font-size: 0.78rem; font-weight: 700; padding: 4px 12px; border-radius: 6px;">HRV: {f"{t_hrv:.0f} ms" if t_hrv else "—"}</span>
+                <div style="display: flex; gap: 6px;">
+                    <span class="sport-chip chip-swim">Garmin 965</span>
+                    <span class="sport-chip" style="background: rgba(45, 212, 191, 0.1); color: #2DD4BF;">{len(today_acts)} Sessions Logged</span>
                 </div>
             </div>
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px;">
-                <div class="kpi-card-sub">
-                    <div class="kpi-card-label" style="color: #38BDF8;">🛌 SLEEP DURATION</div>
-                    <div class="kpi-card-value">{dur_display}</div>
-                    <div class="kpi-card-footer">Garmin overnight</div>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px;">
+                <div class="clean-kpi-card" style="min-height: 80px; padding: 12px 14px;">
+                    <div class="clean-kpi-label">🛌 Sleep Duration</div>
+                    <div class="clean-kpi-val" style="font-size: 1.35rem;">{dur_display}</div>
+                    <div class="clean-kpi-sub">Overnight log</div>
                 </div>
-                <div class="kpi-card-sub">
-                    <div class="kpi-card-label" style="color: #F472B6;">🎯 SLEEP SCORE</div>
-                    <div class="kpi-card-value">{f"{t_sleep_score:.0f}" if t_sleep_score else "—"} <span style="font-size: 0.85rem; color: #64748B;">/ 100</span></div>
-                    <div class="kpi-card-footer" style="color: #10B981; font-weight: 700;">Restful</div>
+                <div class="clean-kpi-card" style="min-height: 80px; padding: 12px 14px;">
+                    <div class="clean-kpi-label">🎯 Sleep Score</div>
+                    <div class="clean-kpi-val" style="font-size: 1.35rem; color: #38BDF8;">{f"{t_sleep_score:.0f}" if t_sleep_score else "—"}<span style="font-size: 0.8rem; color: #64748B;">/100</span></div>
+                    <div class="clean-kpi-sub">Quality index</div>
                 </div>
-                <div class="kpi-card-sub">
-                    <div class="kpi-card-label" style="color: #00D2FF;">💓 OVERNIGHT HRV</div>
-                    <div class="kpi-card-value">{f"{t_hrv:.0f}" if t_hrv else "—"} <span style="font-size: 0.85rem; color: #64748B;">ms</span></div>
-                    <div class="kpi-card-footer" style="color: #38BDF8; font-weight: 700;">Balanced</div>
+                <div class="clean-kpi-card" style="min-height: 80px; padding: 12px 14px;">
+                    <div class="clean-kpi-label">💓 Overnight HRV</div>
+                    <div class="clean-kpi-val" style="font-size: 1.35rem; color: #2DD4BF;">{f"{t_hrv:.0f}" if t_hrv else "—"}<span style="font-size: 0.8rem; color: #64748B;"> ms</span></div>
+                    <div class="clean-kpi-sub">Autonomic tone</div>
                 </div>
-                <div class="kpi-card-sub">
-                    <div class="kpi-card-label" style="color: #10B981;">❤️ RESTING HR</div>
-                    <div class="kpi-card-value">{f"{t_rhr:.0f}" if t_rhr else "—"} <span style="font-size: 0.85rem; color: #64748B;">bpm</span></div>
-                    <div class="kpi-card-footer">Garmin 965</div>
-                </div>
-                <div class="kpi-card-sub">
-                    <div class="kpi-card-label" style="color: #FBBF24;">⚡ RECOVERY STATUS</div>
-                    <div class="kpi-card-value" style="font-size: 1.15rem;">{'Optimal' if (t_sleep_score or 75)>=65 else 'Moderate'}</div>
-                    <div class="kpi-card-footer" style="color: #00E599; font-weight: 700;">Training ready</div>
+                <div class="clean-kpi-card" style="min-height: 80px; padding: 12px 14px;">
+                    <div class="clean-kpi-label">❤️ Resting HR</div>
+                    <div class="clean-kpi-val" style="font-size: 1.35rem; color: #FB7185;">{f"{t_rhr:.0f}" if t_rhr else "—"}<span style="font-size: 0.8rem; color: #64748B;"> bpm</span></div>
+                    <div class="clean-kpi-sub">Basal heart rate</div>
                 </div>
             </div>
         </div>
@@ -1795,687 +835,357 @@ with tab_today:
         unsafe_allow_html=True,
     )
 
-    # 2. Today's Performance & Completed Activities
-    st.markdown("### 📊 Today's Completed Activities & Performance")
+    # 2. Today's Completed Activity (if any)
     if today_acts:
-        # KPI Row for Today
-        st.markdown(
-            f"""
-            <div class="kpi-row-grid" style="margin-bottom: 16px;">
-                <div class="forest-kpi-card">
-                    <div class="forest-kpi-top">
-                        <span class="forest-kpi-label">Distance Today</span>
-                        <span class="forest-kpi-icon">📍</span>
+        st.markdown("#### ⚡ Today's Completed Telemetry")
+        for a in today_acts:
+            sp = a.get("sport", "Workout")
+            d_km = a.get("distance_km") or 0.0
+            dur_m = a.get("moving_time_min") or a.get("duration_min") or 0.0
+            pace_str = "—"
+            if sp == "Swim" and d_km > 0 and dur_m > 0:
+                p_sec = (dur_m * 60) / (d_km * 10)
+                pace_str = f"{int(p_sec//60)}:{int(p_sec%60):02d} /100m"
+            elif sp in ("Run", "Walk") and d_km > 0 and dur_m > 0:
+                p_sec = (dur_m * 60) / d_km
+                pace_str = f"{int(p_sec//60)}:{int(p_sec%60):02d} /km"
+            elif sp == "Ride" and d_km > 0 and dur_m > 0:
+                pace_str = f"{d_km / (dur_m / 60):.1f} km/h"
+
+            st.markdown(
+                f"""
+                <div class="f-card" style="border-left: 3px solid #2DD4BF; padding: 16px 20px; margin-bottom: 14px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;">
+                        <div>
+                            <span class="sport-chip {get_sport_chip_class(sp)}">{get_sport_icon(sp)} {sp}</span>
+                            <span style="font-weight: 700; font-size: 1.05rem; color: #F1F5F9; margin-left: 6px;">{a.get('name', 'Session')}</span>
+                        </div>
+                        <div style="font-family: 'JetBrains Mono', monospace; font-size: 0.95rem; color: #CBD5E1;">
+                            <strong>{d_km:.2f} km</strong> · {format_duration_hm(dur_m)} · {pace_str} · {a.get('avg_hr', '—')} bpm · Load: {a.get('training_load', 0):.0f}
+                        </div>
                     </div>
-                    <div class="forest-kpi-val">{today_dist_all:.2f} <span style="font-size: 0.9rem; color: #64748B;">km</span></div>
-                    <div class="forest-kpi-sub">{len(today_acts)} completed sessions</div>
                 </div>
-                <div class="forest-kpi-card">
-                    <div class="forest-kpi-top">
-                        <span class="forest-kpi-label">Active Time</span>
-                        <span class="forest-kpi-icon">⏱️</span>
+                """,
+                unsafe_allow_html=True,
+            )
+
+    # 3. Today's Planned / Recommended Workout
+    saved_plans_all = get_plans()
+    today_scheduled = [p for p in saved_plans_all if p.get("planned_date") == today_iso]
+    active_workout = today_scheduled[0] if today_scheduled else plan
+
+    w_sport = active_workout.get("sport", "Swim")
+    w_type = active_workout.get("workout_type") or active_workout.get("type", "Endurance")
+    w_dist = active_workout.get("distance_m") or active_workout.get("target_distance") or (int(active_workout.get("distance_km", 5.0) * 1000))
+    w_dur = active_workout.get("duration_est") or active_workout.get("duration", "45-55 min")
+    w_goal = active_workout.get("goal", "Execute structured workout with consistent pacing.")
+    w_sets = active_workout.get("sets", [])
+    is_sched = bool(active_workout.get("planned_date"))
+
+    st.markdown("#### 🎯 Today's Workout Focus")
+    st.markdown(
+        f"""
+        <div class="f-card" style="border-left: 3px solid #38BDF8; margin-bottom: 16px;">
+            <div class="f-card-header" style="margin-bottom: 8px;">
+                <div>
+                    <span class="sport-chip chip-swim">{'📅 Scheduled Plan' if is_sched else '🤖 AI Recommendation'}</span>
+                    <div class="f-card-title" style="margin-top: 6px; font-size: 1.15rem;">
+                        {w_type} Session · {w_dist:,}m ({w_dist // 25} Laps)
                     </div>
-                    <div class="forest-kpi-val">{format_duration_hm(today_time_all)}</div>
-                    <div class="forest-kpi-sub">{today_time_all:.0f} moving mins</div>
                 </div>
-                <div class="forest-kpi-card">
-                    <div class="forest-kpi-top">
-                        <span class="forest-kpi-label">Active Energy</span>
-                        <span class="forest-kpi-icon">🔥</span>
-                    </div>
-                    <div class="forest-kpi-val">{today_cals_all:,} <span style="font-size: 0.9rem; color: #64748B;">kcal</span></div>
-                    <div class="forest-kpi-sub">burned today</div>
-                </div>
-                <div class="forest-kpi-card">
-                    <div class="forest-kpi-top">
-                        <span class="forest-kpi-label">Training Load</span>
-                        <span class="forest-kpi-icon">📈</span>
-                    </div>
-                    <div class="forest-kpi-val">{today_load_all:.0f}</div>
-                    <div class="forest-kpi-sub">ICU daily load</div>
+                <div style="font-size: 0.82rem; color: #8E9DAE; font-weight: 600;">
+                    ⏱️ {w_dur}
                 </div>
             </div>
-            """,
-            unsafe_allow_html=True,
-        )
+            <div style="font-size: 0.84rem; color: #94A3B8; margin-bottom: 14px;">
+                <strong>Goal:</strong> {w_goal}
+            </div>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
 
-        today_rows = []
-        for a in today_acts:
-            sp = a.get("sport", "Activity")
+    if w_sets:
+        set_cards_html = []
+        for i, s in enumerate(w_sets):
+            p_text = s.get("purpose", "Swim")
+            reps_cnt = s.get('reps', 1)
+            dist_desc = f"{reps_cnt} × {s.get('distance')}m" if reps_cnt > 1 else f"{s.get('distance')}m"
+            tot_laps = s.get('total_laps') or ((s.get('distance', 100) * reps_cnt) // 25)
+            pattern_txt = s.get('stroke_pattern') or s.get('pattern') or s.get('stroke') or "Freestyle"
+            target_pace = s.get('pace', 'Target Pace')
+            rest_txt = s.get('rest', 'None')
+            b_meta = get_set_badge_meta(p_text)
+
+            card_item = (
+                f"<div style='background: #0E141E; border: 1px solid #1E283A; border-radius: 10px; padding: 12px 14px; display: flex; flex-direction: column; justify-content: space-between;'>"
+                f"<div>"
+                f"<div style='display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;'>"
+                f"<span style='font-size: 0.7rem; font-weight: 700; color: #64748B;'>SET {i+1}</span>"
+                f"<span style='font-size: 0.65rem; font-weight: 700; padding: 2px 6px; border-radius: 4px; background: {b_meta['bg']}; color: {b_meta['color']};'>{b_meta['tag']}</span>"
+                f"</div>"
+                f"<div style='font-family: JetBrains Mono, monospace; font-size: 1.1rem; font-weight: 700; color: #F1F5F9; margin-bottom: 2px;'>"
+                f"{dist_desc} <span style='font-size: 0.75rem; color: #64748B;'>({tot_laps} laps)</span>"
+                f"</div>"
+                f"<div style='font-size: 0.78rem; color: #94A3B8; margin-bottom: 8px;'>"
+                f"{pattern_txt}"
+                f"</div>"
+                f"</div>"
+                f"<div style='border-top: 1px solid rgba(255,255,255,0.05); padding-top: 6px; font-size: 0.72rem; color: #64748B; display: flex; justify-content: space-between;'>"
+                f"<span>Pace: <strong style='color: #2DD4BF;'>{target_pace}</strong></span>"
+                f"<span>Rest: <strong style='color: #CBD5E1;'>{rest_txt}</strong></span>"
+                f"</div>"
+                f"</div>"
+            )
+            set_cards_html.append(card_item)
+
+        grid_html = f"<div style='display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px; margin-bottom: 18px;'>{''.join(set_cards_html)}</div>"
+        st.markdown(grid_html, unsafe_allow_html=True)
+
+
+# ============================================================
+# TAB 2: 👁️ OVERVIEW
+# ============================================================
+
+with tab_overview:
+    # 1. Clean KPI Strip
+    st.markdown(
+        f"""
+        <div class="kpi-row-grid">
+            <div class="clean-kpi-card">
+                <div class="clean-kpi-top">
+                    <span class="clean-kpi-label">Total Distance</span>
+                    <span class="clean-kpi-icon">📍</span>
+                </div>
+                <div class="clean-kpi-val">{total_dist_all:.1f} <span style="font-size: 0.8rem; color: #64748B;">km</span></div>
+                <div class="clean-kpi-sub">{len(activities)} total activities</div>
+            </div>
+            <div class="clean-kpi-card">
+                <div class="clean-kpi-top">
+                    <span class="clean-kpi-label">Active Time</span>
+                    <span class="clean-kpi-icon">⏱️</span>
+                </div>
+                <div class="clean-kpi-val">{total_time_all / 60:.1f} <span style="font-size: 0.8rem; color: #64748B;">hrs</span></div>
+                <div class="clean-kpi-sub">{total_time_all:.0f} moving mins</div>
+            </div>
+            <div class="clean-kpi-card">
+                <div class="clean-kpi-top">
+                    <span class="clean-kpi-label">Training Load</span>
+                    <span class="clean-kpi-icon">⚡</span>
+                </div>
+                <div class="clean-kpi-val">{total_load_all:.0f}</div>
+                <div class="clean-kpi-sub">ICU load accumulation</div>
+            </div>
+            <div class="clean-kpi-card">
+                <div class="clean-kpi-top">
+                    <span class="clean-kpi-label">Active Energy</span>
+                    <span class="clean-kpi-icon">🔥</span>
+                </div>
+                <div class="clean-kpi-val">{total_cals_all:,} <span style="font-size: 0.8rem; color: #64748B;">kcal</span></div>
+                <div class="clean-kpi-sub">Verified energy burned</div>
+            </div>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+
+    # 2. Multi-Sport Breakdown
+    swim_sum = summary.get("Swim", {})
+    run_sum = summary.get("Run", {})
+    ride_sum = summary.get("Ride", {})
+    walk_sum = summary.get("Walk", {})
+
+    b_speed = cycling_analytics.get("avg_speed_kmh")
+    b_speed_str = f"{b_speed:.1f} km/h" if b_speed else "—"
+
+    st.markdown(
+        f"""
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin-bottom: 20px;">
+            <div class="sport-summary-card" style="border-top: 3px solid #38BDF8;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                    <span style="font-size: 0.88rem; font-weight: 700; color: #38BDF8;">🏊 Swimming</span>
+                    <span class="sport-chip chip-swim">{swim_sum.get('sessions', 0)} sessions</span>
+                </div>
+                <div style="font-family: 'JetBrains Mono', monospace; font-size: 1.45rem; font-weight: 700; color: #F1F5F9;">{swim_sum.get('distance_km', 0):.2f} km</div>
+                <div style="font-size: 0.76rem; color: #8E9DAE; margin-top: 4px;">{format_duration_hm(swim_sum.get('moving_time_min', 0))} · {swim_sum.get('pace_formatted', '—')} · Last: {format_days_ago(days_since_swim)}</div>
+            </div>
+            <div class="sport-summary-card" style="border-top: 3px solid #34D399;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                    <span style="font-size: 0.88rem; font-weight: 700; color: #34D399;">🚴 Cycling</span>
+                    <span class="sport-chip chip-ride">{ride_sum.get('sessions', 0)} sessions</span>
+                </div>
+                <div style="font-family: 'JetBrains Mono', monospace; font-size: 1.45rem; font-weight: 700; color: #F1F5F9;">{ride_sum.get('distance_km', 0):.2f} km</div>
+                <div style="font-size: 0.76rem; color: #8E9DAE; margin-top: 4px;">{format_duration_hm(ride_sum.get('moving_time_min', 0))} · {b_speed_str} · Last: {format_days_ago(days_since_ride)}</div>
+            </div>
+            <div class="sport-summary-card" style="border-top: 3px solid #FB7185;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                    <span style="font-size: 0.88rem; font-weight: 700; color: #FB7185;">🏃 Running</span>
+                    <span class="sport-chip chip-run">{run_sum.get('sessions', 0)} sessions</span>
+                </div>
+                <div style="font-family: 'JetBrains Mono', monospace; font-size: 1.45rem; font-weight: 700; color: #F1F5F9;">{run_sum.get('distance_km', 0):.2f} km</div>
+                <div style="font-size: 0.76rem; color: #8E9DAE; margin-top: 4px;">{format_duration_hm(run_sum.get('moving_time_min', 0))} · {run_sum.get('pace_formatted', '—')} · Last: {format_days_ago(days_since_run)}</div>
+            </div>
+            <div class="sport-summary-card" style="border-top: 3px solid #FBBF24;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                    <span style="font-size: 0.88rem; font-weight: 700; color: #FBBF24;">🚶 Walking</span>
+                    <span class="sport-chip chip-walk">{walk_sum.get('sessions', 0)} sessions</span>
+                </div>
+                <div style="font-family: 'JetBrains Mono', monospace; font-size: 1.45rem; font-weight: 700; color: #F1F5F9;">{walk_sum.get('distance_km', 0):.2f} km</div>
+                <div style="font-size: 0.76rem; color: #8E9DAE; margin-top: 4px;">{format_duration_hm(walk_sum.get('moving_time_min', 0))} · {walking_analytics.get('avg_pace_formatted', '—')} · Last: {format_days_ago(days_since_walk)}</div>
+            </div>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+
+    # 3. Multi-Discipline Weekly Progression (Segmented Bar Graph)
+    weekly_multi_sport = performance_analytics.get("weekly_multi_sport", [])
+    st.markdown(
+        """
+        <div class="f-card">
+            <div class="f-card-header">
+                <div>
+                    <div class="f-card-title">📈 Multi-Discipline Weekly Progression</div>
+                    <div class="f-card-subtitle">Weekly training volume segmented by sport &amp; discipline</div>
+                </div>
+            </div>
+        """,
+        unsafe_allow_html=True,
+    )
+    if weekly_multi_sport:
+        wms_df = pd.DataFrame(weekly_multi_sport)
+        wms_df = wms_df[wms_df["distance_km"] > 0]
+        if not wms_df.empty:
+            bars = alt.Chart(wms_df).mark_bar(
+                cornerRadiusTopLeft=3,
+                cornerRadiusTopRight=3,
+                opacity=0.9
+            ).encode(
+                x=alt.X("week:N", title=None, axis=alt.Axis(labelAngle=-45)),
+                y=alt.Y("distance_km:Q", title="Volume (km)", stack="zero"),
+                color=alt.Color(
+                    "sport:N",
+                    scale=alt.Scale(
+                        domain=["Swim", "Ride", "Run", "Walk", "Workout", "Other"],
+                        range=["#38BDF8", "#34D399", "#FB7185", "#FBBF24", "#A78BFA", "#64748B"],
+                    ),
+                    legend=alt.Legend(orient="top", title=None, labelFontSize=11)
+                ),
+                order=alt.Order("sport:N"),
+                tooltip=[
+                    alt.Tooltip("week:N", title="Week"),
+                    alt.Tooltip("sport:N", title="Sport"),
+                    alt.Tooltip("distance_km:Q", title="Distance (km)", format=".2f"),
+                    alt.Tooltip("hours:Q", title="Active Time (hrs)", format=".2f"),
+                    alt.Tooltip("sessions:Q", title="Sessions"),
+                    alt.Tooltip("load:Q", title="Training Load"),
+                ]
+            ).properties(height=240)
+            st.altair_chart(apply_forest_chart_theme(bars, height=240), use_container_width=True)
+        else:
+            st.info("No volume trends available for the selected period.")
+    elif weekly_trends:
+        w_df = pd.DataFrame(weekly_trends)
+        bars = alt.Chart(w_df).mark_bar(
+            color="#38BDF8",
+            cornerRadiusTopLeft=4,
+            cornerRadiusTopRight=4,
+            opacity=0.85
+        ).encode(
+            x=alt.X("week:N", title=None, axis=alt.Axis(labelAngle=-45)),
+            y=alt.Y("distance_km:Q", title="Volume (km)"),
+            tooltip=[
+                alt.Tooltip("week:N", title="Week"),
+                alt.Tooltip("distance_km:Q", title="Distance (km)"),
+                alt.Tooltip("sessions:Q", title="Sessions"),
+            ]
+        ).properties(height=240)
+        st.altair_chart(apply_forest_chart_theme(bars, height=240), use_container_width=True)
+    else:
+        st.info("No volume trends available for the selected period.")
+    st.markdown("</div>", unsafe_allow_html=True)
+
+    # 4. Planned & Scheduled Sessions Management
+    saved_plans_overview = get_plans()
+    if saved_plans_overview:
+        st.markdown(f"#### 📅 Scheduled Sessions & Planned Workouts ({len(saved_plans_overview)})")
+        for p_idx, p_item in enumerate(saved_plans_overview):
+            p_id = p_item.get("plan_id") or p_item.get("id") or str(uuid.uuid4())
+            p_sport = p_item.get("sport", "Swim")
+            p_type = p_item.get("workout_type") or p_item.get("type", "Workout")
+            p_dist = p_item.get("distance_m") or p_item.get("target_distance") or (int(p_item.get("distance_km", 0) * 1000))
+            p_dur = p_item.get("duration_est") or p_item.get("duration", "45-55 min")
+            p_date_raw = p_item.get("planned_date") or (p_item.get("created_at") or "")[:10]
+            p_date_formatted = format_date_clean(p_date_raw)
+            p_goal = p_item.get("goal", "Execute structured workout with consistent pacing.")
+            p_sets = p_item.get("sets", [])
+
+            st.markdown(
+                f"""
+                <div class="f-card" style="border-left: 3px solid #38BDF8; margin-bottom: 10px; padding: 14px 18px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;">
+                        <div>
+                            <span class="sport-chip {get_sport_chip_class(p_sport)}">{get_sport_icon(p_sport)} {p_sport}</span>
+                            <span style="font-weight: 700; font-size: 1.0rem; color: #F1F5F9; margin-left: 6px;">{p_type} Session · {p_dist:,}m</span>
+                            <span style="font-size: 0.8rem; color: #8E9DAE; margin-left: 8px;">📅 {p_date_formatted}</span>
+                        </div>
+                        <div style="font-size: 0.82rem; color: #8E9DAE; font-weight: 600;">
+                            ⏱️ {p_dur}
+                        </div>
+                    </div>
+                    <div style="font-size: 0.8rem; color: #94A3B8; margin-top: 6px;">
+                        <strong>Goal:</strong> {p_goal}
+                    </div>
+                </div>
+                """,
+                unsafe_allow_html=True,
+            )
+            col_act1, col_act2, _ = st.columns([1.5, 2, 6])
+            with col_act1:
+                if st.button("🗑️ Delete Session", key=f"del_plan_ov_{p_id}_{p_idx}", use_container_width=True):
+                    delete_plan(p_id)
+                    st.success("Session deleted.")
+                    st.rerun()
+            with col_act2:
+                with st.expander("🔍 View Sets", expanded=False):
+                    for j, s in enumerate(p_sets):
+                        st.markdown(f"- **Set {j+1}:** `{s.get('reps', 1)} × {s.get('distance', 100)}m` — `{s.get('stroke_pattern', s.get('stroke', 'Freestyle'))}` · Pace: `{s.get('pace', 'Target')}` · Rest: `{s.get('rest', 'None')}`")
+
+        if len(saved_plans_overview) > 1:
+            if st.button("🗑️ Clear All Scheduled Sessions", key="clear_all_plans_ov"):
+                clear_plans()
+                st.warning("All scheduled sessions cleared.")
+                st.rerun()
+
+    # 5. Recent Activities Feed
+    st.markdown("#### 📋 Recent Activities Log")
+    if activities:
+        recent_rows = []
+        for a in activities[:12]:
+            sp = a.get("sport", "Other")
             d_km = a.get("distance_km") or 0.0
             dur_m = a.get("moving_time_min") or a.get("duration_min") or 0.0
             pace_speed = "—"
             if sp == "Swim" and d_km > 0 and dur_m > 0:
                 p_sec = (dur_m * 60) / (d_km * 10)
                 pace_speed = f"{int(p_sec//60)}:{int(p_sec%60):02d} /100m"
-            elif sp == "Run" and d_km > 0 and dur_m > 0:
+            elif sp in ("Run", "Walk") and d_km > 0 and dur_m > 0:
                 p_sec = (dur_m * 60) / d_km
                 pace_speed = f"{int(p_sec//60)}:{int(p_sec%60):02d} /km"
             elif sp == "Ride" and d_km > 0 and dur_m > 0:
-                spd = d_km / (dur_m / 60)
-                pace_speed = f"{spd:.1f} km/h"
-            elif sp == "Walk" and d_km > 0 and dur_m > 0:
-                p_sec = (dur_m * 60) / d_km
-                pace_speed = f"{int(p_sec//60)}:{int(p_sec%60):02d} /km"
+                pace_speed = f"{d_km / (dur_m / 60):.1f} km/h"
 
-            today_rows.append({
+            recent_rows.append({
+                "Date": format_date_clean(a.get("date")),
                 "Sport": f"{get_sport_icon(sp)} {sp}",
                 "Activity Name": a.get("name", "Workout"),
                 "Distance": f"{d_km:.2f} km" if d_km > 0 else "—",
                 "Duration": format_duration_hm(dur_m),
                 "Pace / Speed": pace_speed,
-                "Avg HR": f"{a.get('avg_hr', 0):.0f} bpm" if a.get("avg_hr") else "—",
-                "Calories": f"{a.get('calories', 0):,} kcal" if a.get("calories") else "—",
-                "Load": f"{a.get('training_load', 0):.0f}" if a.get("training_load") else "—",
-                "Source": a.get("source", "Garmin"),
+                "Avg HR": f"{a['avg_hr']:.0f} bpm" if a.get("avg_hr") else "—",
+                "Load": f"{a['training_load']:.0f}" if a.get("training_load") else "—",
             })
-        st.dataframe(pd.DataFrame(today_rows), use_container_width=True, hide_index=True)
-    else:
-        st.info("🌅 **Fresh Training Day** — No completed activities recorded yet today. Check your scheduled or recommended sessions below!")
-
-    # 2b. Detailed Garmin Swim & Workout Analysis + Planned vs Actual Comparison
-    today_swims = [a for a in today_acts if a.get("sport") == "Swim"]
-    today_runs = [a for a in today_acts if a.get("sport") == "Run"]
-
-    if today_swims or today_runs:
-        st.markdown("---")
-        st.markdown("### 🎯 Planned vs. Actual Performance Deep-Dive")
-
-        for sw_i, sw_act in enumerate(today_swims):
-            act_dist_m = int((sw_act.get("distance_km") or 0.0) * 1000)
-            act_mov_min = sw_act.get("moving_time_min") or 0.0
-            act_dur_min = sw_act.get("duration_min") or 0.0
-            act_rest_min = sw_act.get("rest_time_min") or round(max(0, act_dur_min - act_mov_min), 1)
-            act_lengths = sw_act.get("lengths") or int(act_dist_m / (sw_act.get("pool_length_m") or 25))
-            act_avg_hr = sw_act.get("avg_hr") or 0
-            act_max_hr = sw_act.get("max_hr") or 0
-            act_cadence = sw_act.get("avg_cadence")
-            act_cals = sw_act.get("calories") or 0
-            act_load = sw_act.get("training_load") or 0
-            intervals_raw = sw_act.get("interval_summary") or []
-            hr_zone_times = sw_act.get("icu_hr_zone_times") or []
-
-            # Determine matching target plan for comparison (Calendar plan or AI Recommendation)
-            target_plan_match = today_scheduled_plans[0] if today_scheduled_plans else plan
-            p_type = target_plan_match.get("workout_type") or target_plan_match.get("type", "Endurance")
-            p_dist_m = target_plan_match.get("distance_m") or target_plan_match.get("target_distance", 2000)
-            p_dur_str = target_plan_match.get("duration_est") or target_plan_match.get("duration", "45-55 min")
-            p_goal_str = target_plan_match.get("goal", "Build sustainable aerobic endurance.")
-
-            # Compliance calculations
-            dist_compliance_pct = min(100.0, round((act_dist_m / p_dist_m) * 100.0, 1)) if p_dist_m > 0 else 100.0
-            actual_pace_sec = (act_mov_min * 60.0) / (act_dist_m / 100.0) if act_dist_m > 0 else 0
-            actual_pace_fmt = format_pace(actual_pace_sec)
-            target_pace_fmt = format_pace(baseline_pace)
-
-            pace_diff_sec = baseline_pace - actual_pace_sec
-            if pace_diff_sec > 0:
-                pace_diff_str = f"⚡ {pace_diff_sec:.1f}s /100m faster than baseline"
-                pace_diff_color = "#00E599"
-            else:
-                pace_diff_str = f"🐢 {abs(pace_diff_sec):.1f}s /100m slower than baseline"
-                pace_diff_color = "#F59E0B"
-
-            rest_ratio_pct = round((act_rest_min / act_dur_min * 100), 1) if act_dur_min > 0 else 0.0
-            moving_ratio_pct = round(100.0 - rest_ratio_pct, 1)
-
-            st.markdown(
-                f"""
-                <div class="f-card" style="border-left: 4px solid #00D2FF; margin-bottom: 16px;">
-                    <div class="f-card-header">
-                        <div>
-                            <span class="forest-pill-tag" style="background: rgba(0, 210, 255, 0.15); color: #00D2FF; border-color: rgba(0, 210, 255, 0.4);">
-                                🏊 COMPLETED SWIM TELEMETRY · GARMIN FORERUNNER 965
-                            </span>
-                            <div class="f-card-title" style="margin-top: 6px; font-size: 1.3rem;">
-                                {sw_act.get('name', 'Pool Swim')} — {act_dist_m:,}m ({act_lengths} Lengths)
-                            </div>
-                            <div class="f-card-subtitle">
-                                <strong>Target Plan:</strong> {p_type} ({p_dist_m:,}m) · <strong>Pacing Control:</strong> <span style="color: {pace_diff_color}; font-weight: 700;">{pace_diff_str}</span>
-                            </div>
-                        </div>
-                        <div style="text-align: right; background: rgba(0, 229, 153, 0.1); padding: 8px 14px; border-radius: 8px; border: 1px solid rgba(0, 229, 153, 0.3);">
-                            <div style="font-size: 0.7rem; color: #64748B; font-weight: 700; text-transform: uppercase;">Session Score</div>
-                            <div style="font-family: 'JetBrains Mono', monospace; font-size: 1.45rem; font-weight: 800; color: #00E599;">92/100</div>
-                        </div>
-                    </div>
-                </div>
-                """,
-                unsafe_allow_html=True,
-            )
-
-            # Planned vs Actual Metrics Comparison Grid
-            st.markdown(
-                f"""
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; margin-bottom: 18px;">
-                    <div class="forest-kpi-card" style="border: 1px solid #1E293B;">
-                        <div class="forest-kpi-top">
-                            <span class="forest-kpi-label">Distance Compliance</span>
-                            <span class="forest-kpi-icon">📏</span>
-                        </div>
-                        <div class="forest-kpi-val">{act_dist_m:,} <span style="font-size: 0.85rem; color: #64748B;">/ {p_dist_m:,}m</span></div>
-                        <div class="forest-kpi-sub" style="color: #38BDF8; font-weight: 700;">{dist_compliance_pct}% of planned target ({act_lengths} lengths)</div>
-                    </div>
-                    <div class="forest-kpi-card" style="border: 1px solid #1E293B;">
-                        <div class="forest-kpi-top">
-                            <span class="forest-kpi-label">Actual Moving Pace</span>
-                            <span class="forest-kpi-icon">⚡</span>
-                        </div>
-                        <div class="forest-kpi-val" style="color: #00E599;">{actual_pace_fmt}</div>
-                        <div class="forest-kpi-sub" style="color: {pace_diff_color}; font-weight: 600;">{pace_diff_str}</div>
-                    </div>
-                    <div class="forest-kpi-card" style="border: 1px solid #1E293B;">
-                        <div class="forest-kpi-top">
-                            <span class="forest-kpi-label">Moving vs Rest Time</span>
-                            <span class="forest-kpi-icon">⏱️</span>
-                        </div>
-                        <div class="forest-kpi-val">{act_mov_min:.1f}m <span style="font-size: 0.85rem; color: #64748B;">/ {act_rest_min:.1f}m rest</span></div>
-                        <div class="forest-kpi-sub">Swim: {moving_ratio_pct}% · Rest: {rest_ratio_pct}% ({sw_act.get('lap_count', 34)} pauses)</div>
-                    </div>
-                    <div class="forest-kpi-card" style="border: 1px solid #1E293B;">
-                        <div class="forest-kpi-top">
-                            <span class="forest-kpi-label">Heart Rate &amp; Cadence</span>
-                            <span class="forest-kpi-icon">💓</span>
-                        </div>
-                        <div class="forest-kpi-val">{act_avg_hr:.0f} <span style="font-size: 0.85rem; color: #64748B;">bpm</span></div>
-                        <div class="forest-kpi-sub">Peak: {act_max_hr:.0f} bpm · Cadence: {f"{act_cadence:.1f} spm" if act_cadence else "—"}</div>
-                    </div>
-                </div>
-                """,
-                unsafe_allow_html=True,
-            )
-
-            # Explicit Side-by-Side Target vs Executed Comparison Table
-            st.markdown("#### ⚖️ Target Plan vs. Actual Execution Matrix")
-            comp_table_rows = [
-                {
-                    "Training Metric": "🏊 Sport & Focus",
-                    "🎯 Target Plan (Scheduled / AI)": f"{p_type} Swimming Session",
-                    "⚡ Executed Today (Garmin 965)": f"{sw_act.get('name', 'Pool Swim')}",
-                    "📊 Variance / Performance Verdict": "✅ Session Completed"
-                },
-                {
-                    "Training Metric": "📏 Total Distance",
-                    "🎯 Target Plan (Scheduled / AI)": f"{p_dist_m:,} m ({p_dist_m//25} Laps)",
-                    "⚡ Executed Today (Garmin 965)": f"{act_dist_m:,} m ({act_lengths} Laps)",
-                    "📊 Variance / Performance Verdict": f"🟡 {dist_compliance_pct}% of volume target" if dist_compliance_pct < 100 else "🟢 100% Target Met"
-                },
-                {
-                    "Training Metric": "⏱️ Moving Duration",
-                    "🎯 Target Plan (Scheduled / AI)": f"{p_dur_str}",
-                    "⚡ Executed Today (Garmin 965)": f"{act_mov_min:.1f} min ({act_dur_min:.1f} min elapsed)",
-                    "📊 Variance / Performance Verdict": "🟢 Optimal moving duration"
-                },
-                {
-                    "Training Metric": "🛑 Rest Interval Time",
-                    "🎯 Target Plan (Scheduled / AI)": "15–30 sec rest between reps",
-                    "⚡ Executed Today (Garmin 965)": f"{act_rest_min:.1f} min rest ({rest_ratio_pct}% of session)",
-                    "📊 Variance / Performance Verdict": f"🟢 {sw_act.get('lap_count', 34)} interval pauses"
-                },
-                {
-                    "Training Metric": "⚡ Average Pace",
-                    "🎯 Target Plan (Scheduled / AI)": f"{target_pace_fmt} (Zone 2 Cruise)",
-                    "⚡ Executed Today (Garmin 965)": f"{actual_pace_fmt}",
-                    "📊 Variance / Performance Verdict": f"🔥 +{pace_diff_sec:.1f}s/100m faster than cruise" if pace_diff_sec > 0 else "🟢 Controlled endurance pace"
-                },
-                {
-                    "Training Metric": "💓 Heart Rate & Load",
-                    "🎯 Target Plan (Scheduled / AI)": "Zone 2–3 Aerobic / 40–50 Load",
-                    "⚡ Executed Today (Garmin 965)": f"{act_avg_hr:.0f} bpm (Peak {act_max_hr:.0f}) · Load {act_load}",
-                    "📊 Variance / Performance Verdict": "🟢 Aerobic adaptation achieved"
-                },
-                {
-                    "Training Metric": "🧱 Structured Sets",
-                    "🎯 Target Plan (Scheduled / AI)": "Warm-up + Main Sets + Cool-down",
-                    "⚡ Executed Today (Garmin 965)": f"{len(intervals_raw)} Sets ({', '.join(intervals_raw[:3])}...)" if intervals_raw else f"{act_lengths} lengths",
-                    "📊 Variance / Performance Verdict": "🎯 100% Interval set adherence"
-                }
-            ]
-            st.dataframe(pd.DataFrame(comp_table_rows), use_container_width=True, hide_index=True)
-            st.markdown("<div style='margin-bottom: 14px;'></div>", unsafe_allow_html=True)
-
-            # Garmin Executed Swim Intervals Breakdown
-            if intervals_raw:
-                st.markdown("#### 🏊 Garmin Recorded Interval Sets")
-                int_chips_html = []
-                for idx_raw, int_item in enumerate(intervals_raw):
-                    parts = int_item.split()
-                    reps_part = parts[0] if len(parts) > 0 else "1x"
-                    dist_part = parts[1] if len(parts) > 1 else ""
-                    hr_part = parts[2] if len(parts) > 2 else ""
-
-                    d_num = int("".join(filter(str.isdigit, dist_part))) if any(c.isdigit() for c in dist_part) else 50
-                    if d_num >= 200:
-                        tag_name = "AEROBIC CRUISE"
-                        tag_color = "#10B981"
-                        tag_bg = "rgba(16, 185, 129, 0.12)"
-                    elif d_num == 100:
-                        tag_name = "THRESHOLD REPEAT"
-                        tag_color = "#00D2FF"
-                        tag_bg = "rgba(0, 210, 255, 0.12)"
-                    elif d_num == 50:
-                        tag_name = "TECHNIQUE / ROTATION"
-                        tag_color = "#818CF8"
-                        tag_bg = "rgba(129, 140, 248, 0.12)"
-                    else:
-                        tag_name = "SPEED / DRILL"
-                        tag_color = "#F43F5E"
-                        tag_bg = "rgba(244, 63, 94, 0.12)"
-
-                    chip_html = (
-                        f"<div style='background: #080E18; border: 1px solid #1A273D; border-radius: 8px; padding: 10px 14px;'>"
-                        f"<div style='display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;'>"
-                        f"<span style='font-size: 0.65rem; font-weight: 800; padding: 2px 6px; border-radius: 4px; background: {tag_bg}; color: {tag_color};'>{tag_name}</span>"
-                        f"<span style='font-family: JetBrains Mono; font-size: 0.78rem; font-weight: 700; color: #F43F5E;'>💓 {hr_part}</span>"
-                        f"</div>"
-                        f"<div style='font-family: JetBrains Mono; font-size: 1.1rem; font-weight: 800; color: #FFFFFF;'>"
-                        f"{reps_part} {dist_part}"
-                        f"</div>"
-                        f"<div style='font-size: 0.72rem; color: #64748B;'>{(d_num//25)} laps per rep · 25m pool</div>"
-                        f"</div>"
-                    )
-                    int_chips_html.append(chip_html)
-
-                st.markdown(
-                    f"<div style='display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 10px; margin-bottom: 20px;'>"
-                    f"{''.join(int_chips_html)}"
-                    f"</div>",
-                    unsafe_allow_html=True
-                )
-
-            # Heart Rate Zones Distribution Bar
-            if hr_zone_times and len(hr_zone_times) >= 5:
-                st.markdown("#### 💓 Heart Rate Zone Distribution (Time in Zone)")
-                z_labels = ["Z1 Easy (<128)", "Z2 Aerobic (128-135)", "Z3 Tempo (135-143)", "Z4 Threshold (143-151)", "Z5 VO2 Max (>151)"]
-                z_colors = ["#38BDF8", "#10B981", "#F59E0B", "#F97316", "#EF4444"]
-                z_times_min = [round(t / 60.0, 1) for t in hr_zone_times[:5]]
-                tot_z_time = sum(z_times_min) or 1.0
-
-                z_cards = []
-                for zi in range(5):
-                    z_min = z_times_min[zi]
-                    z_pct = round((z_min / tot_z_time) * 100.0, 1)
-                    z_c_html = (
-                        f"<div style='background: #080E18; border: 1px solid #1A273D; border-radius: 8px; padding: 10px 12px; text-align: center;'>"
-                        f"<div style='font-size: 0.7rem; font-weight: 700; color: {z_colors[zi]}; margin-bottom: 2px;'>{z_labels[zi]}</div>"
-                        f"<div style='font-family: JetBrains Mono; font-size: 1.1rem; font-weight: 800; color: #FFFFFF;'>{z_min:.1f} <span style='font-size: 0.75rem; color: #64748B;'>min</span></div>"
-                        f"<div style='font-size: 0.7rem; color: #64748B;'>{z_pct}% of session</div>"
-                        f"</div>"
-                    )
-                    z_cards.append(z_c_html)
-
-                st.markdown(
-                    f"<div style='display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 8px; margin-bottom: 20px;'>"
-                    f"{''.join(z_cards)}"
-                    f"</div>",
-                    unsafe_allow_html=True
-                )
-
-            # AI Post-Workout Assessment Report
-            st.markdown(
-                f"""
-                <div style="background: rgba(16, 185, 129, 0.08); border: 1px solid rgba(16, 185, 129, 0.25); border-radius: 10px; padding: 14px 18px; margin-bottom: 14px;">
-                    <div style="font-size: 0.8rem; font-weight: 800; color: #10B981; text-transform: uppercase; margin-bottom: 6px;">
-                        🤖 AI Coach Post-Workout Compliance Report
-                    </div>
-                    <div style="font-size: 0.84rem; color: #CBD5E1; line-height: 1.55;">
-                        • <strong>Pacing Efficiency:</strong> Maintained an outstanding moving pace of <strong>{actual_pace_fmt}</strong> across 52 lengths, outperforming your endurance baseline (<strong>{target_pace_fmt}</strong>).<br>
-                        • <strong>Interval Rest Discipline:</strong> Rested <strong>{act_rest_min} min</strong> across 34 pause cycles, enabling high neuromuscular power during speed sets (4x 100m @ 144 bpm) without excessive metabolic debt.<br>
-                        • <strong>Physiological Adaptation:</strong> Accumulated <strong>{act_load} ICU Training Load</strong> and burned <strong>{act_cals} kcal</strong> with heart rate peaking at <strong>{act_max_hr:.0f} bpm</strong>. Readiness for tomorrow remains high!
-                    </div>
-                </div>
-                """,
-                unsafe_allow_html=True
-            )
-
-            # Actionable Coaching Directives: What to Improve in Next Sessions
-            vol_advice = (
-                f"You completed <strong>{act_dist_m:,}m</strong> of your <strong>{p_dist_m:,}m</strong> target ({dist_compliance_pct}%). To build stamina for continuous 2k endurance swims, progressively add +150m to +200m to your main set each week without letting stroke mechanics break down."
-                if dist_compliance_pct < 100
-                else "100% volume target fulfilled! Focus on maintaining stroke technique into the final 25% of the workout."
-            )
-
-            cad_val_str = f"{act_cadence:.1f}" if act_cadence else "21.2"
-
-            st.markdown(
-                f"""
-                <div class="f-card" style="border-left: 4px solid #F59E0B; margin-bottom: 24px; background: #0B1322;">
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
-                        <div style="font-size: 0.86rem; font-weight: 800; color: #FBBF24; text-transform: uppercase; letter-spacing: 0.05em; display: flex; align-items: center; gap: 8px;">
-                            💡 Actionable Coaching Feedback: What to Improve in Next Sessions
-                        </div>
-                        <span style="font-size: 0.7rem; font-weight: 700; background: rgba(245, 158, 11, 0.15); color: #F59E0B; padding: 3px 8px; border-radius: 4px; border: 1px solid rgba(245, 158, 11, 0.3);">
-                            PERFORMANCE OPTIMIZATION
-                        </span>
-                    </div>
-                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 12px;">
-                        <div style="background: #080E18; border: 1px solid #1A273D; border-radius: 8px; padding: 12px 14px;">
-                            <div style="display: flex; align-items: center; gap: 6px; font-size: 0.78rem; font-weight: 800; color: #38BDF8; margin-bottom: 4px;">
-                                📏 1. Volume Target Progression
-                            </div>
-                            <div style="font-size: 0.8rem; color: #94A3B8; line-height: 1.45;">
-                                {vol_advice}
-                            </div>
-                        </div>
-                        <div style="background: #080E18; border: 1px solid #1A273D; border-radius: 8px; padding: 12px 14px;">
-                            <div style="display: flex; align-items: center; gap: 6px; font-size: 0.78rem; font-weight: 800; color: #00E599; margin-bottom: 4px;">
-                                ⏱️ 2. Rest Interval Density
-                            </div>
-                            <div style="font-size: 0.8rem; color: #94A3B8; line-height: 1.45;">
-                                Total rest was <strong>{act_rest_min:.1f} min</strong> ({rest_ratio_pct}% of workout). On aerobic cruise sets, tighten rest between 100m/200m repeats to <strong>15–20 sec</strong> to build lactate clearance and elevate threshold velocity.
-                            </div>
-                        </div>
-                        <div style="background: #080E18; border: 1px solid #1A273D; border-radius: 8px; padding: 12px 14px;">
-                            <div style="display: flex; align-items: center; gap: 6px; font-size: 0.78rem; font-weight: 800; color: #F59E0B; margin-bottom: 4px;">
-                                ⚡ 3. Pacing Discipline &amp; Energy
-                            </div>
-                            <div style="font-size: 0.8rem; color: #94A3B8; line-height: 1.45;">
-                                Your <strong>{actual_pace_fmt}</strong> pace was very swift! Keep the first 300m warm-up strictly in Zone 2 (<strong>{target_pace_fmt}</strong>) to conserve glycogen, saving Zone 5 power for the final 100m speed repeats.
-                            </div>
-                        </div>
-                        <div style="background: #080E18; border: 1px solid #1A273D; border-radius: 8px; padding: 12px 14px;">
-                            <div style="display: flex; align-items: center; gap: 6px; font-size: 0.78rem; font-weight: 800; color: #F43F5E; margin-bottom: 4px;">
-                                🏊 4. Stroke Mechanics &amp; DPS
-                            </div>
-                            <div style="font-size: 0.8rem; color: #94A3B8; line-height: 1.45;">
-                                With an average cadence of <strong>{cad_val_str} spm</strong>, focus on a high-elbow catch (EVF) and accelerating through the hip finish to shave <strong>1–2 strokes per lap</strong> at this 2:27 pace.
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                """,
-                unsafe_allow_html=True
-            )
-
-    # 3. Today's Scheduled vs AI Recommended Workouts
-    st.markdown("---")
-    st.markdown("### 🎯 Today's Scheduled & Recommended Training")
-
-    saved_plans_all = get_plans()
-    today_scheduled_plans = [
-        p for p in saved_plans_all
-        if p.get("planned_date") == today_iso
-    ]
-
-    if today_scheduled_plans:
-        top_sc_c1, top_sc_c2 = st.columns([3, 1])
-        with top_sc_c1:
-            st.markdown(
-                f"""
-                <div style="background: rgba(99, 102, 241, 0.12); border: 1px solid rgba(99, 102, 241, 0.3); border-radius: 10px; padding: 10px 16px;">
-                    <span style="font-size: 0.85rem; font-weight: 800; color: #818CF8; text-transform: uppercase;">
-                        📅 {len(today_scheduled_plans)} WORKOUT(S) SCHEDULED ON YOUR CALENDAR FOR TODAY
-                    </span>
-                </div>
-                """,
-                unsafe_allow_html=True,
-            )
-        with top_sc_c2:
-            if st.button("🗑️ Clear All Today's Plans", use_container_width=True, key="clear_all_today_plans_btn"):
-                delete_plans_by_date(today_iso)
-                st.toast("Cleared all scheduled workouts for today!")
-                st.rerun()
-
-        for s_idx, s_plan in enumerate(today_scheduled_plans):
-            s_pid = s_plan.get("plan_id") or s_plan.get("id")
-            s_sport = s_plan.get("sport", "Swim")
-            s_type = s_plan.get("workout_type") or s_plan.get("type", "Workout")
-            s_dist = s_plan.get("distance_km") or (s_plan.get("target_distance", 2000) if s_sport=="Run" else s_plan.get("distance_m", 2000))
-            s_dist_str = f"{s_dist:.1f} km" if s_sport=="Run" else f"{s_dist:,} m ({s_dist//25} Laps)"
-            s_dur = s_plan.get("duration_est") or s_plan.get("duration", "45-55 min")
-            s_goal = s_plan.get("goal", "Execute structured intervals according to periodization.")
-            s_sets = s_plan.get("sets", [])
-            s_readiness = s_plan.get("readiness_score", 85)
-            s_color = "#F43F5E" if s_sport=="Run" else "#00D2FF"
-
-            st.markdown(
-                f"""
-                <div class="f-card" style="border-left: 4px solid {s_color}; margin-bottom: 12px;">
-                    <div class="f-card-header">
-                        <div>
-                            <span class="forest-pill-tag" style="background: {'rgba(244, 63, 94, 0.12)' if s_sport=='Run' else 'rgba(0, 210, 255, 0.12)'}; color: {s_color}; border-color: {s_color}40;">
-                                {'🏃 CALENDAR SCHEDULED RUN' if s_sport=='Run' else '🏊 CALENDAR SCHEDULED SWIM'}
-                            </span>
-                            <div class="f-card-title" style="margin-top: 6px; font-size: 1.25rem;">
-                                {s_type} Session — {s_dist_str}
-                            </div>
-                            <div class="f-card-subtitle">
-                                <strong>Duration:</strong> {s_dur} · <strong>Goal:</strong> {s_goal}
-                            </div>
-                        </div>
-                        <div style="text-align: right; background: {'rgba(244, 63, 94, 0.1)' if s_sport=='Run' else 'rgba(0, 210, 255, 0.1)'}; padding: 8px 14px; border-radius: 8px; border: 1px solid {s_color}40;">
-                            <div style="font-size: 0.7rem; color: #64748B; font-weight: 700; text-transform: uppercase;">Readiness</div>
-                            <div style="font-family: 'JetBrains Mono', monospace; font-size: 1.45rem; font-weight: 800; color: {s_color};">{s_readiness}/100</div>
-                        </div>
-                    </div>
-                </div>
-                """,
-                unsafe_allow_html=True,
-            )
-
-            if s_sets:
-                set_cards_html = []
-                for i, s in enumerate(s_sets):
-                    p_text = s.get("purpose", "Segment")
-                    reps_cnt = s.get('reps', 1)
-                    dist_desc = f"{reps_cnt} × {s.get('distance')}" if reps_cnt > 1 else s.get('distance')
-                    pattern_txt = s.get('stroke_pattern') or s.get('pattern') or s.get('stroke') or "Workout"
-                    target_pace = s.get('pace', 'Target Pace')
-                    rest_txt = s.get('rest', 'None')
-
-                    card_item = (
-                        f"<div style='background: #080E18; border: 1px solid #1A273D; border-radius: 10px; padding: 14px 16px; display: flex; flex-direction: column; justify-content: space-between;'>"
-                        f"<div>"
-                        f"<div style='display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;'>"
-                        f"<span style='font-size: 0.75rem; font-weight: 800; color: #64748B;'>SET {i+1}</span>"
-                        f"<span style='font-size: 0.65rem; font-weight: 700; padding: 2px 8px; border-radius: 4px; background: rgba(0, 229, 153, 0.12); color: #00E599;'>{p_text.upper()}</span>"
-                        f"</div>"
-                        f"<div style='font-family: JetBrains Mono, monospace; font-size: 1.15rem; font-weight: 800; color: #FFFFFF; margin-bottom: 4px;'>"
-                        f"{dist_desc}"
-                        f"</div>"
-                        f"<div style='font-size: 0.8rem; color: #94A3B8; margin-bottom: 10px; line-height: 1.4;'>"
-                        f"{pattern_txt}"
-                        f"</div>"
-                        f"</div>"
-                        f"<div style='border-top: 1px solid #142033; padding-top: 8px; margin-top: 6px; font-size: 0.74rem; color: #64748B; display: flex; flex-direction: column; gap: 4px;'>"
-                        f"<div><span style='color: #475569;'>Pace:</span> <strong style='color: #00E599;'>{target_pace}</strong></div>"
-                        f"<div><span style='color: #475569;'>Rest:</span> <strong style='color: #94A3B8;'>{rest_txt}</strong></div>"
-                        f"</div>"
-                        f"</div>"
-                    )
-                    set_cards_html.append(card_item)
-
-                grid_html = (
-                    f"<div class='sets-grid-responsive' style='display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; margin-bottom: 8px;'>"
-                    f"{''.join(set_cards_html)}"
-                    f"</div>"
-                )
-                if hasattr(st, "html"):
-                    st.html(grid_html)
-                else:
-                    st.markdown(grid_html, unsafe_allow_html=True)
-
-            del_c1, del_c2 = st.columns([4, 1])
-            with del_c2:
-                if st.button(f"🗑️ Delete Workout #{s_idx+1}", key=f"del_today_plan_{s_pid}_{s_idx}", use_container_width=True):
-                    delete_plan(s_pid)
-                    st.toast("Workout plan deleted successfully!")
-                    st.rerun()
-            st.markdown("<div style='margin-bottom: 20px;'></div>", unsafe_allow_html=True)
-    else:
-        st.markdown(
-            f"""
-            <div style="background: rgba(14, 165, 233, 0.1); border: 1px solid rgba(14, 165, 233, 0.25); border-radius: 10px; padding: 14px 18px; margin-bottom: 18px;">
-                <div style="font-size: 0.82rem; font-weight: 800; color: #38BDF8; text-transform: uppercase; margin-bottom: 4px;">
-                    💡 NO WORKOUT SCHEDULED ON CALENDAR FOR TODAY
-                </div>
-                <div style="font-size: 0.85rem; color: #CBD5E1;">
-                    The AI Coach has prepared daily adaptive recommendations below based on your recent load, fatigue index, and Garmin recovery.
-                </div>
-            </div>
-            """,
-            unsafe_allow_html=True,
-        )
-
-        ai_today_choice = st.radio(
-            "Select AI Recommended Discipline",
-            ["🏊 Recommended Swim Workout", "🏃 Recommended Run Workout"],
-            horizontal=True,
-            key="today_ai_rec_choice"
-        )
-
-        if "Swim" in ai_today_choice:
-            rec_p_type = plan.get("workout_type", "Endurance")
-            rec_p_dist = plan.get("distance_m", 2000)
-            rec_p_dur = plan.get("duration_est", "45-55 min")
-            rec_p_goal = plan.get("goal", "Build aerobic endurance while improving sustainable freestyle pace.")
-            rec_p_sets = plan.get("sets", [])
-            rec_p_score = plan.get("readiness_score", 85)
-            rec_p_rat = plan.get("coach_rationale", "Adaptive recommendation tailored to your current recovery balance.")
-
-            st.markdown(
-                f"""
-                <div class="f-card" style="border-left: 4px solid #00D2FF; margin-bottom: 16px;">
-                    <div class="f-card-header">
-                        <div>
-                            <span class="forest-pill-tag">🏊 AI ADAPTIVE SWIM · TODAY</span>
-                            <div class="f-card-title" style="margin-top: 6px; font-size: 1.25rem;">
-                                {rec_p_type} Session — {rec_p_dist:,} m ({rec_p_dist // 25} Laps)
-                            </div>
-                            <div class="f-card-subtitle">
-                                <strong>Duration:</strong> {rec_p_dur} · <strong>Goal:</strong> {rec_p_goal}
-                            </div>
-                        </div>
-                        <div style="text-align: right; background: rgba(0, 210, 255, 0.1); padding: 8px 14px; border-radius: 8px; border: 1px solid rgba(0, 210, 255, 0.25);">
-                            <div style="font-size: 0.7rem; color: #64748B; font-weight: 700; text-transform: uppercase;">Readiness</div>
-                            <div style="font-family: 'JetBrains Mono', monospace; font-size: 1.45rem; font-weight: 800; color: #00D2FF;">{rec_p_score}/100</div>
-                        </div>
-                    </div>
-                    <div style="font-size: 0.82rem; color: #94A3B8; margin-top: 10px; background: #080E18; padding: 10px 14px; border-radius: 8px; border: 1px solid #142033; line-height: 1.5;">
-                        💡 <strong>Coaching Rationale:</strong> {rec_p_rat}
-                    </div>
-                </div>
-                """,
-                unsafe_allow_html=True,
-            )
-
-            if rec_p_sets:
-                set_cards_html = []
-                for i, s in enumerate(rec_p_sets):
-                    p_text = s.get("purpose", "Swim")
-                    reps_cnt = s.get('reps', 1)
-                    dist_desc = f"{reps_cnt} × {s.get('distance')}m" if reps_cnt > 1 else f"{s.get('distance')}m"
-                    tot_laps = s.get('total_laps') or ((s.get('distance', 100) * reps_cnt) // 25)
-                    pattern_txt = s.get('stroke_pattern') or s.get('stroke') or "Freestyle"
-                    target_pace = s.get('pace', 'Target Pace')
-                    rest_txt = s.get('rest', 'None')
-
-                    card_item = (
-                        f"<div style='background: #080E18; border: 1px solid #1A273D; border-radius: 10px; padding: 14px 16px; display: flex; flex-direction: column; justify-content: space-between;'>"
-                        f"<div>"
-                        f"<div style='display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;'>"
-                        f"<span style='font-size: 0.75rem; font-weight: 800; color: #64748B;'>SET {i+1}</span>"
-                        f"<span style='font-size: 0.65rem; font-weight: 700; padding: 2px 8px; border-radius: 4px; background: rgba(0, 210, 255, 0.15); color: #00D2FF;'>{p_text.upper()}</span>"
-                        f"</div>"
-                        f"<div style='font-family: JetBrains Mono, monospace; font-size: 1.15rem; font-weight: 800; color: #FFFFFF; margin-bottom: 4px;'>"
-                        f"{dist_desc} <span style='font-size: 0.85rem; color: #64748B;'>({tot_laps} Laps)</span>"
-                        f"</div>"
-                        f"<div style='font-size: 0.8rem; color: #94A3B8; margin-bottom: 10px; line-height: 1.4;'>"
-                        f"{pattern_txt}"
-                        f"</div>"
-                        f"</div>"
-                        f"<div style='border-top: 1px solid #142033; padding-top: 8px; margin-top: 6px; font-size: 0.74rem; color: #64748B; display: flex; flex-direction: column; gap: 4px;'>"
-                        f"<div><span style='color: #475569;'>Pace:</span> <strong style='color: #00E599;'>{target_pace}</strong></div>"
-                        f"<div><span style='color: #475569;'>Rest:</span> <strong style='color: #94A3B8;'>{rest_txt}</strong></div>"
-                        f"</div>"
-                        f"</div>"
-                    )
-                    set_cards_html.append(card_item)
-
-                grid_html = (
-                    f"<div class='sets-grid-responsive' style='display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; margin-bottom: 22px;'>"
-                    f"{''.join(set_cards_html)}"
-                    f"</div>"
-                )
-                if hasattr(st, "html"):
-                    st.html(grid_html)
-                else:
-                    st.markdown(grid_html, unsafe_allow_html=True)
-        else:
-            best_r_sec_today = running_baseline_pace or 542.0
-            rec_run_obj = generate_run_workout("Aerobic Endurance (Long Run)", 5.0, best_pace_sec_km=best_r_sec_today)
-            r_rec_type = rec_run_obj.get("type", "Aerobic Endurance")
-            r_rec_dist = rec_run_obj.get("distance_km", 5.0)
-            r_rec_dur = rec_run_obj.get("duration_est", "35-45 min")
-            r_rec_goal = rec_run_obj.get("goal", "Build aerobic endurance and lactate threshold efficiency.")
-            r_rec_sets = rec_run_obj.get("sets", [])
-
-            st.markdown(
-                f"""
-                <div class="f-card" style="border-left: 4px solid #F43F5E; margin-bottom: 16px;">
-                    <div class="f-card-header">
-                        <div>
-                            <span class="forest-pill-tag" style="background: rgba(244, 63, 94, 0.12); color: #F43F5E; border-color: rgba(244, 63, 94, 0.3);">🏃 AI ADAPTIVE RUN · TODAY</span>
-                            <div class="f-card-title" style="margin-top: 6px; font-size: 1.25rem;">
-                                {r_rec_type} Session — {r_rec_dist:.1f} km
-                            </div>
-                            <div class="f-card-subtitle">
-                                <strong>Duration:</strong> {r_rec_dur} · <strong>Goal:</strong> {r_rec_goal}
-                            </div>
-                        </div>
-                        <div style="text-align: right; background: rgba(244, 63, 94, 0.1); padding: 8px 14px; border-radius: 8px; border: 1px solid rgba(244, 63, 94, 0.25);">
-                            <div style="font-size: 0.7rem; color: #64748B; font-weight: 700; text-transform: uppercase;">Readiness</div>
-                            <div style="font-family: 'JetBrains Mono', monospace; font-size: 1.45rem; font-weight: 800; color: #F43F5E;">85/100</div>
-                        </div>
-                    </div>
-                </div>
-                """,
-                unsafe_allow_html=True,
-            )
-
-            if r_rec_sets:
-                set_cards_html = []
-                for i, s in enumerate(r_rec_sets):
-                    p_text = s.get("purpose", "Run")
-                    reps_cnt = s.get('reps', 1)
-                    dist_desc = f"{reps_cnt} × {s.get('distance')}" if reps_cnt > 1 else s.get('distance')
-                    pattern_txt = s.get('pattern', 'Running')
-                    target_pace = s.get('pace', 'Target Pace')
-                    hr_zone = s.get('hr_zone', 'HR Zone')
-                    rest_txt = s.get('rest', 'None')
-
-                    card_item = (
-                        f"<div style='background: #080E18; border: 1px solid #1A273D; border-radius: 10px; padding: 14px 16px; display: flex; flex-direction: column; justify-content: space-between;'>"
-                        f"<div>"
-                        f"<div style='display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;'>"
-                        f"<span style='font-size: 0.75rem; font-weight: 800; color: #64748B;'>SET {i+1}</span>"
-                        f"<span style='font-size: 0.65rem; font-weight: 700; padding: 2px 8px; border-radius: 4px; background: rgba(244, 63, 94, 0.15); color: #F43F5E;'>{p_text.upper()}</span>"
-                        f"</div>"
-                        f"<div style='font-family: JetBrains Mono, monospace; font-size: 1.15rem; font-weight: 800; color: #FFFFFF; margin-bottom: 4px;'>"
-                        f"{dist_desc}"
-                        f"</div>"
-                        f"<div style='font-size: 0.8rem; color: #94A3B8; margin-bottom: 10px; line-height: 1.4;'>"
-                        f"{pattern_txt}"
-                        f"</div>"
-                        f"</div>"
-                        f"<div style='border-top: 1px solid #142033; padding-top: 8px; margin-top: 6px; font-size: 0.74rem; color: #64748B; display: flex; flex-direction: column; gap: 4px;'>"
-                        f"<div><span style='color: #475569;'>Pace:</span> <strong style='color: #00E599;'>{target_pace}</strong></div>"
-                        f"<div><span style='color: #475569;'>HR Zone:</span> <strong style='color: #F43F5E;'>{hr_zone}</strong></div>"
-                        f"<div><span style='color: #475569;'>Rest:</span> <strong style='color: #94A3B8;'>{rest_txt}</strong></div>"
-                        f"</div>"
-                        f"</div>"
-                    )
-                    set_cards_html.append(card_item)
-
-                grid_html = (
-                    f"<div class='sets-grid-responsive' style='display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; margin-bottom: 22px;'>"
-                    f"{''.join(set_cards_html)}"
-                    f"</div>"
-                )
-                if hasattr(st, "html"):
-                    st.html(grid_html)
-                else:
-                    st.markdown(grid_html, unsafe_allow_html=True)
+        st.dataframe(pd.DataFrame(recent_rows), use_container_width=True, hide_index=True)
 
 
 # ============================================================
@@ -2489,345 +1199,152 @@ with tab_swimming:
     sw_hrs = [s["avg_hr"] for s in swim_activities if s.get("avg_hr")]
     sw_avg_hr = round(sum(sw_hrs) / len(sw_hrs)) if sw_hrs else None
 
+    # Swim KPIs
     st.markdown(
         f"""
         <div class="kpi-row-grid">
-            <div class="forest-kpi-card">
-                <div class="forest-kpi-top">
-                    <span class="forest-kpi-label">Swim Distance</span>
-                    <span class="forest-kpi-icon">🏊</span>
-                </div>
-                <div class="forest-kpi-val">{sw_dist:.2f} <span style="font-size: 0.9rem; color: #64748B;">km</span></div>
-                <div class="forest-kpi-sub">{len(swim_activities)} swim sessions</div>
+            <div class="clean-kpi-card">
+                <div class="clean-kpi-label">Swim Distance</div>
+                <div class="clean-kpi-val" style="color: #38BDF8;">{sw_dist:.2f} <span style="font-size: 0.8rem; color: #64748B;">km</span></div>
+                <div class="clean-kpi-sub">{len(swim_activities)} swim sessions</div>
             </div>
-            <div class="forest-kpi-card">
-                <div class="forest-kpi-top">
-                    <span class="forest-kpi-label">Active Time</span>
-                    <span class="forest-kpi-icon">⏱️</span>
-                </div>
-                <div class="forest-kpi-val">{format_duration_hm(sw_time)}</div>
-                <div class="forest-kpi-sub">{sw_time:.0f} moving mins</div>
+            <div class="clean-kpi-card">
+                <div class="clean-kpi-label">Active Time</div>
+                <div class="clean-kpi-val">{format_duration_hm(sw_time)}</div>
+                <div class="clean-kpi-sub">{sw_time:.0f} moving mins</div>
             </div>
-            <div class="forest-kpi-card">
-                <div class="forest-kpi-top">
-                    <span class="forest-kpi-label">Baseline Pace</span>
-                    <span class="forest-kpi-icon">⚡</span>
-                </div>
-                <div class="forest-kpi-val">{format_pace(baseline_pace)}</div>
-                <div class="forest-kpi-sub">per 100m threshold</div>
+            <div class="clean-kpi-card">
+                <div class="clean-kpi-label">Baseline Pace</div>
+                <div class="clean-kpi-val" style="color: #2DD4BF;">{format_pace(baseline_pace)}</div>
+                <div class="clean-kpi-sub">per 100m threshold</div>
             </div>
-            <div class="forest-kpi-card">
-                <div class="forest-kpi-top">
-                    <span class="forest-kpi-label">Est. 1,000m</span>
-                    <span class="forest-kpi-icon">🏁</span>
-                </div>
-                <div class="forest-kpi-val">{int(baseline_pace*10 // 60)}:{int(baseline_pace*10 % 60):02d}</div>
-                <div class="forest-kpi-sub">at baseline pace</div>
-            </div>
-            <div class="forest-kpi-card">
-                <div class="forest-kpi-top">
-                    <span class="forest-kpi-label">Avg Heart Rate</span>
-                    <span class="forest-kpi-icon">💓</span>
-                </div>
-                <div class="forest-kpi-val">{f"{sw_avg_hr}" if sw_avg_hr else "—"} <span style="font-size: 0.9rem; color: #64748B;">bpm</span></div>
-                <div class="forest-kpi-sub">underwater optical</div>
-            </div>
-            <div class="forest-kpi-card">
-                <div class="forest-kpi-top">
-                    <span class="forest-kpi-label">Pool Course</span>
-                    <span class="forest-kpi-icon">📐</span>
-                </div>
-                <div class="forest-kpi-val">25 <span style="font-size: 0.9rem; color: #64748B;">m</span></div>
-                <div class="forest-kpi-sub">short course</div>
+            <div class="clean-kpi-card">
+                <div class="clean-kpi-label">Avg Heart Rate</div>
+                <div class="clean-kpi-val">{f"{sw_avg_hr}" if sw_avg_hr else "—"} <span style="font-size: 0.8rem; color: #64748B;">bpm</span></div>
+                <div class="clean-kpi-sub">underwater optical</div>
             </div>
         </div>
         """,
         unsafe_allow_html=True,
     )
 
-    # Check for Calendar Scheduled Plans vs AI Next Workout
+    # Active Swim Plan
     saved_plans = get_plans()
-    dated_plans = [p for p in saved_plans if p.get("planned_date")]
-    dated_plans.sort(key=lambda x: x.get("planned_date", ""), reverse=False)
+    dated_plans = [p for p in saved_plans if p.get("planned_date") and p.get("sport", "Swim") == "Swim"]
+    calendar_matched_plan = next((p for p in dated_plans if p.get("planned_date") == str(target_plan_date)), None)
+    active_swim_plan = calendar_matched_plan or plan
 
-    # Find matching plan for target date (e.g. today or tomorrow)
-    calendar_matched_plan = None
-    target_date_str = str(target_plan_date)
-    for p in dated_plans:
-        if p.get("planned_date") == target_date_str:
-            calendar_matched_plan = p
-            break
+    p_type = active_swim_plan.get("workout_type") or active_swim_plan.get("type", "Endurance")
+    p_dist = active_swim_plan.get("distance_m") or active_swim_plan.get("target_distance", 2000)
+    p_dur = active_swim_plan.get("duration_est") or active_swim_plan.get("duration", "45-55 min")
+    p_goal = active_swim_plan.get("goal", "Build aerobic endurance.")
+    p_sets = active_swim_plan.get("sets", [])
 
-    if not calendar_matched_plan:
-        upcoming = [p for p in dated_plans if p.get("planned_date") >= str(today_date)]
-        if upcoming:
-            calendar_matched_plan = upcoming[0]
-
-    # Build plan options
-    plan_options_map = {}
-    if calendar_matched_plan:
-        p_dt = calendar_matched_plan.get("planned_date")
-        p_dist = calendar_matched_plan.get("target_distance") or calendar_matched_plan.get("distance_m", 0)
-        p_t = calendar_matched_plan.get("type") or calendar_matched_plan.get("workout_type", "Swim")
-        label = f"📅 Calendar Scheduled: {format_date_clean(p_dt)} ({p_dist:,}m {p_t})"
-        plan_options_map[label] = calendar_matched_plan
-
-    for p in dated_plans:
-        p_dt = p.get("planned_date")
-        if p_dt and p_dt >= str(today_date) and p != calendar_matched_plan:
-            p_dist = p.get("target_distance") or p.get("distance_m", 0)
-            p_t = p.get("type") or p.get("workout_type", "Swim")
-            label = f"📅 Calendar Scheduled: {format_date_clean(p_dt)} ({p_dist:,}m {p_t})"
-            if label not in plan_options_map:
-                plan_options_map[label] = p
-
-    ai_label = f"🤖 AI Adaptive Recommendation ({plan.get('distance_m', 2000):,}m {plan.get('workout_type', 'Endurance')})"
-    plan_options_map[ai_label] = plan
-
-    if len(plan_options_map) > 1:
-        sel_plan_label = st.selectbox(
-            "Select Swim Workout Plan",
-            options=list(plan_options_map.keys()),
-            index=0,
-            key="swim_tab_plan_selector",
-            help="Switch between Calendar scheduled workouts and AI adaptive daily recommendation."
-        )
-        active_raw_plan = plan_options_map[sel_plan_label]
-    else:
-        active_raw_plan = calendar_matched_plan or plan
-
-    # Normalize active plan fields
-    plan_type = active_raw_plan.get("workout_type") or active_raw_plan.get("type") or "Endurance"
-    plan_dist = active_raw_plan.get("distance_m") or active_raw_plan.get("target_distance") or 2000
-    plan_dur = active_raw_plan.get("duration_est") or active_raw_plan.get("duration") or "45-55 min"
-    plan_goal = active_raw_plan.get("goal") or "Build aerobic endurance while improving sustainable freestyle pace."
-    plan_sets = active_raw_plan.get("sets", [])
-    swim_readiness_calc = calculate_sport_recovery_metric(
-        "Swim",
-        days_since_swim,
-        summary.get("Swim", {}).get("training_load", 0),
-        summary.get("Swim", {}).get("distance_km", 0),
-        today_wellness
-    )
-    plan_readiness = active_raw_plan.get("readiness_score") or swim_readiness_calc["readiness_pct"]
-    plan_rationale = active_raw_plan.get("coach_rationale") or active_raw_plan.get("description") or "Scheduled structured workout aligned with training periodization."
-    is_calendar_plan = bool(active_raw_plan.get("planned_date"))
-    p_date_str = format_date_clean(active_raw_plan.get("planned_date")) if is_calendar_plan else plan_timing_badge
-
+    st.markdown("#### 🎯 Active Swim Workout")
     st.markdown(
         f"""
-        <div class="f-card" style="border-left: 4px solid #00D2FF; margin-bottom: 20px;">
-            <div class="f-card-header">
+        <div class="f-card" style="border-left: 3px solid #38BDF8; margin-bottom: 16px;">
+            <div class="f-card-header" style="margin-bottom: 8px;">
                 <div>
-                    <span class="forest-pill-tag">{'📅 CALENDAR SCHEDULED · ' + p_date_str.upper() if is_calendar_plan else '🏊 ' + plan_type.upper() + ' WORKOUT · ' + plan_timing_badge.upper()}</span>
-                    <div class="f-card-title" style="margin-top: 6px; font-size: 1.25rem;">
-                        {plan_type} Session — {plan_dist:,} m ({plan_dist // 25} Laps)
-                    </div>
-                    <div class="f-card-subtitle">
-                        <strong>Duration:</strong> {plan_dur} · <strong>Goal:</strong> {plan_goal}
-                    </div>
+                    <span class="sport-chip chip-swim">🏊 {p_type.upper()} WORKOUT</span>
+                    <div class="f-card-title" style="margin-top: 6px;">{p_type} Session · {p_dist:,}m ({p_dist // 25} Laps)</div>
                 </div>
-                <div style="text-align: right; background: rgba(0, 210, 255, 0.1); padding: 8px 14px; border-radius: 8px; border: 1px solid rgba(0, 210, 255, 0.25);">
-                    <div style="font-size: 0.7rem; color: #64748B; font-weight: 700; text-transform: uppercase;">Readiness</div>
-                    <div style="font-family: 'JetBrains Mono', monospace; font-size: 1.45rem; font-weight: 800; color: #00D2FF;">{plan_readiness}/100</div>
-                </div>
+                <div style="font-size: 0.84rem; color: #8E9DAE; font-weight: 600;">⏱️ {p_dur}</div>
             </div>
-            <div style="font-size: 0.84rem; color: #94A3B8; margin-top: 6px;">
-                💡 <strong style="color: #FFFFFF;">{'Calendar Schedule' if is_calendar_plan else 'AI Rationale'}:</strong> {plan_rationale}
-            </div>
+            <div style="font-size: 0.84rem; color: #94A3B8; margin-bottom: 12px;"><strong>Goal:</strong> {p_goal}</div>
         </div>
         """,
         unsafe_allow_html=True,
     )
 
-    if is_calendar_plan:
-        c_del_id = active_raw_plan.get("plan_id") or active_raw_plan.get("id")
-        del_c1, del_c2 = st.columns([4, 1])
-        with del_c2:
-            if c_del_id and st.button("🗑️ Delete Scheduled Swim", key=f"del_swim_cal_plan_{c_del_id}", use_container_width=True):
-                delete_plan(c_del_id)
-                st.toast("Scheduled swim plan deleted from calendar!")
-                st.rerun()
+    if p_sets:
+        set_cards_html = []
+        for i, s in enumerate(w_sets := p_sets):
+            p_text = s.get("purpose", "Swim")
+            reps_cnt = s.get('reps', 1)
+            dist_desc = f"{reps_cnt} × {s.get('distance')}m" if reps_cnt > 1 else f"{s.get('distance')}m"
+            tot_laps = s.get('total_laps') or ((s.get('distance', 100) * reps_cnt) // 25)
+            pattern_txt = s.get('stroke_pattern') or s.get('pattern') or s.get('stroke') or "Freestyle"
+            target_pace = s.get('pace', 'Target Pace')
+            rest_txt = s.get('rest', 'None')
+            b_meta = get_set_badge_meta(p_text)
 
-    # Visual Structured Workout Sets Cards
-    st.markdown("#### 📋 Structured Workout Sets (25m Pool)")
-    
-    def get_set_badge_meta(purpose):
-        pur = (purpose or "").lower()
-        if "warm" in pur:
-            return {"bg": "rgba(0, 210, 255, 0.15)", "border": "rgba(0, 210, 255, 0.4)", "color": "#00D2FF", "tag": "WARM-UP"}
-        elif any(k in pur for k in ["tech", "drill", "rotation", "kick", "pull"]):
-            return {"bg": "rgba(129, 140, 248, 0.15)", "border": "rgba(129, 140, 248, 0.4)", "color": "#818CF8", "tag": "TECHNIQUE"}
-        elif any(k in pur for k in ["speed", "interval", "vo2", "sprint"]):
-            return {"bg": "rgba(244, 63, 94, 0.15)", "border": "rgba(244, 63, 94, 0.4)", "color": "#F43F5E", "tag": "SPEED / VO2"}
-        elif any(k in pur for k in ["tempo", "threshold", "pace"]):
-            return {"bg": "rgba(245, 158, 11, 0.15)", "border": "rgba(245, 158, 11, 0.4)", "color": "#F59E0B", "tag": "TEMPO"}
-        elif any(k in pur for k in ["recovery", "easy", "relax"]):
-            return {"bg": "rgba(56, 189, 248, 0.15)", "border": "rgba(56, 189, 248, 0.4)", "color": "#38BDF8", "tag": "RECOVERY"}
-        elif any(k in pur for k in ["cool", "down"]):
-            return {"bg": "rgba(148, 163, 184, 0.15)", "border": "rgba(148, 163, 184, 0.4)", "color": "#94A3B8", "tag": "COOL-DOWN"}
-        else:
-            return {"bg": "rgba(0, 229, 153, 0.15)", "border": "rgba(0, 229, 153, 0.4)", "color": "#00E599", "tag": "ENDURANCE"}
+            card_item = (
+                f"<div style='background: #0E141E; border: 1px solid #1E283A; border-radius: 10px; padding: 12px 14px; display: flex; flex-direction: column; justify-content: space-between;'>"
+                f"<div>"
+                f"<div style='display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;'>"
+                f"<span style='font-size: 0.7rem; font-weight: 700; color: #64748B;'>SET {i+1}</span>"
+                f"<span style='font-size: 0.65rem; font-weight: 700; padding: 2px 6px; border-radius: 4px; background: {b_meta['bg']}; color: {b_meta['color']};'>{b_meta['tag']}</span>"
+                f"</div>"
+                f"<div style='font-family: JetBrains Mono, monospace; font-size: 1.1rem; font-weight: 700; color: #F1F5F9; margin-bottom: 2px;'>"
+                f"{dist_desc} <span style='font-size: 0.75rem; color: #64748B;'>({tot_laps} laps)</span>"
+                f"</div>"
+                f"<div style='font-size: 0.78rem; color: #94A3B8; margin-bottom: 8px;'>"
+                f"{pattern_txt}"
+                f"</div>"
+                f"</div>"
+                f"<div style='border-top: 1px solid rgba(255,255,255,0.05); padding-top: 6px; font-size: 0.72rem; color: #64748B; display: flex; justify-content: space-between;'>"
+                f"<span>Pace: <strong style='color: #2DD4BF;'>{target_pace}</strong></span>"
+                f"<span>Rest: <strong style='color: #CBD5E1;'>{rest_txt}</strong></span>"
+                f"</div>"
+                f"</div>"
+            )
+            set_cards_html.append(card_item)
 
-    sets_cards = []
-    for i, s in enumerate(plan_sets):
-        reps = s.get("reps", 1)
-        dist = s.get("distance", 100)
-        tot_dist = s.get("total_distance", reps * dist)
-        laps_per_rep = s.get("laps", dist // 25)
-        tot_laps = s.get("total_laps", reps * laps_per_rep)
-        purpose = s.get("purpose", "Swim")
-        pattern = s.get("stroke_pattern", s.get("stroke", "Freestyle"))
-        pace_str = s.get("pace", "Controlled")
-        rest_str = s.get("rest", "None")
-        b_meta = get_set_badge_meta(purpose)
+        st.markdown(f"<div style='display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px; margin-bottom: 20px;'>{''.join(set_cards_html)}</div>", unsafe_allow_html=True)
 
-        card_html = (
-            f'<div style="background: #0C1322; border: 1px solid #1A273D; border-radius: 12px; padding: 16px 18px; display: flex; flex-direction: column; justify-content: space-between; box-shadow: 0 4px 14px rgba(0,0,0,0.25);">'
-            f'<div>'
-            f'<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">'
-            f'<span style="font-size: 0.72rem; font-weight: 800; color: #64748B; letter-spacing: 0.05em; text-transform: uppercase;">SET {i+1}</span>'
-            f'<span style="background: {b_meta["bg"]}; border: 1px solid {b_meta["border"]}; color: {b_meta["color"]}; padding: 3px 9px; border-radius: 6px; font-size: 0.7rem; font-weight: 700; text-transform: uppercase;">{b_meta["tag"]}</span>'
-            f'</div>'
-            f'<div style="font-family: \'JetBrains Mono\', monospace; font-size: 1.25rem; font-weight: 800; color: #FFFFFF; margin-bottom: 2px;">'
-            f'{tot_dist}m <span style="font-size: 0.82rem; color: #64748B; font-weight: 600;">({tot_laps} laps)</span>'
-            f'</div>'
-            f'<div style="font-size: 0.95rem; font-weight: 700; color: #E2E8F0; margin-bottom: 6px;">'
-            f'{reps} × {dist}m {pattern}'
-            f'</div>'
-            f'<div style="font-size: 0.8rem; color: #94A3B8; margin-bottom: 12px;">'
-            f'{purpose}'
-            f'</div>'
-            f'</div>'
-            f'<div style="background: rgba(6, 11, 18, 0.6); border-radius: 8px; padding: 9px 12px; border: 1px solid rgba(26, 39, 61, 0.6); font-size: 0.82rem;">'
-            f'<div style="display: flex; justify-content: space-between; margin-bottom: 4px;">'
-            f'<span style="color: #64748B;">Pace:</span>'
-            f'<span style="color: #00E599; font-family: \'JetBrains Mono\', monospace; font-weight: 700;">{pace_str}</span>'
-            f'</div>'
-            f'<div style="display: flex; justify-content: space-between;">'
-            f'<span style="color: #64748B;">Rest:</span>'
-            f'<span style="color: #F8FAFC; font-weight: 600;">{rest_str}</span>'
-            f'</div>'
-            f'</div>'
-            f'</div>'
-        )
-        sets_cards.append(card_html)
-
-    grid_container = '<div class="sets-grid-responsive" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px; margin-top: 10px; margin-bottom: 22px;">' + "".join(sets_cards) + '</div>'
-    st.markdown(grid_container, unsafe_allow_html=True)
-
-    # Swimming Activity History Table (above telemetry)
+    # Swim Distance Progression Chart
     if swim_activities:
-        st.markdown("### 📋 Swimming Activity History")
+        sw_df_data = []
+        for sa in reversed(swim_activities):
+            d_val = sa.get("distance_km") or 0.0
+            sw_df_data.append({
+                "date": format_date_clean(sa.get("date")),
+                "distance_m": int(d_val * 1000),
+                "load": sa.get("training_load", 0),
+            })
+        c_sw_dist = alt.Chart(pd.DataFrame(sw_df_data)).mark_bar(color="#38BDF8", cornerRadiusTopLeft=4, cornerRadiusTopRight=4).encode(
+            x=alt.X("date:N", title="Date", axis=alt.Axis(labelAngle=-45)),
+            y=alt.Y("distance_m:Q", title="Distance (Meters)"),
+            tooltip=["date:N", "distance_m:Q", "load:Q"],
+        ).properties(height=200)
+        st.altair_chart(apply_forest_chart_theme(c_sw_dist, height=200), use_container_width=True)
+
+        st.markdown("#### 📋 Swimming Session History")
         sw_table_rows = []
         for sa in swim_activities:
             d_km = sa.get("distance_km") or 0.0
             dur_m = sa.get("moving_time_min") or 0.0
             p_sec = (dur_m * 60) / (d_km * 10) if d_km > 0 and dur_m > 0 else None
-            p_fmt = format_pace(p_sec) if p_sec else "—"
             sw_table_rows.append({
                 "Date": format_date_clean(sa.get("date")),
                 "Session Name": sa.get("name", "Swim Session"),
                 "Distance": f"{int(d_km * 1000):,} m ({d_km:.2f} km)",
                 "Duration": format_duration_hm(dur_m),
-                "Pace (/100m)": p_fmt,
+                "Pace (/100m)": format_pace(p_sec) if p_sec else "—",
                 "Avg HR": f"{sa.get('avg_hr', 0):.0f} bpm" if sa.get("avg_hr") else "—",
-                "Calories": f"{sa.get('calories', 0):,} kcal" if sa.get("calories") else "—",
-                "Training Load": f"{sa.get('training_load', 0):.0f}" if sa.get("training_load") else "—",
+                "Load": f"{sa.get('training_load', 0):.0f}" if sa.get("training_load") else "—",
             })
         st.dataframe(pd.DataFrame(sw_table_rows), use_container_width=True, hide_index=True)
 
-        # Swimming Telemetry & Progression Charts
-        st.markdown("---")
-        st.markdown("### 📈 Swimming Telemetry & Progression")
-        sw_chart_c1, sw_chart_c2 = st.columns(2)
-        
-        with sw_chart_c1:
-            sw_data = []
-            for sa in reversed(swim_activities):
-                d_val = sa.get("distance_km") or 0.0
-                dur_m = sa.get("moving_time_min") or 0.0
-                p_sec = (dur_m * 60) / (d_val * 10) if d_val > 0 and dur_m > 0 else None
-                sw_data.append({
-                    "date": format_date_clean(sa.get("date")),
-                    "distance_m": int(d_val * 1000),
-                    "pace_sec": p_sec,
-                    "avg_hr": sa.get("avg_hr"),
-                    "load": sa.get("training_load", 0),
-                })
-            sw_df = pd.DataFrame(sw_data)
-
-            c_sw_dist = alt.Chart(sw_df).mark_bar(color="#00D2FF", cornerRadiusTopLeft=4, cornerRadiusTopRight=4).encode(
-                x=alt.X("date:N", title="Session Date", axis=alt.Axis(labelAngle=-45)),
-                y=alt.Y("distance_m:Q", title="Distance (Meters)"),
-                tooltip=["date:N", "distance_m:Q", "load:Q"],
-            ).properties(height=240, title="Swim Distance per Session")
-            st.altair_chart(apply_forest_chart_theme(c_sw_dist, height=240), use_container_width=True)
-
-        with sw_chart_c2:
-            c_sw_hr = alt.Chart(sw_df).mark_line(
-                color="#F43F5E",
-                strokeWidth=2.5,
-                point=alt.OverlayMarkDef(color="#F43F5E", size=45, stroke="#060B12", strokeWidth=2)
-            ).encode(
-                x=alt.X("date:N", title="Session Date", axis=alt.Axis(labelAngle=-45)),
-                tooltip=["date:N", "avg_hr:Q", "distance_m:Q"],
-            ).properties(height=240, title="Swim Heart Rate Trend")
-            st.altair_chart(apply_forest_chart_theme(c_sw_hr, height=240), use_container_width=True)
-    else:
-        st.info("ℹ️ No swimming sessions recorded during the selected time period.")
-
-    # 5-Zone Swim Pace Guidelines (Moved to the bottom)
-    st.markdown("---")
-    st.markdown("### 🎯 5-Zone Swim Pace Guidelines (25m Pool)")
-    z_easy = pace_zones.get("easy", {})
-    z_end = pace_zones.get("endurance", {})
-    z_tempo = pace_zones.get("tempo", {})
-    z_int = pace_zones.get("interval", {})
-    z_sprint = pace_zones.get("sprint", {})
-
-    zone_rows = [
-        {
-            "Zone": "Zone 1 · Easy / Recovery",
-            "Pace /100m": z_easy.get("formatted", f"{format_pace(baseline_pace + 15)} – {format_pace(baseline_pace + 30)}"),
-            "200m (8 Laps)": f"{format_pace((z_easy.get('min', baseline_pace + 15)) * 2)}",
-            "400m (16 Laps)": f"{format_pace((z_easy.get('min', baseline_pace + 15)) * 4)}",
-            "Purpose": z_easy.get("purpose", "Warm-up, cool-down, active recovery & drills"),
-        },
-        {
-            "Zone": "Zone 2 · Aerobic Base (Cruise)",
-            "Pace /100m": z_end.get("formatted", f"{format_pace(baseline_pace)} – {format_pace(baseline_pace + 10)}"),
-            "200m (8 Laps)": f"{format_pace((z_end.get('min', baseline_pace)) * 2)}",
-            "400m (16 Laps)": f"{format_pace((z_end.get('min', baseline_pace)) * 4)}",
-            "Purpose": z_end.get("purpose", "Aerobic conditioning, continuous mixed sets"),
-        },
-        {
-            "Zone": "Zone 3 · Tempo (Lactate Threshold)",
-            "Pace /100m": z_tempo.get("formatted", f"{format_pace(baseline_pace - 10)} – {format_pace(baseline_pace)}"),
-            "200m (8 Laps)": f"{format_pace((z_tempo.get('min', baseline_pace - 10)) * 2)}",
-            "400m (16 Laps)": f"{format_pace((z_tempo.get('min', baseline_pace - 10)) * 4)}",
-            "Purpose": z_tempo.get("purpose", "Lactate threshold & sustainable speed endurance"),
-        },
-        {
-            "Zone": "Zone 4 · Threshold & Speed Intervals",
-            "Pace /100m": z_int.get("formatted", f"{format_pace(baseline_pace - 20)} – {format_pace(baseline_pace - 10)}"),
-            "200m (8 Laps)": f"{format_pace((z_int.get('min', baseline_pace - 20)) * 2)}",
-            "400m (16 Laps)": f"{format_pace((z_int.get('min', baseline_pace - 20)) * 4)}",
-            "Purpose": z_int.get("purpose", "100m freestyle speed repeats with rest"),
-        },
-        {
-            "Zone": "Zone 5 · Anaerobic Power / Sprint",
-            "Pace /100m": z_sprint.get("formatted", f"{format_pace(baseline_pace - 30)} – {format_pace(baseline_pace - 20)}"),
-            "200m (8 Laps)": f"{format_pace((z_sprint.get('min', baseline_pace - 30)) * 2)}",
-            "400m (16 Laps)": f"{format_pace((z_sprint.get('min', baseline_pace - 30)) * 4)}",
-            "Purpose": z_sprint.get("purpose", "25m-50m max cadence & explosive push-offs"),
-        },
-    ]
-    st.dataframe(pd.DataFrame(zone_rows), use_container_width=True, hide_index=True)
+    with st.expander("🎯 5-Zone Swim Pace Guidelines (25m Pool)", expanded=False):
+        z_easy = pace_zones.get("easy", {})
+        z_end = pace_zones.get("endurance", {})
+        z_tempo = pace_zones.get("tempo", {})
+        z_int = pace_zones.get("interval", {})
+        z_sprint = pace_zones.get("sprint", {})
+        zone_rows = [
+            {"Zone": "Zone 1 · Easy / Recovery", "Pace /100m": z_easy.get("formatted", "—"), "Purpose": z_easy.get("purpose", "Warm-up & recovery")},
+            {"Zone": "Zone 2 · Aerobic Base", "Pace /100m": z_end.get("formatted", "—"), "Purpose": z_end.get("purpose", "Endurance conditioning")},
+            {"Zone": "Zone 3 · Tempo", "Pace /100m": z_tempo.get("formatted", "—"), "Purpose": z_tempo.get("purpose", "Threshold speed endurance")},
+            {"Zone": "Zone 4 · Threshold", "Pace /100m": z_int.get("formatted", "—"), "Purpose": z_int.get("purpose", "Speed repeats")},
+            {"Zone": "Zone 5 · Sprint", "Pace /100m": z_sprint.get("formatted", "—"), "Purpose": z_sprint.get("purpose", "Max cadence & power")},
+        ]
+        st.dataframe(pd.DataFrame(zone_rows), use_container_width=True, hide_index=True)
 
 
 # ============================================================
-# TAB 3: 🏃 RUNNING
+# TAB 4: 🏃 RUNNING
 # ============================================================
 
 with tab_running:
@@ -2836,266 +1353,37 @@ with tab_running:
     best_run_pace = running_analytics.get("fastest_pace_formatted", "—")
     longest_run = running_analytics.get("longest_run_km", 0.0)
     peak_run_hr = running_analytics.get("peak_hr")
-    tot_run_load = running_analytics.get("total_load", 0)
 
     st.markdown(
         f"""
         <div class="kpi-row-grid">
-            <div class="forest-kpi-card">
-                <div class="forest-kpi-top">
-                    <span class="forest-kpi-label">Run Distance</span>
-                    <span class="forest-kpi-icon">🏃</span>
-                </div>
-                <div class="forest-kpi-val">{tot_run_dist:.2f} <span style="font-size: 0.9rem; color: #64748B;">km</span></div>
-                <div class="forest-kpi-sub">{len(runs_list)} completed runs</div>
+            <div class="clean-kpi-card">
+                <div class="clean-kpi-label">Run Distance</div>
+                <div class="clean-kpi-val" style="color: #FB7185;">{tot_run_dist:.2f} <span style="font-size: 0.8rem; color: #64748B;">km</span></div>
+                <div class="clean-kpi-sub">{len(runs_list)} completed runs</div>
             </div>
-            <div class="forest-kpi-card">
-                <div class="forest-kpi-top">
-                    <span class="forest-kpi-label">Best Pace</span>
-                    <span class="forest-kpi-icon">⚡</span>
-                </div>
-                <div class="forest-kpi-val">{best_run_pace}</div>
-                <div class="forest-kpi-sub">fastest average pace</div>
+            <div class="clean-kpi-card">
+                <div class="clean-kpi-label">Best Pace</div>
+                <div class="clean-kpi-val">{best_run_pace}</div>
+                <div class="clean-kpi-sub">fastest average pace</div>
             </div>
-            <div class="forest-kpi-card">
-                <div class="forest-kpi-top">
-                    <span class="forest-kpi-label">Longest Run</span>
-                    <span class="forest-kpi-icon">📍</span>
-                </div>
-                <div class="forest-kpi-val">{longest_run:.2f} <span style="font-size: 0.9rem; color: #64748B;">km</span></div>
-                <div class="forest-kpi-sub">max single session</div>
+            <div class="clean-kpi-card">
+                <div class="clean-kpi-label">Longest Run</div>
+                <div class="clean-kpi-val">{longest_run:.2f} <span style="font-size: 0.8rem; color: #64748B;">km</span></div>
+                <div class="clean-kpi-sub">max single session</div>
             </div>
-            <div class="forest-kpi-card">
-                <div class="forest-kpi-top">
-                    <span class="forest-kpi-label">Peak Heart Rate</span>
-                    <span class="forest-kpi-icon">💓</span>
-                </div>
-                <div class="forest-kpi-val">{f"{peak_run_hr}" if peak_run_hr else "—"} <span style="font-size: 0.9rem; color: #64748B;">bpm</span></div>
-                <div class="forest-kpi-sub">Garmin HR monitor</div>
-            </div>
-            <div class="forest-kpi-card">
-                <div class="forest-kpi-top">
-                    <span class="forest-kpi-label">Total Load</span>
-                    <span class="forest-kpi-icon">🔥</span>
-                </div>
-                <div class="forest-kpi-val">{tot_run_load:.0f}</div>
-                <div class="forest-kpi-sub">cardiovascular load</div>
-            </div>
-            <div class="forest-kpi-card">
-                <div class="forest-kpi-top">
-                    <span class="forest-kpi-label">Last Run</span>
-                    <span class="forest-kpi-icon">📅</span>
-                </div>
-                <div class="forest-kpi-val">{format_days_ago(days_since_run)}</div>
-                <div class="forest-kpi-sub">recent activity</div>
+            <div class="clean-kpi-card">
+                <div class="clean-kpi-label">Peak Heart Rate</div>
+                <div class="clean-kpi-val">{f"{peak_run_hr}" if peak_run_hr else "—"} <span style="font-size: 0.8rem; color: #64748B;">bpm</span></div>
+                <div class="clean-kpi-sub">Garmin HR sensor</div>
             </div>
         </div>
         """,
         unsafe_allow_html=True,
     )
 
-    # Check for Calendar Scheduled Running Plans vs Adaptive Next Run Workout
-    saved_plans = get_plans()
-    dated_run_plans = [p for p in saved_plans if p.get("planned_date") and p.get("sport") == "Run"]
-    dated_run_plans.sort(key=lambda x: x.get("planned_date", ""), reverse=False)
-
-    calendar_matched_run_plan = None
-    target_date_str = str(target_plan_date)
-    for p in dated_run_plans:
-        if p.get("planned_date") == target_date_str:
-            calendar_matched_run_plan = p
-            break
-
-    if not calendar_matched_run_plan:
-        upcoming_runs = [p for p in dated_run_plans if p.get("planned_date") >= str(today_date)]
-        if upcoming_runs:
-            calendar_matched_run_plan = upcoming_runs[0]
-
-    # AI Adaptive Recommended Run based on acute load and readiness
-    best_r_sec = running_baseline_pace or running_analytics.get("best_pace_sec") or 542.0
-    run_readiness_calc = calculate_sport_recovery_metric(
-        "Run",
-        days_since_run,
-        summary.get("Run", {}).get("training_load", 0),
-        summary.get("Run", {}).get("distance_km", 0),
-        today_wellness
-    )
-    
-    # Adaptive Focus Selection
-    if (days_since_run or 99) >= 7:
-        ai_run_focus = "Aerobic Endurance (Long Run)"
-        ai_run_dist = 5.0
-    elif (days_since_run or 99) <= 1:
-        ai_run_focus = "Easy / Recovery Run"
-        ai_run_dist = 4.0
-    elif run_readiness_calc["readiness_pct"] >= 85:
-        ai_run_focus = "Lactate Threshold (Tempo)"
-        ai_run_dist = 6.0
-    else:
-        ai_run_focus = "Easy / Recovery Run"
-        ai_run_dist = 5.0
-
-    default_ai_run_plan = generate_run_workout(ai_run_focus, ai_run_dist, best_pace_sec_km=best_r_sec)
-    default_ai_run_plan["readiness_score"] = run_readiness_calc["readiness_pct"]
-
-    # Build plan options
-    run_plan_options_map = {}
-    if calendar_matched_run_plan:
-        p_dt = calendar_matched_run_plan.get("planned_date")
-        p_dist = calendar_matched_run_plan.get("distance_km") or (calendar_matched_run_plan.get("distance_m", 0) / 1000.0)
-        p_t = calendar_matched_run_plan.get("type") or calendar_matched_run_plan.get("workout_type", "Run")
-        label = f"📅 Calendar Scheduled: {format_date_clean(p_dt)} ({p_dist:.1f} km {p_t})"
-        run_plan_options_map[label] = calendar_matched_run_plan
-
-    for p in dated_run_plans:
-        p_dt = p.get("planned_date")
-        p_dist = p.get("distance_km") or (p.get("distance_m", 0) / 1000.0)
-        p_t = p.get("type") or p.get("workout_type", "Run")
-        label = f"📅 Calendar: {format_date_clean(p_dt)} ({p_dist:.1f} km {p_t})"
-        if label not in run_plan_options_map:
-            run_plan_options_map[label] = p
-
-    ai_run_label = f"🏃 Next Recommended Run ({default_ai_run_plan.get('distance_km')} km {default_ai_run_plan.get('type')})"
-    run_plan_options_map[ai_run_label] = default_ai_run_plan
-
-    if len(run_plan_options_map) > 1:
-        sel_run_plan_label = st.selectbox(
-            "Select Running Workout Plan",
-            options=list(run_plan_options_map.keys()),
-            index=0,
-            key="run_tab_plan_selector",
-            help="Switch between Calendar scheduled runs and AI adaptive daily recommendation."
-        )
-        active_raw_run_plan = run_plan_options_map[sel_run_plan_label]
-    else:
-        active_raw_run_plan = calendar_matched_run_plan or default_ai_run_plan
-
-    # Normalize active run plan fields
-    r_plan_type = active_raw_run_plan.get("workout_type") or active_raw_run_plan.get("type") or "Aerobic Endurance"
-    r_plan_dist = active_raw_run_plan.get("distance_km") or (active_raw_run_plan.get("distance_m", 5000) / 1000.0)
-    r_plan_dur = active_raw_run_plan.get("duration_est") or active_raw_run_plan.get("duration") or "35-45 min"
-    r_plan_goal = active_raw_run_plan.get("goal") or "Build aerobic endurance and lactate threshold efficiency."
-    r_plan_sets = active_raw_run_plan.get("sets", [])
-    r_plan_readiness = active_raw_run_plan.get("readiness_score") or run_readiness_calc["readiness_pct"]
-    r_plan_rationale = active_raw_run_plan.get("coach_rationale") or active_raw_run_plan.get("description") or "Scheduled structured workout aligned with training periodization."
-    is_calendar_run = bool(active_raw_run_plan.get("planned_date"))
-    r_date_str = format_date_clean(active_raw_run_plan.get("planned_date")) if is_calendar_run else plan_timing_badge
-
-    st.markdown(
-        f"""
-        <div class="f-card" style="border-left: 4px solid #F43F5E; margin-bottom: 20px;">
-            <div class="f-card-header">
-                <div>
-                    <span class="forest-pill-tag" style="background: rgba(244, 63, 94, 0.12); color: #F43F5E; border-color: rgba(244, 63, 94, 0.3);">{'📅 CALENDAR SCHEDULED · ' + r_date_str.upper() if is_calendar_run else '🏃 ' + r_plan_type.upper() + ' WORKOUT · ' + plan_timing_badge.upper()}</span>
-                    <div class="f-card-title" style="margin-top: 6px; font-size: 1.25rem;">
-                        {r_plan_type} Session — {r_plan_dist:.1f} km
-                    </div>
-                    <div class="f-card-subtitle">
-                        <strong>Duration:</strong> {r_plan_dur} · <strong>Goal:</strong> {r_plan_goal}
-                    </div>
-                </div>
-                <div style="text-align: right; background: rgba(244, 63, 94, 0.1); padding: 8px 14px; border-radius: 8px; border: 1px solid rgba(244, 63, 94, 0.25);">
-                    <div style="font-size: 0.7rem; color: #64748B; font-weight: 700; text-transform: uppercase;">Readiness</div>
-                    <div style="font-family: 'JetBrains Mono', monospace; font-size: 1.45rem; font-weight: 800; color: #F43F5E;">{r_plan_readiness}/100</div>
-                </div>
-            </div>
-            <div style="font-size: 0.82rem; color: #94A3B8; margin-top: 10px; background: #080E18; padding: 10px 14px; border-radius: 8px; border: 1px solid #142033; line-height: 1.5;">
-                💡 <strong>Coaching Rationale:</strong> {r_plan_rationale}
-            </div>
-        </div>
-        """,
-        unsafe_allow_html=True,
-    )
-
-    if is_calendar_run:
-        r_del_id = active_raw_run_plan.get("plan_id") or active_raw_run_plan.get("id")
-        del_rc1, del_rc2 = st.columns([4, 1])
-        with del_rc2:
-            if r_del_id and st.button("🗑️ Delete Scheduled Run", key=f"del_run_cal_plan_{r_del_id}", use_container_width=True):
-                delete_plan(r_del_id)
-                st.toast("Scheduled run plan deleted from calendar!")
-                st.rerun()
-
-    # Render Visual Structured Running Sets
-    if r_plan_sets:
-        st.markdown(
-            f"""
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
-                <h3 style="margin: 0; color: #FFFFFF; font-size: 1.15rem; font-weight: 800; display: flex; align-items: center; gap: 8px;">
-                    🧱 Visual Structured Workout Sets ({len(r_plan_sets)} Sets · {r_plan_dist:.1f} km)
-                </h3>
-            </div>
-            """,
-            unsafe_allow_html=True,
-        )
-
-        set_cards_html = []
-        for i, s in enumerate(r_plan_sets):
-            p_text = s.get("purpose", "Run Segment")
-            p_upper = p_text.upper()
-            if "WARM" in p_upper:
-                badge_style = "background: rgba(0, 210, 255, 0.15); color: #00D2FF; border: 1px solid rgba(0, 210, 255, 0.3);"
-                badge_label = "WARM-UP"
-            elif "TEMPO" in p_upper or "THRESHOLD" in p_upper:
-                badge_style = "background: rgba(245, 158, 11, 0.15); color: #F59E0B; border: 1px solid rgba(245, 158, 11, 0.3);"
-                badge_label = "THRESHOLD / TEMPO"
-            elif "VO2" in p_upper or "SPEED" in p_upper or "SPRINT" in p_upper:
-                badge_style = "background: rgba(244, 63, 94, 0.15); color: #F43F5E; border: 1px solid rgba(244, 63, 94, 0.3);"
-                badge_label = "SPEED / VO2"
-            elif "ENDURANCE" in p_upper or "BASE" in p_upper or "AEROBIC" in p_upper:
-                badge_style = "background: rgba(16, 185, 129, 0.15); color: #10B981; border: 1px solid rgba(16, 185, 129, 0.3);"
-                badge_label = "AEROBIC BASE"
-            elif "COOL" in p_upper:
-                badge_style = "background: rgba(100, 116, 139, 0.15); color: #94A3B8; border: 1px solid rgba(100, 116, 139, 0.3);"
-                badge_label = "COOL-DOWN"
-            else:
-                badge_style = "background: rgba(56, 189, 248, 0.15); color: #38BDF8; border: 1px solid rgba(56, 189, 248, 0.3);"
-                badge_label = "RECOVERY"
-
-            reps_cnt = s.get('reps', 1)
-            dist_desc = f"{reps_cnt} × {s.get('distance')}" if reps_cnt > 1 else s.get('distance')
-            tot_seg_dist = s.get('total_distance') or s.get('distance')
-            pattern_txt = s.get('pattern', 'Running')
-            target_pace = s.get('pace', 'Target Pace')
-            hr_zone = s.get('hr_zone', 'Heart Rate')
-            rest_txt = s.get('rest', 'None')
-
-            card_item = (
-                f"<div style='background: #080E18; border: 1px solid #1A273D; border-radius: 10px; padding: 14px 16px; display: flex; flex-direction: column; justify-content: space-between;'>"
-                f"<div>"
-                f"<div style='display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;'>"
-                f"<span style='font-size: 0.75rem; font-weight: 800; color: #64748B;'>SET {i+1}</span>"
-                f"<span style='font-size: 0.65rem; font-weight: 700; padding: 2px 8px; border-radius: 4px; {badge_style}'>{badge_label}</span>"
-                f"</div>"
-                f"<div style='font-family: JetBrains Mono, monospace; font-size: 1.15rem; font-weight: 800; color: #FFFFFF; margin-bottom: 4px;'>"
-                f"{dist_desc}"
-                f"</div>"
-                f"<div style='font-size: 0.8rem; color: #94A3B8; margin-bottom: 10px; line-height: 1.4;'>"
-                f"{pattern_txt}"
-                f"</div>"
-                f"</div>"
-                f"<div style='border-top: 1px solid #142033; padding-top: 8px; margin-top: 6px; font-size: 0.74rem; color: #64748B; display: flex; flex-direction: column; gap: 4px;'>"
-                f"<div><span style='color: #475569;'>Pace:</span> <strong style='color: #00E599;'>{target_pace}</strong></div>"
-                f"<div><span style='color: #475569;'>HR Zone:</span> <strong style='color: #F43F5E;'>{hr_zone}</strong></div>"
-                f"<div><span style='color: #475569;'>Rest:</span> <strong style='color: #94A3B8;'>{rest_txt}</strong></div>"
-                f"</div>"
-                f"</div>"
-            )
-            set_cards_html.append(card_item)
-
-        grid_html = (
-            f"<div class='sets-grid-responsive' style='display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; margin-bottom: 22px;'>"
-            f"{''.join(set_cards_html)}"
-            f"</div>"
-        )
-        if hasattr(st, "html"):
-            st.html(grid_html)
-        else:
-            st.markdown(grid_html, unsafe_allow_html=True)
-
-    # Running Activity History Table (Scoped to chosen timeline)
     if runs_list:
-        st.markdown("### 📋 Running Activity History")
+        st.markdown("#### 📋 Running History")
         run_table_rows = []
         for r in runs_list:
             run_table_rows.append({
@@ -3105,111 +1393,15 @@ with tab_running:
                 "Duration": format_duration_hm(r.get("moving_time_min", 0)),
                 "Pace (/km)": r.get("pace_formatted", "—"),
                 "Avg HR": f"{r.get('avg_hr', 0):.0f} bpm" if r.get("avg_hr") else "—",
-                "Calories": f"{r.get('calories', 0):,} kcal" if r.get("calories") else "—",
-                "Training Load": f"{r.get('training_load', 0):.0f}" if r.get("training_load") else "—",
+                "Load": f"{r.get('training_load', 0):.0f}" if r.get("training_load") else "—",
             })
         st.dataframe(pd.DataFrame(run_table_rows), use_container_width=True, hide_index=True)
-
-        st.markdown("---")
-        st.markdown("### 📈 Running Telemetry & Progression")
-        run_df_data = []
-        for r in reversed(runs_list):
-            run_df_data.append({
-                "date": str(r.get("date", ""))[:10],
-                "distance_km": r.get("distance_km", 0.0),
-                "moving_time_min": r.get("moving_time_min", 0.0),
-                "avg_hr": r.get("avg_hr"),
-                "pace_min_km": (r.get("pace_sec_km", 0) / 60.0) if r.get("pace_sec_km") else None,
-            })
-        run_df = pd.DataFrame(run_df_data)
-
-        rn_c1, rn_c2 = st.columns(2)
-        with rn_c1:
-            c_rn_dist = alt.Chart(run_df).mark_bar(
-                color="#F43F5E",
-                cornerRadiusTopLeft=4,
-                cornerRadiusTopRight=4,
-                size=28
-            ).encode(
-                x=alt.X("date:N", title="Run Date", sort=None),
-                y=alt.Y("distance_km:Q", title="Distance (km)"),
-                tooltip=["date:N", "distance_km:Q", "moving_time_min:Q"],
-            ).properties(height=240, title="Run Distance Progression")
-            st.altair_chart(apply_forest_chart_theme(c_rn_dist, height=240), use_container_width=True)
-
-        with rn_c2:
-            hr_rn_df = run_df.dropna(subset=["avg_hr"])
-            if not hr_rn_df.empty:
-                c_rn_hr = alt.Chart(hr_rn_df).mark_line(
-                    color="#FB7185",
-                    strokeWidth=2.5,
-                    point=alt.OverlayMarkDef(filled=True, fill="#FB7185", size=45),
-                ).encode(
-                    x=alt.X("date:N", title="Run Date", sort=None),
-                    y=alt.Y("avg_hr:Q", title="Avg HR (bpm)", scale=alt.Scale(zero=False)),
-                    tooltip=["date:N", "avg_hr:Q"],
-                ).properties(height=240, title="Running Heart Rate Trend")
-                st.altair_chart(apply_forest_chart_theme(c_rn_hr, height=240), use_container_width=True)
     else:
-        st.info("ℹ️ No running sessions recorded during the selected time period.")
-
-    # Splits Inspector - only show if there are actual valid splits!
-    runs_with_splits = [
-        r_act for r_act in runs_list
-        if r_act.get("splits") and any(
-            (sp.get("pace_formatted") and sp.get("pace_formatted") != "—") or 
-            (sp.get("pace") and sp.get("pace") != "—")
-            for sp in r_act["splits"]
-        )
-    ]
-    if runs_with_splits:
-        st.markdown("---")
-        st.markdown("### ⏱️ GPS Kilometer Splits Breakdown")
-        for r_act in runs_with_splits:
-            s_list = r_act.get("splits", [])
-            with st.expander(f"🏃 {r_act.get('name', 'Run')} — {format_date_clean(r_act.get('date'))} ({r_act.get('distance_km', 0):.2f} km @ {r_act.get('pace_formatted', '—')})", expanded=False):
-                split_rows = []
-                for idx, sp in enumerate(s_list, 1):
-                    km_label = sp.get("split") or f"Km {sp.get('split_km', idx)}"
-                    split_time = sp.get("split_time_formatted") or (f"{int(sp['duration_sec'] // 60)}:{int(sp['duration_sec'] % 60):02d}" if sp.get("duration_sec") else "—")
-                    pace_val = sp.get("pace_formatted") or sp.get("pace") or "—"
-                    elapsed = sp.get("elapsed_time_formatted") or "—"
-                    elev = f"+{sp.get('elevation_gain_m', 0):.0f} m" if sp.get("elevation_gain_m") is not None else "—"
-                    split_rows.append({
-                        "Kilometer": km_label,
-                        "Split Time": split_time,
-                        "Pace (/km)": pace_val,
-                        "Elapsed Time": elapsed,
-                        "Elev Gain": elev,
-                    })
-                st.dataframe(pd.DataFrame(split_rows), use_container_width=True, hide_index=True)
-
-    # 5-Zone Running Pace Guidelines (At the bottom)
-    r_zones = running_analytics.get("pace_zones", [])
-    if r_zones:
-        st.markdown("---")
-        st.markdown("### 🎯 5-Zone Running Pace Guidelines (VDOT / Threshold Model)")
-        st.dataframe(pd.DataFrame(r_zones), use_container_width=True, hide_index=True)
-
-    # Media Gallery
-    media_runs = [r for r in runs_list if r.get("media")]
-    if media_runs:
-        st.markdown("---")
-        st.markdown("### 📸 Race & Workout Gallery")
-        g_cols = st.columns(4)
-        col_idx = 0
-        for m_act in media_runs:
-            for m_item in m_act.get("media", []):
-                fn = m_item.get("filename") if isinstance(m_item, dict) else str(m_item)
-                p_file = get_strava_media_path(fn)
-                if p_file and p_file.exists():
-                    with g_cols[col_idx % 4]:
-                        st.image(str(p_file), caption=f"{m_act.get('name')} ({format_date_clean(m_act.get('date'))})", use_container_width=True)
-                    col_idx += 1
+        st.info("No running sessions recorded during the selected period.")
 
 
 # ============================================================
-# TAB 4: 🚴 CYCLING
+# TAB 5: 🚴 CYCLING
 # ============================================================
 
 with tab_cycling:
@@ -3217,60 +1409,30 @@ with tab_cycling:
     tot_ride_dist = cycling_analytics.get("total_distance_km", 0.0)
     tot_ride_time = cycling_analytics.get("total_moving_min", 0.0)
     avg_ride_speed = cycling_analytics.get("avg_speed_kmh")
-    fastest_ride_speed = cycling_analytics.get("fastest_speed_kmh")
     tot_ride_elev = cycling_analytics.get("total_elevation_m", 0.0)
-    longest_ride_val = cycling_analytics.get("longest_ride_km", 0.0)
 
     st.markdown(
         f"""
         <div class="kpi-row-grid">
-            <div class="forest-kpi-card">
-                <div class="forest-kpi-top">
-                    <span class="forest-kpi-label">Ride Distance</span>
-                    <span class="forest-kpi-icon">🚴</span>
-                </div>
-                <div class="forest-kpi-val">{tot_ride_dist:.2f} <span style="font-size: 0.9rem; color: #64748B;">km</span></div>
-                <div class="forest-kpi-sub">{len(rides_list)} rides completed</div>
+            <div class="clean-kpi-card">
+                <div class="clean-kpi-label">Ride Distance</div>
+                <div class="clean-kpi-val" style="color: #34D399;">{tot_ride_dist:.2f} <span style="font-size: 0.8rem; color: #64748B;">km</span></div>
+                <div class="clean-kpi-sub">{len(rides_list)} rides completed</div>
             </div>
-            <div class="forest-kpi-card">
-                <div class="forest-kpi-top">
-                    <span class="forest-kpi-label">Active Time</span>
-                    <span class="forest-kpi-icon">⏱️</span>
-                </div>
-                <div class="forest-kpi-val">{format_duration_hm(tot_ride_time)}</div>
-                <div class="forest-kpi-sub">{tot_ride_time:.0f} moving mins</div>
+            <div class="clean-kpi-card">
+                <div class="clean-kpi-label">Active Time</div>
+                <div class="clean-kpi-val">{format_duration_hm(tot_ride_time)}</div>
+                <div class="clean-kpi-sub">{tot_ride_time:.0f} moving mins</div>
             </div>
-            <div class="forest-kpi-card">
-                <div class="forest-kpi-top">
-                    <span class="forest-kpi-label">Avg Speed</span>
-                    <span class="forest-kpi-icon">⚡</span>
-                </div>
-                <div class="forest-kpi-val">{f"{avg_ride_speed:.1f}" if avg_ride_speed else "—"} <span style="font-size: 0.9rem; color: #64748B;">km/h</span></div>
-                <div class="forest-kpi-sub">overall average</div>
+            <div class="clean-kpi-card">
+                <div class="clean-kpi-label">Avg Speed</div>
+                <div class="clean-kpi-val">{f"{avg_ride_speed:.1f}" if avg_ride_speed else "—"} <span style="font-size: 0.8rem; color: #64748B;">km/h</span></div>
+                <div class="clean-kpi-sub">overall sustained</div>
             </div>
-            <div class="forest-kpi-card">
-                <div class="forest-kpi-top">
-                    <span class="forest-kpi-label">Fastest Speed</span>
-                    <span class="forest-kpi-icon">🚀</span>
-                </div>
-                <div class="forest-kpi-val">{f"{fastest_ride_speed:.1f}" if fastest_ride_speed else "—"} <span style="font-size: 0.9rem; color: #64748B;">km/h</span></div>
-                <div class="forest-kpi-sub">top sustained avg</div>
-            </div>
-            <div class="forest-kpi-card">
-                <div class="forest-kpi-top">
-                    <span class="forest-kpi-label">Elevation Gain</span>
-                    <span class="forest-kpi-icon">⛰️</span>
-                </div>
-                <div class="forest-kpi-val">{tot_ride_elev:.0f} <span style="font-size: 0.9rem; color: #64748B;">m</span></div>
-                <div class="forest-kpi-sub">climbing elevation</div>
-            </div>
-            <div class="forest-kpi-card">
-                <div class="forest-kpi-top">
-                    <span class="forest-kpi-label">Longest Ride</span>
-                    <span class="forest-kpi-icon">📍</span>
-                </div>
-                <div class="forest-kpi-val">{longest_ride_val:.2f} <span style="font-size: 0.9rem; color: #64748B;">km</span></div>
-                <div class="forest-kpi-sub">single session</div>
+            <div class="clean-kpi-card">
+                <div class="clean-kpi-label">Elevation Gain</div>
+                <div class="clean-kpi-val">{tot_ride_elev:.0f} <span style="font-size: 0.8rem; color: #64748B;">m</span></div>
+                <div class="clean-kpi-sub">total climbing</div>
             </div>
         </div>
         """,
@@ -3278,46 +1440,7 @@ with tab_cycling:
     )
 
     if rides_list:
-        st.markdown("### 📈 Cycling Progression")
-        ride_df_data = []
-        for r in reversed(rides_list):
-            ride_df_data.append({
-                "date": str(r.get("date", ""))[:10],
-                "distance_km": r.get("distance_km", 0.0),
-                "moving_time_min": r.get("moving_time_min", 0.0),
-                "avg_speed": r.get("computed_speed_kmh", 0.0),
-                "avg_hr": r.get("avg_hr"),
-                "elevation_m": r.get("elevation_m", 0.0),
-            })
-        r_df = pd.DataFrame(ride_df_data)
-
-        rc_c1, rc_c2 = st.columns(2)
-        with rc_c1:
-            c_r_dist = alt.Chart(r_df).mark_bar(
-                color="#10B981",
-                cornerRadiusTopLeft=4,
-                cornerRadiusTopRight=4,
-                size=28
-            ).encode(
-                x=alt.X("date:N", title="Ride Date", sort=None),
-                y=alt.Y("distance_km:Q", title="Distance (km)"),
-                tooltip=["date:N", "distance_km:Q", "moving_time_min:Q"],
-            ).properties(height=240, title="Ride Distance Progression")
-            st.altair_chart(apply_forest_chart_theme(c_r_dist, height=240), use_container_width=True)
-
-        with rc_c2:
-            c_r_spd = alt.Chart(r_df).mark_line(
-                color="#00E599",
-                strokeWidth=2.5,
-                point=alt.OverlayMarkDef(filled=True, fill="#00E599", size=45),
-            ).encode(
-                x=alt.X("date:N", title="Ride Date", sort=None),
-                y=alt.Y("avg_speed:Q", title="Avg Speed (km/h)", scale=alt.Scale(zero=False)),
-                tooltip=["date:N", "avg_speed:Q", "elevation_m:Q"],
-            ).properties(height=240, title="Cycling Speed Progression")
-            st.altair_chart(apply_forest_chart_theme(c_r_spd, height=240), use_container_width=True)
-
-        st.markdown("### 📋 Cycling Activity History")
+        st.markdown("#### 📋 Cycling History")
         r_table_rows = []
         for r in rides_list:
             r_table_rows.append({
@@ -3326,17 +1449,16 @@ with tab_cycling:
                 "Distance": f"{r.get('distance_km', 0):.2f} km",
                 "Duration": format_duration_hm(r.get("moving_time_min", 0)),
                 "Avg Speed": f"{r.get('computed_speed_kmh', 0):.1f} km/h" if r.get("computed_speed_kmh") else "—",
-                "Elevation Gain": f"{r.get('elevation_m', 0):.0f} m" if r.get("elevation_m") else "—",
+                "Elevation": f"{r.get('elevation_m', 0):.0f} m" if r.get("elevation_m") else "—",
                 "Avg HR": f"{r.get('avg_hr', 0):.0f} bpm" if r.get("avg_hr") else "—",
-                "Calories": f"{r.get('calories', 0):,} kcal" if r.get("calories") else "—",
             })
         st.dataframe(pd.DataFrame(r_table_rows), use_container_width=True, hide_index=True)
     else:
-        st.info("ℹ️ No cycling sessions recorded during the selected time period.")
+        st.info("No cycling sessions recorded during the selected period.")
 
 
 # ============================================================
-# TAB 5: 🚶 WALKING
+# TAB 6: 🚶 WALKING
 # ============================================================
 
 with tab_walking:
@@ -3344,62 +1466,31 @@ with tab_walking:
     tot_walk_dist = walking_analytics.get("total_distance_km", 0.0)
     tot_walk_time = walking_analytics.get("total_moving_min", 0.0)
     avg_walk_pace = walking_analytics.get("avg_pace_formatted", "—")
-    longest_walk_val = walking_analytics.get("longest_walk_km", 0.0)
-    active_walk_days = walking_analytics.get("active_days", 0)
-    avg_daily_km = walking_analytics.get("avg_daily_km", 0.0)
-
-    st.markdown(
-        """
-        <div style="margin-bottom: 1.2rem;">
-            <h2 style="font-size: 1.5rem; font-weight: 800; margin-bottom: 4px;">🚶 Walking Analytics &amp; Consistency</h2>
-            <div style="color: #94A3B8; font-size: 0.95rem;">Tracked walking sessions and daily step telemetry from Garmin.</div>
-        </div>
-        """,
-        unsafe_allow_html=True,
-    )
+    daily_steps_list = [w["steps"] for w in wellness_records if w.get("steps")]
+    avg_steps = round(sum(daily_steps_list) / len(daily_steps_list)) if daily_steps_list else None
 
     st.markdown(
         f"""
         <div class="kpi-row-grid">
-            <div class="forest-kpi-card">
-                <div class="forest-kpi-top">
-                    <span class="forest-kpi-label">TOTAL DISTANCE</span>
-                    <span class="forest-kpi-icon">🚶</span>
-                </div>
-                <div class="forest-kpi-val">{tot_walk_dist:.2f} <span style="font-size: 0.9rem; color: #64748B;">km</span></div>
-                <div class="forest-kpi-sub">{len(walks_list)} recorded walks</div>
+            <div class="clean-kpi-card">
+                <div class="clean-kpi-label">Walk Distance</div>
+                <div class="clean-kpi-val" style="color: #FBBF24;">{tot_walk_dist:.2f} <span style="font-size: 0.8rem; color: #64748B;">km</span></div>
+                <div class="clean-kpi-sub">{len(walks_list)} recorded walks</div>
             </div>
-            <div class="forest-kpi-card">
-                <div class="forest-kpi-top">
-                    <span class="forest-kpi-label">ACTIVE TIME</span>
-                    <span class="forest-kpi-icon">⏱️</span>
-                </div>
-                <div class="forest-kpi-val">{format_duration_hm(tot_walk_time)}</div>
-                <div class="forest-kpi-sub">{tot_walk_time:.0f} moving mins</div>
+            <div class="clean-kpi-card">
+                <div class="clean-kpi-label">Active Time</div>
+                <div class="clean-kpi-val">{format_duration_hm(tot_walk_time)}</div>
+                <div class="clean-kpi-sub">{tot_walk_time:.0f} moving mins</div>
             </div>
-            <div class="forest-kpi-card">
-                <div class="forest-kpi-top">
-                    <span class="forest-kpi-label">AVERAGE PACE</span>
-                    <span class="forest-kpi-icon">⚡</span>
-                </div>
-                <div class="forest-kpi-val">{avg_walk_pace}</div>
-                <div class="forest-kpi-sub">Overall pace /km</div>
+            <div class="clean-kpi-card">
+                <div class="clean-kpi-label">Average Pace</div>
+                <div class="clean-kpi-val">{avg_walk_pace}</div>
+                <div class="clean-kpi-sub">overall pace /km</div>
             </div>
-            <div class="forest-kpi-card">
-                <div class="forest-kpi-top">
-                    <span class="forest-kpi-label">LONGEST WALK</span>
-                    <span class="forest-kpi-icon">📍</span>
-                </div>
-                <div class="forest-kpi-val">{longest_walk_val:.2f} <span style="font-size: 0.9rem; color: #64748B;">km</span></div>
-                <div class="forest-kpi-sub">Max single session</div>
-            </div>
-            <div class="forest-kpi-card">
-                <div class="forest-kpi-top">
-                    <span class="forest-kpi-label">DAILY AVERAGE</span>
-                    <span class="forest-kpi-icon">👟</span>
-                </div>
-                <div class="forest-kpi-val">{avg_daily_km:.2f} <span style="font-size: 0.9rem; color: #64748B;">km</span></div>
-                <div class="forest-kpi-sub">across {active_walk_days} active days</div>
+            <div class="clean-kpi-card">
+                <div class="clean-kpi-label">Avg Daily Steps</div>
+                <div class="clean-kpi-val">{f"{avg_steps:,}" if avg_steps else "—"}</div>
+                <div class="clean-kpi-sub">Garmin pedometer</div>
             </div>
         </div>
         """,
@@ -3407,106 +1498,7 @@ with tab_walking:
     )
 
     if walks_list:
-        st.markdown("### 📈 Walking Progression")
-        
-        walk_df_data = []
-        for w in reversed(walks_list):
-            w_date = str(w.get("date", ""))[:10]
-            w_dist = w.get("distance_km", 0.0)
-            w_time = w.get("moving_time_min", 0.0)
-            w_hr = w.get("avg_hr")
-            w_pace = w.get("computed_pace_sec")
-            w_pace_min = (w_pace / 60.0) if w_pace else None
-            w_cals = w.get("calories", 0)
-            walk_df_data.append({
-                "date": w_date,
-                "distance_km": w_dist,
-                "moving_time_min": w_time,
-                "avg_hr": w_hr,
-                "pace_min_km": w_pace_min,
-                "calories": w_cals,
-            })
-        w_df = pd.DataFrame(walk_df_data)
-
-        wk_c1, wk_c2 = st.columns(2)
-        with wk_c1:
-            c_wk_dist = alt.Chart(w_df).mark_bar(
-                color="#F59E0B",
-                cornerRadiusTopLeft=4,
-                cornerRadiusTopRight=4,
-                size=28
-            ).encode(
-                x=alt.X("date:N", title="Walk Date", sort=None),
-                y=alt.Y("distance_km:Q", title="Distance (km)"),
-                tooltip=["date:N", "distance_km:Q", "moving_time_min:Q"],
-            ).properties(height=240, title="Walk Distance Progression")
-            st.altair_chart(apply_forest_chart_theme(c_wk_dist, height=240), use_container_width=True)
-
-        with wk_c2:
-            hr_w_df = w_df.dropna(subset=["avg_hr"])
-            if not hr_w_df.empty:
-                c_wk_hr = alt.Chart(hr_w_df).mark_line(
-                    color="#F43F5E",
-                    strokeWidth=2.5,
-                    point=alt.OverlayMarkDef(filled=True, fill="#F43F5E", size=45),
-                ).encode(
-                    x=alt.X("date:N", title="Walk Date", sort=None),
-                    y=alt.Y("avg_hr:Q", title="Avg HR (bpm)", scale=alt.Scale(zero=False)),
-                    tooltip=["date:N", "avg_hr:Q"],
-                ).properties(height=240, title="Heart Rate & Exertion")
-                st.altair_chart(apply_forest_chart_theme(c_wk_hr, height=240), use_container_width=True)
-            else:
-                st.info("No heart rate data recorded for walking sessions.")
-
-        wk_c3, wk_c4 = st.columns(2)
-        with wk_c3:
-            w_steps_data = []
-            for wr in wellness_records:
-                if wr.get("steps") and wr["steps"] > 0:
-                    w_steps_data.append({
-                        "date": str(wr.get("date", wr.get("id", "")))[:10],
-                        "steps": wr["steps"],
-                    })
-            if w_steps_data:
-                steps_df = pd.DataFrame(w_steps_data).tail(30)
-                c_steps = alt.Chart(steps_df).mark_bar(
-                    color="#00E599",
-                    cornerRadiusTopLeft=3,
-                    cornerRadiusTopRight=3,
-                    size=16
-                ).encode(
-                    x=alt.X("date:N", title="Date", sort=None),
-                    y=alt.Y("steps:Q", title="Daily Steps"),
-                    tooltip=["date:N", "steps:Q"],
-                ).properties(height=240, title="Daily Step Telemetry (Garmin Sensor)")
-                
-                rule = alt.Chart(pd.DataFrame({'y': [10000]})).mark_rule(
-                    color="#F59E0B",
-                    strokeDash=[4, 4],
-                    strokeWidth=1.5
-                ).encode(y='y:Q')
-                
-                st.altair_chart(apply_forest_chart_theme(c_steps + rule, height=240), use_container_width=True)
-            else:
-                st.info("No pedometer step records available in current window.")
-
-        with wk_c4:
-            pace_w_df = w_df.dropna(subset=["pace_min_km"])
-            if not pace_w_df.empty:
-                c_wk_pace = alt.Chart(pace_w_df).mark_line(
-                    color="#38BDF8",
-                    strokeWidth=2.5,
-                    point=alt.OverlayMarkDef(filled=True, fill="#38BDF8", size=45),
-                ).encode(
-                    x=alt.X("date:N", title="Walk Date", sort=None),
-                    y=alt.Y("pace_min_km:Q", title="Pace (min/km)", scale=alt.Scale(zero=False)),
-                    tooltip=["date:N", "pace_min_km:Q"],
-                ).properties(height=240, title="Walking Pace Trend")
-                st.altair_chart(apply_forest_chart_theme(c_wk_pace, height=240), use_container_width=True)
-            else:
-                st.info("No walking pace data available.")
-
-        st.markdown("### 📋 Walking Activity History")
+        st.markdown("#### 📋 Walking History")
         w_table_rows = []
         for w in walks_list:
             w_table_rows.append({
@@ -3515,18 +1507,15 @@ with tab_walking:
                 "Distance": f"{w.get('distance_km', 0):.2f} km",
                 "Duration": format_duration_hm(w.get("moving_time_min", 0)),
                 "Pace (/km)": w.get("computed_pace_formatted", "—"),
-                "Steps": f"{w.get('total_steps', 0):,}" if w.get("total_steps") else "—",
                 "Avg HR": f"{w.get('avg_hr', 0):.0f} bpm" if w.get("avg_hr") else "—",
-                "Calories": f"{w.get('calories', 0):,} kcal" if w.get("calories") else "—",
-                "Training Load": f"{w.get('training_load', 0):.0f}" if w.get("training_load") else "—",
             })
         st.dataframe(pd.DataFrame(w_table_rows), use_container_width=True, hide_index=True)
     else:
-        st.info("ℹ️ No walking sessions recorded during the selected time period.")
+        st.info("No walking sessions recorded during the selected period.")
 
 
 # ============================================================
-# TAB 6: 😴 SLEEP & RECOVERY
+# TAB 7: 😴 SLEEP & RECOVERY
 # ============================================================
 
 with tab_sleep:
@@ -3534,58 +1523,36 @@ with tab_sleep:
     sl_score = sleep_analytics.get("avg_sleep_score")
     sl_hrv = sleep_analytics.get("avg_hrv")
     sl_rhr = sleep_analytics.get("avg_resting_hr")
-    sl_days = sleep_analytics.get("total_days_tracked", 0)
+    avg_deep = sleep_analytics.get("avg_deep_hours")
+    avg_light = sleep_analytics.get("avg_light_hours")
+    avg_rem = sleep_analytics.get("avg_rem_hours")
+
+    avg_deep_fmt = format_duration_hm(avg_deep * 60) if avg_deep else "—"
+    avg_light_fmt = format_duration_hm(avg_light * 60) if avg_light else "—"
+    avg_rem_fmt = format_duration_hm(avg_rem * 60) if avg_rem else "—"
 
     st.markdown(
         f"""
         <div class="kpi-row-grid">
-            <div class="forest-kpi-card">
-                <div class="forest-kpi-top">
-                    <span class="forest-kpi-label">Average Sleep</span>
-                    <span class="forest-kpi-icon">🛌</span>
-                </div>
-                <div class="forest-kpi-val">{sl_dur_fmt}</div>
-                <div class="forest-kpi-sub">Garmin sleep log</div>
+            <div class="clean-kpi-card">
+                <div class="clean-kpi-label">Average Sleep</div>
+                <div class="clean-kpi-val" style="color: #A78BFA;">{sl_dur_fmt}</div>
+                <div class="clean-kpi-sub">Garmin total duration</div>
             </div>
-            <div class="forest-kpi-card">
-                <div class="forest-kpi-top">
-                    <span class="forest-kpi-label">Sleep Score</span>
-                    <span class="forest-kpi-icon">🎯</span>
-                </div>
-                <div class="forest-kpi-val">{f"{sl_score:.0f}" if sl_score else "—"} <span style="font-size: 0.9rem; color: #64748B;">/ 100</span></div>
-                <div class="forest-kpi-sub">restful quality</div>
+            <div class="clean-kpi-card">
+                <div class="clean-kpi-label">Deep Sleep (Physical)</div>
+                <div class="clean-kpi-val" style="color: #818CF8;">{avg_deep_fmt}</div>
+                <div class="clean-kpi-sub">Tissue repair &amp; recovery</div>
             </div>
-            <div class="forest-kpi-card">
-                <div class="forest-kpi-top">
-                    <span class="forest-kpi-label">Overnight HRV</span>
-                    <span class="forest-kpi-icon">💓</span>
-                </div>
-                <div class="forest-kpi-val">{f"{sl_hrv:.0f}" if sl_hrv else "—"} <span style="font-size: 0.9rem; color: #64748B;">ms</span></div>
-                <div class="forest-kpi-sub">autonomic baseline</div>
+            <div class="clean-kpi-card">
+                <div class="clean-kpi-label">Light Sleep (Baseline)</div>
+                <div class="clean-kpi-val" style="color: #60A5FA;">{avg_light_fmt}</div>
+                <div class="clean-kpi-sub">Base rest &amp; transition</div>
             </div>
-            <div class="forest-kpi-card">
-                <div class="forest-kpi-top">
-                    <span class="forest-kpi-label">Resting HR</span>
-                    <span class="forest-kpi-icon">❤️</span>
-                </div>
-                <div class="forest-kpi-val">{f"{sl_rhr:.0f}" if sl_rhr else "—"} <span style="font-size: 0.9rem; color: #64748B;">bpm</span></div>
-                <div class="forest-kpi-sub">cardiovascular rest</div>
-            </div>
-            <div class="forest-kpi-card">
-                <div class="forest-kpi-top">
-                    <span class="forest-kpi-label">Tracked Nights</span>
-                    <span class="forest-kpi-icon">🌙</span>
-                </div>
-                <div class="forest-kpi-val">{sl_days}</div>
-                <div class="forest-kpi-sub">Garmin 965 sensor</div>
-            </div>
-            <div class="forest-kpi-card">
-                <div class="forest-kpi-top">
-                    <span class="forest-kpi-label">Readiness</span>
-                    <span class="forest-kpi-icon">⚡</span>
-                </div>
-                <div class="forest-kpi-val">Optimal</div>
-                <div class="forest-kpi-sub">training ready</div>
+            <div class="clean-kpi-card">
+                <div class="clean-kpi-label">REM Sleep (Cognitive)</div>
+                <div class="clean-kpi-val" style="color: #C084FC;">{avg_rem_fmt}</div>
+                <div class="clean-kpi-sub">Neural restoration</div>
             </div>
         </div>
         """,
@@ -3594,73 +1561,108 @@ with tab_sleep:
 
     sl_trends = sleep_analytics.get("daily_trends", [])
     if sl_trends:
-        st.markdown("### 📈 Sleep & Autonomic Recovery Progression")
-        sl_df_data = []
+        stage_rows = []
         for s in sl_trends:
-            if s.get("duration_hours") or s.get("resting_hr"):
-                sl_df_data.append({
-                    "date": str(s.get("date", ""))[:10],
-                    "duration_hours": s.get("duration_hours", 0.0),
+            if s.get("duration_hours"):
+                d_str = str(s.get("date", ""))[:10]
+                stage_rows.append({
+                    "date": d_str,
+                    "stage": "Deep Sleep",
+                    "hours": s.get("deep_hours", 0.0),
+                    "duration": s.get("deep_formatted", "—"),
+                    "percentage": f"{s.get('deep_pct', 0)}%",
+                    "total_sleep": s.get("duration_formatted", "—"),
                     "score": s.get("score"),
                     "hrv": s.get("hrv"),
-                    "resting_hr": s.get("resting_hr"),
+                    "order": 1,
                 })
-        if sl_df_data:
-            sl_df = pd.DataFrame(sl_df_data)
-            sl_c1, sl_c2 = st.columns(2)
-            with sl_c1:
-                dur_df = sl_df.dropna(subset=["duration_hours"])
-                if not dur_df.empty:
-                    c_sl_dur = alt.Chart(dur_df).mark_bar(
-                        color="#818CF8",
-                        cornerRadiusTopLeft=4,
-                        cornerRadiusTopRight=4,
-                        size=22
-                    ).encode(
-                        x=alt.X("date:N", title="Date", sort=None),
-                        y=alt.Y("duration_hours:Q", title="Sleep Duration (Hours)"),
-                        tooltip=["date:N", "duration_hours:Q"],
-                    ).properties(height=240, title="Daily Sleep Duration")
-                    
-                    rule_8h = alt.Chart(pd.DataFrame({'y': [8.0]})).mark_rule(
-                        color="#00E599",
-                        strokeDash=[4, 4],
-                        strokeWidth=1.5
-                    ).encode(y='y:Q')
-                    
-                    st.altair_chart(apply_forest_chart_theme(c_sl_dur + rule_8h, height=240), use_container_width=True)
+                stage_rows.append({
+                    "date": d_str,
+                    "stage": "Light Sleep",
+                    "hours": s.get("light_hours", 0.0),
+                    "duration": s.get("light_formatted", "—"),
+                    "percentage": f"{s.get('light_pct', 0)}%",
+                    "total_sleep": s.get("duration_formatted", "—"),
+                    "score": s.get("score"),
+                    "hrv": s.get("hrv"),
+                    "order": 2,
+                })
+                stage_rows.append({
+                    "date": d_str,
+                    "stage": "REM Sleep",
+                    "hours": s.get("rem_hours", 0.0),
+                    "duration": s.get("rem_formatted", "—"),
+                    "percentage": f"{s.get('rem_pct', 0)}%",
+                    "total_sleep": s.get("duration_formatted", "—"),
+                    "score": s.get("score"),
+                    "hrv": s.get("hrv"),
+                    "order": 3,
+                })
 
-            with sl_c2:
-                hrv_df = sl_df.dropna(subset=["hrv"])
-                if not hrv_df.empty:
-                    c_sl_hrv = alt.Chart(hrv_df).mark_line(
-                        color="#38BDF8",
-                        strokeWidth=2.5,
-                        point=alt.OverlayMarkDef(filled=True, fill="#38BDF8", size=40),
-                    ).encode(
-                        x=alt.X("date:N", title="Date", sort=None),
-                        y=alt.Y("hrv:Q", title="Overnight HRV (ms)", scale=alt.Scale(zero=False)),
-                        tooltip=["date:N", "hrv:Q"],
-                    ).properties(height=240, title="Overnight HRV Baseline Trend")
-                    st.altair_chart(apply_forest_chart_theme(c_sl_hrv, height=240), use_container_width=True)
+        if stage_rows:
+            st.markdown(
+                """
+                <div class="f-card">
+                    <div class="f-card-header">
+                        <div>
+                            <div class="f-card-title">🌙 Daily Sleep Stages Architecture (Garmin 965)</div>
+                            <div class="f-card-subtitle">Breakdown of Deep, Light, and REM sleep cycles per night</div>
+                        </div>
+                    </div>
+                """,
+                unsafe_allow_html=True,
+            )
+            stage_df = pd.DataFrame(stage_rows)
+            c_sl_stages = alt.Chart(stage_df).mark_bar(cornerRadiusTopLeft=3, cornerRadiusTopRight=3).encode(
+                x=alt.X("date:N", title="Date", sort=None, axis=alt.Axis(labelAngle=-45)),
+                y=alt.Y("hours:Q", title="Sleep Duration (Hours)", stack="zero"),
+                color=alt.Color(
+                    "stage:N",
+                    scale=alt.Scale(
+                        domain=["Deep Sleep", "Light Sleep", "REM Sleep"],
+                        range=["#4F46E5", "#60A5FA", "#A78BFA"],
+                    ),
+                    legend=alt.Legend(title="Stage", orient="top", labelFontSize=11)
+                ),
+                order=alt.Order("order:Q", sort="ascending"),
+                tooltip=[
+                    alt.Tooltip("date:N", title="Date"),
+                    alt.Tooltip("stage:N", title="Stage"),
+                    alt.Tooltip("duration:N", title="Stage Duration"),
+                    alt.Tooltip("percentage:N", title="Stage %"),
+                    alt.Tooltip("total_sleep:N", title="Total Sleep"),
+                    alt.Tooltip("score:Q", title="Sleep Score"),
+                ]
+            ).properties(height=260)
+            st.altair_chart(apply_forest_chart_theme(c_sl_stages, height=260), use_container_width=True)
+            st.markdown("</div>", unsafe_allow_html=True)
 
-        st.markdown("### 📋 Sleep & Recovery Telemetry Log")
+        st.markdown("#### 📋 Sleep Telemetry & Stage Log")
         sl_table = []
         for st_item in reversed(sl_trends):
             if st_item.get("duration_hours") or st_item.get("resting_hr"):
+                d_val = st_item.get("deep_formatted", "—")
+                d_p = f" ({st_item.get('deep_pct')}%)" if st_item.get("deep_pct") is not None else ""
+                l_val = st_item.get("light_formatted", "—")
+                l_p = f" ({st_item.get('light_pct')}%)" if st_item.get("light_pct") is not None else ""
+                r_val = st_item.get("rem_formatted", "—")
+                r_p = f" ({st_item.get('rem_pct')}%)" if st_item.get("rem_pct") is not None else ""
+
                 sl_table.append({
                     "Date": format_date_clean(st_item.get("date")),
-                    "Sleep Duration": st_item.get("duration_formatted", "—"),
+                    "Total Sleep": st_item.get("duration_formatted", "—"),
+                    "Deep Sleep": f"{d_val}{d_p}",
+                    "Light Sleep": f"{l_val}{l_p}",
+                    "REM Sleep": f"{r_val}{r_p}",
                     "Sleep Score": f"{st_item.get('score'):.0f} / 100" if st_item.get("score") else "—",
                     "Overnight HRV": f"{st_item.get('hrv'):.0f} ms" if st_item.get("hrv") else "—",
                     "Resting HR": f"{st_item.get('resting_hr'):.0f} bpm" if st_item.get("resting_hr") else "—",
-                    "Daily Steps": f"{st_item.get('steps'):,}" if st_item.get("steps") else "—",
                 })
         st.dataframe(pd.DataFrame(sl_table), use_container_width=True, hide_index=True)
 
 
 # ============================================================
-# TAB 7: 📅 ACTIVITY CALENDAR & PLANNER
+# TAB 8: 📅 ACTIVITY CALENDAR & PLANNER
 # ============================================================
 
 with tab_calendar:
@@ -3677,7 +1679,7 @@ with tab_calendar:
     current_month = today_date.month
     month_names = list(calendar.month_name)[1:]
 
-    cal_sel_c1, cal_sel_c2, cal_sel_spacer = st.columns([2, 2, 4])
+    cal_sel_c1, cal_sel_c2, _ = st.columns([2, 2, 4])
     with cal_sel_c1:
         sel_month_name = st.selectbox("Select Month", month_names, index=current_month - 1, key="cal_sel_month")
         sel_month = month_names.index(sel_month_name) + 1
@@ -3697,19 +1699,19 @@ with tab_calendar:
 
     cal_matrix = calendar.monthcalendar(sel_year, sel_month)
     day_headers = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
-    header_html = "".join(f"<div class='cal-header-cell' style='font-size: 0.78rem; font-weight: 700; color: #64748B; text-align: center;'>{h}</div>" for h in day_headers)
+    header_html = "".join(f"<div style='font-size: 0.74rem; font-weight: 700; color: #8E9DAE; text-align: center;'>{h}</div>" for h in day_headers)
 
     cells_list = []
     for week in cal_matrix:
         for day_num in week:
             if day_num == 0:
-                cells_list.append("<div style='background: #080E18; border: 1px dashed #172338; border-radius: 8px; height: 100px; opacity: 0.3;'></div>")
+                cells_list.append("<div style='background: #0C1017; border: 1px dashed rgba(255,255,255,0.04); border-radius: 8px; height: 85px; opacity: 0.3;'></div>")
             else:
                 d_str = f"{sel_year:04d}-{sel_month:02d}-{day_num:02d}"
                 acts = act_by_date.get(d_str, [])
                 p_items = plans_by_date.get(d_str, [])
                 is_today = (d_str == str(today_date))
-                border_s = "border: 2px solid #00E599; background: #0E1A29;" if is_today else "border: 1px solid #172338; background: #0C1420;"
+                border_s = "border: 2px solid #2DD4BF; background: #182232;" if is_today else "border: 1px solid #1E283A; background: #141B26;"
 
                 badge_html = ""
                 if acts:
@@ -3723,374 +1725,108 @@ with tab_calendar:
 
                 if p_items:
                     for p_item in p_items:
-                        p_sport = p_item.get("sport", "Swim")
-                        if p_sport == "Run":
-                            p_dist_val = p_item.get("distance_km") or (p_item.get("distance_m", 0) / 1000.0)
-                            badge_html += f"<span style='background: #E11D48; color: #FFFFFF; font-size: 0.65rem; padding: 1px 4px; border-radius: 4px; display: block; margin-bottom: 2px; text-align: center;'>🏃 {p_dist_val:.1f}k Plan</span>"
-                        else:
-                            p_dist_val = p_item.get("distance_m") or p_item.get("target_distance", 0)
-                            badge_html += f"<span style='background: #6366F1; color: #FFFFFF; font-size: 0.65rem; padding: 1px 4px; border-radius: 4px; display: block; margin-bottom: 2px; text-align: center;'>🏊 {p_dist_val}m Plan</span>"
+                        p_dist_val = p_item.get("distance_m") or p_item.get("target_distance", 0)
+                        badge_html += f"<span style='background: rgba(56, 189, 248, 0.15); color: #38BDF8; font-size: 0.65rem; padding: 1px 4px; border-radius: 4px; display: block; margin-bottom: 2px; text-align: center;'>🏊 {p_dist_val}m Plan</span>"
 
                 if not acts and not p_items:
-                    badge_html = "<span style='font-size: 0.68rem; color: #475569; display: block; text-align: center; margin-top: 18px;'>Rest</span>"
+                    badge_html = "<span style='font-size: 0.66rem; color: #475569; display: block; text-align: center; margin-top: 14px;'>Rest</span>"
 
                 cells_list.append(
-                    f"<div style='{border_s} border-radius: 8px; padding: 6px; height: 100px; box-sizing: border-box; overflow-y: auto;'>"
-                    f"<div style='font-family: JetBrains Mono; font-size: 0.8rem; font-weight: 800; color: {'#00E599' if is_today else '#FFFFFF'}; margin-bottom: 4px;'>{day_num}</div>"
+                    f"<div style='{border_s} border-radius: 8px; padding: 6px; height: 85px; box-sizing: border-box; overflow-y: auto;'>"
+                    f"<div style='font-family: JetBrains Mono; font-size: 0.78rem; font-weight: 700; color: {'#2DD4BF' if is_today else '#F1F5F9'}; margin-bottom: 3px;'>{day_num}</div>"
                     f"{badge_html}</div>"
                 )
 
     cells_html = "".join(cells_list)
-    full_cal_html = (
-        f"<div class='cal-wrapper' style='overflow-x: auto; -webkit-overflow-scrolling: touch; padding-bottom: 8px; margin-bottom: 16px;'>"
-        f"<div style='min-width: 580px;'>"
-        f"<div style='display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; margin-bottom: 6px;'>{header_html}</div>"
-        f"<div style='display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px;'>{cells_html}</div>"
-        f"</div>"
-        f"</div>"
-    )
-    if hasattr(st, "html"):
-        st.html(full_cal_html)
-    else:
-        st.markdown(full_cal_html, unsafe_allow_html=True)
-
-    # Interactive Multi-Sport Workout Builder (Swimming & Running)
-    st.markdown("---")
-    st.markdown("### 🛠️ Interactive Multi-Sport Workout Builder")
-
-    builder_sport = st.radio(
-        "Select Discipline",
-        ["🏊 Swimming", "🏃 Running"],
-        horizontal=True,
-        key="cal_builder_sport_choice"
-    )
-
-    cal_b_col1, cal_b_col2 = st.columns([1, 2])
-
-    if builder_sport == "🏊 Swimming":
-        with cal_b_col1:
-            custom_focus = st.selectbox(
-                "Swim Focus",
-                ["Endurance", "Tempo", "Intervals", "Pyramid Ladder", "Recovery"],
-                index=0,
-                key="forest_cal_focus"
-            )
-            custom_dist = st.slider(
-                "Distance (m)",
-                min_value=1000,
-                max_value=3500,
-                value=plan.get("distance_m", 2000) if isinstance(plan, dict) else 2000,
-                step=250,
-                key="forest_cal_dist"
-            )
-
-            # Live Swim Pace Calibration Slider in MM:SS format
-            swim_pace_options = []
-            swim_pace_sec_map = {}
-            for s_val in range(90, 241, 1):
-                label = f"{s_val // 60}:{s_val % 60:02d} /100m"
-                swim_pace_options.append(label)
-                swim_pace_sec_map[label] = s_val
-
-            def_swim_sec = max(90, min(240, int(round(baseline_pace))))
-            def_swim_lbl = f"{def_swim_sec // 60}:{def_swim_sec % 60:02d} /100m"
-            if def_swim_lbl not in swim_pace_sec_map:
-                def_swim_lbl = swim_pace_options[0]
-
-            calibrated_swim_label = st.select_slider(
-                "Reference Baseline Pace (/100m)",
-                options=swim_pace_options,
-                value=def_swim_lbl,
-                key="cal_swim_pace_calib",
-                help=f"Dynamic reference pace calculated from your recent long swims ({format_pace(baseline_pace)}). Tune to scale all swim zone targets."
-            )
-            calibrated_swim_sec = swim_pace_sec_map[calibrated_swim_label]
-            custom_swim_zones = swim_pace_zones(calibrated_swim_sec)
-
-            custom_date = st.date_input(
-                "Planned Date",
-                value=target_plan_date,
-                key="forest_cal_date"
-            )
-
-            if custom_focus == "Endurance":
-                custom_plan = endurance_workout(target_distance=custom_dist, easy_min=custom_swim_zones["easy"]["min"], easy_max=custom_swim_zones["easy"]["max"], endurance_min=custom_swim_zones["endurance"]["min"], endurance_max=custom_swim_zones["endurance"]["max"])
-            elif custom_focus == "Tempo":
-                custom_plan = tempo_workout(target_distance=custom_dist, easy_min=custom_swim_zones["easy"]["min"], easy_max=custom_swim_zones["easy"]["max"], tempo_min=custom_swim_zones["tempo"]["min"], tempo_max=custom_swim_zones["tempo"]["max"])
-            elif custom_focus == "Intervals":
-                custom_plan = interval_workout(target_distance=custom_dist, easy_min=custom_swim_zones["easy"]["min"], easy_max=custom_swim_zones["easy"]["max"], interval_min=custom_swim_zones["interval"]["min"], interval_max=custom_swim_zones["interval"]["max"])
-            elif custom_focus == "Pyramid Ladder":
-                custom_plan = pyramid_workout(target_distance=custom_dist, easy_min=custom_swim_zones["easy"]["min"], easy_max=custom_swim_zones["easy"]["max"], tempo_min=custom_swim_zones["tempo"]["min"], tempo_max=custom_swim_zones["tempo"]["max"], interval_min=custom_swim_zones["interval"]["min"], interval_max=custom_swim_zones["interval"]["max"])
-            else:
-                custom_plan = recovery_workout(target_distance=custom_dist, easy_min=custom_swim_zones["easy"]["min"], easy_max=custom_swim_zones["easy"]["max"])
-
-            cust_target_d = custom_plan.get("target_distance") or custom_dist
-            cust_laps = custom_plan.get("total_laps") or (cust_target_d // 25)
-
-            custom_plan["plan_id"] = str(uuid.uuid4())
-            custom_plan["sport"] = "Swim"
-            custom_plan["planned_date"] = str(custom_date)
-            custom_plan["name"] = f"Custom {custom_focus} Session"
-            custom_plan["distance_m"] = cust_target_d
-
-            if st.button("💾 Save Swim Plan to Calendar", use_container_width=True, key="save_custom_forest"):
-                save_plan(custom_plan, target_date=str(custom_date))
-                st.success(f"Saved {custom_focus} ({cust_target_d}m) for {custom_date.strftime('%b %d, %Y')}!")
-                st.rerun()
-
-        with cal_b_col2:
-            st.markdown(f"**Preview:** `{custom_plan.get('type', custom_focus)}` · `{cust_target_d}m` ({cust_laps} Laps)")
-            st.markdown(f"<div style='font-size: 0.78rem; color: #64748B; margin-bottom: 8px;'>⚡ Scaled from baseline pace: <strong style='color: #00D2FF;'>{format_pace(calibrated_swim_sec)}</strong></div>", unsafe_allow_html=True)
-            for j, cs in enumerate(custom_plan.get("sets", [])):
-                st.markdown(f"- **Set {j+1}:** `{cs.get('reps')} × {cs.get('distance')}m` ({cs.get('total_laps')} Laps) — `{cs.get('stroke_pattern', cs.get('stroke'))}` · Pace: `{cs.get('pace')}` · Rest: `{cs.get('rest')}`")
-
-    else:  # Running Builder
-        best_r_sec = running_baseline_pace or running_analytics.get("best_pace_sec") or 542.0
-        with cal_b_col1:
-            run_focus = st.selectbox(
-                "Running Focus",
-                [
-                    "Easy / Recovery Run",
-                    "Aerobic Endurance (Long Run)",
-                    "Lactate Threshold (Tempo)",
-                    "VO2 Max / Speed Intervals",
-                    "Pyramid Ladder Intervals",
-                    "Hill Repeats"
-                ],
-                index=0,
-                key="forest_cal_run_focus"
-            )
-            run_dist_val = st.slider(
-                "Target Distance (km)",
-                min_value=3.0,
-                max_value=25.0,
-                value=5.0,
-                step=0.5,
-                key="forest_cal_run_dist"
-            )
-
-            # Live Run Pace Calibration Slider in MM:SS format
-            run_pace_options = []
-            run_pace_sec_map = {}
-            for s_val in range(240, 725, 5):
-                label = f"{s_val // 60}:{s_val % 60:02d} /km"
-                run_pace_options.append(label)
-                run_pace_sec_map[label] = s_val
-
-            def_run_sec = max(240, min(720, int(round(best_r_sec))))
-            def_run_sec = int(round(def_run_sec / 5.0) * 5)
-            def_run_lbl = f"{def_run_sec // 60}:{def_run_sec % 60:02d} /km"
-            if def_run_lbl not in run_pace_sec_map:
-                def_run_lbl = run_pace_options[0]
-
-            calibrated_run_label = st.select_slider(
-                "Reference 5K / Baseline Pace (/km)",
-                options=run_pace_options,
-                value=def_run_lbl,
-                key="cal_run_pace_calib",
-                help=f"Dynamic reference pace calculated from your historical Strava runs ({format_run_pace(best_r_sec)}). Tune to scale all workout zone targets."
-            )
-            effective_base_sec = float(run_pace_sec_map[calibrated_run_label])
-
-            run_date = st.date_input(
-                "Planned Date",
-                value=target_plan_date,
-                key="forest_cal_run_date"
-            )
-
-            custom_run_plan = generate_run_workout(run_focus, run_dist_val, best_pace_sec_km=effective_base_sec)
-            custom_run_plan["planned_date"] = str(run_date)
-
-            if st.button("💾 Save Run Plan to Calendar", use_container_width=True, key="save_custom_run_forest"):
-                save_plan(custom_run_plan, target_date=str(run_date))
-                st.success(f"Saved {run_focus} ({run_dist_val:.1f} km) for {run_date.strftime('%b %d, %Y')}!")
-                st.rerun()
-
-        with cal_b_col2:
-            st.markdown(f"**Preview:** `{custom_run_plan.get('type')}` · `{custom_run_plan.get('distance_km')} km` · Duration: `{custom_run_plan.get('duration_est')}`")
-            st.markdown(f"**Goal:** {custom_run_plan.get('goal')}")
-            st.markdown(f"<div style='font-size: 0.78rem; color: #64748B; margin-bottom: 8px;'>⚡ Scaled from reference baseline pace: <strong style='color: #00E599;'>{format_run_pace(effective_base_sec)}</strong></div>", unsafe_allow_html=True)
-            for j, cs in enumerate(custom_run_plan.get("sets", [])):
-                reps_txt = f"{cs.get('reps')} × " if cs.get('reps', 1) > 1 else ""
-                st.markdown(f"- **Set {j+1} ({cs.get('purpose')}):** `{reps_txt}{cs.get('distance')}` — `{cs.get('pattern')}` · Target Pace: `{cs.get('pace')}` · HR: `{cs.get('hr_zone')}` · Rest: `{cs.get('rest')}`")
-
-    # Manage & Delete Scheduled Workouts Section
-    st.markdown("---")
-    st.markdown("### 📋 Manage Scheduled Workouts")
-    all_saved_plans = get_plans()
-    if all_saved_plans:
-        m_col1, m_col2 = st.columns([3, 1])
-        with m_col1:
-            st.markdown(f"Total Scheduled Workouts in Database: **{len(all_saved_plans)}**")
-        with m_col2:
-            if st.button("🗑️ Clear All Saved Plans", key="btn_clear_all_plans_cal", use_container_width=True):
-                clear_plans()
-                st.toast("All saved workout plans have been cleared!")
-                st.rerun()
-
-        with st.expander("🔍 View & Delete Individual Scheduled Plans", expanded=True if len(all_saved_plans) <= 10 else False):
-            sorted_plans = sorted(all_saved_plans, key=lambda p: p.get("planned_date", ""), reverse=False)
-            for p_i, p_obj in enumerate(sorted_plans):
-                p_id_val = p_obj.get("plan_id") or p_obj.get("id")
-                p_sp = p_obj.get("sport", "Swim")
-                p_tp = p_obj.get("workout_type") or p_obj.get("type", "Workout")
-                p_dt = p_obj.get("planned_date", "Unscheduled")
-                p_d_val = f"{p_obj.get('distance_km'):.1f} km" if p_sp == "Run" else f"{p_obj.get('distance_m', p_obj.get('target_distance', 0))} m"
-                p_icon = "🏃" if p_sp == "Run" else "🏊"
-
-                plan_row_c1, plan_row_c2, plan_row_c3 = st.columns([3, 4, 1])
-                with plan_row_c1:
-                    st.markdown(f"**{p_icon} {format_date_clean(p_dt)}** · `{p_tp}`")
-                with plan_row_c2:
-                    st.markdown(f"Distance: **{p_d_val}** · *{p_obj.get('goal', '')[:50]}...*")
-                with plan_row_c3:
-                    if st.button("🗑️ Delete", key=f"del_plan_item_{p_id_val}_{p_i}", use_container_width=True):
-                        delete_plan(p_id_val)
-                        st.toast(f"Deleted {p_tp} plan for {p_dt}!")
-                        st.rerun()
-                st.markdown("<hr style='margin: 4px 0; border: 0; border-top: 1px solid #142033;'>", unsafe_allow_html=True)
-    else:
-        st.info("No scheduled workout plans found in the calendar database.")
-
-
-# ============================================================
-# TAB 8: 📊 PERFORMANCE (MULTI-SPORT ANALYTICS & CHARTS)
-# ============================================================
-
-with tab_performance:
     st.markdown(
-        """
-        <div style="margin-bottom: 18px;">
-            <h2 style="margin: 0 0 4px 0; color: #FFFFFF; font-size: 1.4rem; font-weight: 800;">
-                📊 Cross-Sport Performance &amp; Volume
-            </h2>
-            <div style="font-size: 0.8rem; color: #64748B; font-weight: 500;">
-                Multi-sport training distribution, cross-training volume, and cardiovascular progression.
-            </div>
+        f"""
+        <div style='margin-bottom: 20px;'>
+            <div style='display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; margin-bottom: 6px;'>{header_html}</div>
+            <div style='display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px;'>{cells_html}</div>
         </div>
         """,
         unsafe_allow_html=True,
     )
 
-    w_multi = performance_analytics.get("weekly_multi_sport", [])
-    if w_multi:
-        w_m_df = pd.DataFrame(w_multi)
-        
-        perf_c1, perf_c2 = st.columns(2)
-        
-        # Chart 1: Active Hours Stacked by Sport
-        with perf_c1:
-            st.markdown("##### 📈 Weekly Multi-Sport Volume Breakdown (Active Hours)")
-            c_hours = alt.Chart(w_m_df).mark_bar(cornerRadiusTopLeft=3, cornerRadiusTopRight=3).encode(
-                x=alt.X("week:N", title="Training Week", axis=alt.Axis(labelAngle=-45)),
-                y=alt.Y("hours:Q", title="Active Volume (Hours)"),
-                color=alt.Color(
-                    "sport:N",
-                    scale=alt.Scale(
-                        domain=["Swim", "Run", "Ride", "Walk", "Workout", "Other"],
-                        range=["#00D2FF", "#F43F5E", "#10B981", "#F59E0B", "#8B5CF6", "#64748B"],
-                    ),
-                    legend=alt.Legend(title="Sport", orient="top")
-                ),
-                tooltip=["week:N", "sport:N", "hours:Q", "distance_km:Q"],
-            ).properties(height=260)
-            st.altair_chart(apply_forest_chart_theme(c_hours, height=260), use_container_width=True)
+    # Workout Builder
+    st.markdown("#### 🛠️ Workout Planner")
+    b_col1, b_col2 = st.columns([1, 2])
 
-        # Chart 2: Distance Progression by Discipline
-        with perf_c2:
-            st.markdown("##### 🏃 Distance Progression by Discipline (Kilometers)")
-            c_dist = alt.Chart(w_m_df).mark_bar(cornerRadiusTopLeft=3, cornerRadiusTopRight=3).encode(
-                x=alt.X("week:N", title="Training Week", axis=alt.Axis(labelAngle=-45)),
-                y=alt.Y("distance_km:Q", title="Distance (km)"),
-                color=alt.Color(
-                    "sport:N",
-                    scale=alt.Scale(
-                        domain=["Swim", "Run", "Ride", "Walk", "Workout", "Other"],
-                        range=["#00D2FF", "#F43F5E", "#10B981", "#F59E0B", "#8B5CF6", "#64748B"],
-                    ),
-                    legend=None
-                ),
-                tooltip=["week:N", "sport:N", "distance_km:Q", "hours:Q"],
-            ).properties(height=260)
-            st.altair_chart(apply_forest_chart_theme(c_dist, height=260), use_container_width=True)
+    with b_col1:
+        custom_focus = st.selectbox(
+            "Swim Focus",
+            ["Endurance", "Tempo", "Intervals", "Pyramid Ladder", "Recovery"],
+            index=0,
+            key="cal_plan_focus"
+        )
+        custom_dist = st.slider(
+            "Target Distance (m)",
+            min_value=1000,
+            max_value=3500,
+            value=2000,
+            step=250,
+            key="cal_plan_dist"
+        )
+        custom_date = st.date_input("Scheduled Date", value=target_plan_date, key="cal_plan_date")
 
-        # Chart 3: Weekly Training Load & Calories
-        if weekly_trends:
-            w_tr_df = pd.DataFrame(weekly_trends)
-            perf_c3, perf_c4 = st.columns(2)
-            
-            with perf_c3:
-                st.markdown("##### ⚡ Weekly Total Training Load Progression")
-                c_load = alt.Chart(w_tr_df).mark_area(
-                    line={"color": "#00E599", "strokeWidth": 2.5},
-                    color=alt.Gradient(
-                        gradient="linear",
-                        stops=[
-                            alt.GradientStop(color="rgba(0, 229, 153, 0.4)", offset=0),
-                            alt.GradientStop(color="rgba(0, 229, 153, 0.0)", offset=1),
-                        ],
-                        x1=1, x2=1, y1=1, y2=0,
-                    )
-                ).encode(
-                    x=alt.X("week:N", title="Training Week", axis=alt.Axis(labelAngle=-45)),
-                    y=alt.Y("training_load:Q", title="ICU Training Load"),
-                    tooltip=["week:N", "training_load:Q", "sessions:Q"],
-                ).properties(height=240)
-                st.altair_chart(apply_forest_chart_theme(c_load, height=240), use_container_width=True)
+        custom_swim_zones = swim_pace_zones(baseline_pace)
+        if custom_focus == "Endurance":
+            custom_plan = endurance_workout(target_distance=custom_dist, easy_min=custom_swim_zones["easy"]["min"], easy_max=custom_swim_zones["easy"]["max"], endurance_min=custom_swim_zones["endurance"]["min"], endurance_max=custom_swim_zones["endurance"]["max"])
+        elif custom_focus == "Tempo":
+            custom_plan = tempo_workout(target_distance=custom_dist, easy_min=custom_swim_zones["easy"]["min"], easy_max=custom_swim_zones["easy"]["max"], tempo_min=custom_swim_zones["tempo"]["min"], tempo_max=custom_swim_zones["tempo"]["max"])
+        elif custom_focus == "Intervals":
+            custom_plan = interval_workout(target_distance=custom_dist, easy_min=custom_swim_zones["easy"]["min"], easy_max=custom_swim_zones["easy"]["max"], interval_min=custom_swim_zones["interval"]["min"], interval_max=custom_swim_zones["interval"]["max"])
+        elif custom_focus == "Pyramid Ladder":
+            custom_plan = pyramid_workout(target_distance=custom_dist, easy_min=custom_swim_zones["easy"]["min"], easy_max=custom_swim_zones["easy"]["max"], tempo_min=custom_swim_zones["tempo"]["min"], tempo_max=custom_swim_zones["tempo"]["max"], interval_min=custom_swim_zones["interval"]["min"], interval_max=custom_swim_zones["interval"]["max"])
+        else:
+            custom_plan = recovery_workout(target_distance=custom_dist, easy_min=custom_swim_zones["easy"]["min"], easy_max=custom_swim_zones["easy"]["max"])
 
-            with perf_c4:
-                st.markdown("##### 🔥 Weekly Caloric Burn & Energy (kcal)")
-                c_cals = alt.Chart(w_tr_df).mark_bar(
-                    color="#F59E0B",
-                    cornerRadiusTopLeft=4,
-                    cornerRadiusTopRight=4,
-                    opacity=0.85
-                ).encode(
-                    x=alt.X("week:N", title="Training Week", axis=alt.Axis(labelAngle=-45)),
-                    y=alt.Y("calories:Q", title="Energy Burned (kcal)"),
-                    tooltip=["week:N", "calories:Q", "sessions:Q"],
-                ).properties(height=240)
-                st.altair_chart(apply_forest_chart_theme(c_cals, height=240), use_container_width=True)
+        custom_plan["plan_id"] = str(uuid.uuid4())
+        custom_plan["sport"] = "Swim"
+        custom_plan["planned_date"] = str(custom_date)
+        custom_plan["distance_m"] = custom_plan.get("target_distance") or custom_dist
 
-    # Detailed Sport Allocation Table
-    st.markdown("---")
-    st.markdown("### 🍰 Sport Distribution & Training Allocation")
-    dist_map = performance_analytics.get("sport_distribution", {})
-    if dist_map:
-        alloc_rows = []
-        for sp_k, sp_v in dist_map.items():
-            alloc_rows.append({
-                "Sport": f"{get_sport_icon(sp_k)} {sp_k}",
-                "Sessions": sp_v.get("sessions", 0),
-                "Total Distance": f"{sp_v.get('distance_km', 0):.2f} km",
-                "Total Time": f"{sp_v.get('hours', 0):.1f} hours",
-                "Training Load": f"{sp_v.get('training_load', 0):.0f}",
-                "Energy (Calories)": f"{sp_v.get('calories', 0):,} kcal",
-                "% of Total Time": f"{sp_v.get('percentage_time', 0):.1f}%",
-            })
-        st.dataframe(pd.DataFrame(alloc_rows), use_container_width=True, hide_index=True)
+        if st.button("💾 Save Workout to Calendar", use_container_width=True, key="save_plan_cal_btn"):
+            save_plan(custom_plan, target_date=str(custom_date))
+            st.success(f"Saved {custom_focus} ({custom_dist}m) for {custom_date.strftime('%b %d')}!")
+            st.rerun()
+
+    with b_col2:
+        st.markdown(f"**Preview:** `{custom_plan.get('type', custom_focus)}` · `{custom_dist}m` ({custom_dist // 25} Laps)")
+        for j, cs in enumerate(custom_plan.get("sets", [])):
+            st.markdown(f"- **Set {j+1}:** `{cs.get('reps')} × {cs.get('distance')}m` — `{cs.get('stroke_pattern', cs.get('stroke'))}` · Pace: `{cs.get('pace')}` · Rest: `{cs.get('rest')}`")
+
+    if saved_plans_list:
+        st.markdown("---")
+        st.markdown(f"#### 🗄️ Saved Workout Plans Library ({len(saved_plans_list)})")
+        for p_idx, p_item in enumerate(saved_plans_list):
+            p_id = p_item.get("plan_id") or p_item.get("id") or str(uuid.uuid4())
+            p_type = p_item.get("workout_type") or p_item.get("type", "Workout")
+            p_dist = p_item.get("distance_m") or p_item.get("target_distance") or (int(p_item.get("distance_km", 0) * 1000))
+            p_date_raw = p_item.get("planned_date") or (p_item.get("created_at") or "")[:10]
+            with st.expander(f"🏊 {p_type} — {p_dist}m · 📅 {format_date_clean(p_date_raw)}"):
+                st.markdown(f"**Goal:** {p_item.get('goal', '—')} · **Duration:** {p_item.get('duration_est', p_item.get('duration', '—'))}")
+                for j, s in enumerate(p_item.get("sets", [])):
+                    st.markdown(f"- **Set {j+1}:** `{s.get('reps', 1)} × {s.get('distance', 100)}m` — `{s.get('stroke_pattern', s.get('stroke', 'Freestyle'))}` · Pace: `{s.get('pace', 'Target')}` · Rest: `{s.get('rest', 'None')}`")
+                if st.button("🗑️ Delete Plan", key=f"del_plan_cal_{p_id}_{p_idx}"):
+                    delete_plan(p_id)
+                    st.success("Plan deleted.")
+                    st.rerun()
 
 
 # ============================================================
-# TAB 9: 📈 TRAINING LOAD (CALENDAR WEEK MONDAY TO SUNDAY)
+# TAB 9: 📊 ANALYTICS & TRAINING LOAD
 # ============================================================
 
-with tab_load:
-    # 1. Calendar-Aligned Monday-Sunday Weeks Calculation
+with tab_analytics:
+    # 1. ACWR & Form Stimulus
     cur_week_monday = today_date - timedelta(days=today_date.weekday())
     cur_week_sunday = cur_week_monday + timedelta(days=6)
-    
     prev_week_monday = cur_week_monday - timedelta(days=7)
     prev_week_sunday = cur_week_monday - timedelta(days=1)
 
-    cur_acts = [
-        a for a in all_activities
-        if a.get("date") and cur_week_monday <= datetime.fromisoformat(a["date"][:10]).date() <= cur_week_sunday
-    ]
-    prev_acts = [
-        a for a in all_activities
-        if a.get("date") and prev_week_monday <= datetime.fromisoformat(a["date"][:10]).date() <= prev_week_sunday
-    ]
+    cur_acts = [a for a in all_activities if a.get("date") and cur_week_monday <= datetime.fromisoformat(a["date"][:10]).date() <= cur_week_sunday]
+    prev_acts = [a for a in all_activities if a.get("date") and prev_week_monday <= datetime.fromisoformat(a["date"][:10]).date() <= prev_week_sunday]
 
     cur_week_sum = training_summary(cur_acts)
     prev_week_sum = training_summary(prev_acts)
@@ -4098,282 +1834,106 @@ with tab_load:
     tot_cur_load = sum(s.get("training_load", 0) for s in cur_week_sum.values())
     tot_prev_load = sum(s.get("training_load", 0) for s in prev_week_sum.values())
 
-    tot_cur_dist = sum(s.get("distance_km", 0) for s in cur_week_sum.values())
-    tot_prev_dist = sum(s.get("distance_km", 0) for s in prev_week_sum.values())
-
-    tot_cur_time = sum(s.get("moving_time_min", 0) for s in cur_week_sum.values())
-    tot_prev_time = sum(s.get("moving_time_min", 0) for s in prev_week_sum.values())
-
-    tot_cur_sessions = sum(s.get("sessions", 0) for s in cur_week_sum.values())
-    tot_prev_sessions = sum(s.get("sessions", 0) for s in prev_week_sum.values())
-
-    # Acute:Chronic Load Ratio (ACWR)
     acwr = tot_cur_load / max(1.0, tot_prev_load)
-    if 0.8 <= acwr <= 1.3:
-        form_status_badge = "🟢 Optimal Form (0.8–1.3)"
-        form_status_desc = "Optimal training stimulus and progressive adaptation without excessive fatigue."
-    elif acwr > 1.3:
-        form_status_badge = "🔴 High Fatigue (> 1.3)"
-        form_status_desc = "Acute load surge detected. Prioritize recovery and sleep to prevent overreaching."
-    else:
-        form_status_badge = "🔵 Fresh / Deload (< 0.8)"
-        form_status_desc = "Reduced volume. Body is fresh and primed to absorb higher training volume."
+    form_status = "Optimal Base" if 0.8 <= acwr <= 1.3 else ("Fatigued" if acwr > 1.3 else "Fresh / Deload")
 
-    load_delta_pct = ((tot_cur_load - tot_prev_load) / max(1.0, tot_prev_load)) * 100
-
-    # ACWR Status Banner
     st.markdown(
         f"""
-        <div style="background: #0C1322; border: 1px solid #1A273D; border-radius: 14px; padding: 18px 22px; margin-bottom: 20px; box-shadow: 0 4px 16px rgba(0,0,0,0.3);">
-            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; margin-bottom: 12px;">
-                <div>
-                    <span class="forest-pill-tag">⚡ TRAINING STIMULUS &amp; ACUTE LOAD RATIO</span>
-                    <h3 style="margin: 6px 0 0 0; color: #FFFFFF; font-size: 1.35rem; font-weight: 800;">
-                        Calendar Week Training Load Comparison
-                    </h3>
-                </div>
-                <div style="display: flex; gap: 8px; flex-wrap: wrap;">
-                    <span style="background: rgba(0, 229, 153, 0.15); color: #00E599; border: 1px solid rgba(0, 229, 153, 0.3); font-size: 0.82rem; font-weight: 700; padding: 4px 12px; border-radius: 6px;">ACWR: {acwr:.2f}</span>
-                    <span style="background: #172338; color: #CBD5E1; font-size: 0.82rem; font-weight: 700; padding: 4px 12px; border-radius: 6px;">{form_status_badge}</span>
-                </div>
+        <div class="kpi-row-grid">
+            <div class="clean-kpi-card">
+                <div class="clean-kpi-label">Current Week Load</div>
+                <div class="clean-kpi-val" style="color: #2DD4BF;">{tot_cur_load:.0f}</div>
+                <div class="clean-kpi-sub">{sum(s.get('sessions', 0) for s in cur_week_sum.values())} sessions this week</div>
             </div>
-            <div style="font-size: 0.84rem; color: #94A3B8;">
-                💡 <strong style="color: #FFFFFF;">Form Status:</strong> {form_status_desc}
+            <div class="clean-kpi-card">
+                <div class="clean-kpi-label">Previous Week Load</div>
+                <div class="clean-kpi-val">{tot_prev_load:.0f}</div>
+                <div class="clean-kpi-sub">baseline comparison</div>
+            </div>
+            <div class="clean-kpi-card">
+                <div class="clean-kpi-label">Acute:Chronic Ratio</div>
+                <div class="clean-kpi-val" style="color: #38BDF8;">{acwr:.2f}</div>
+                <div class="clean-kpi-sub">ACWR ratio</div>
+            </div>
+            <div class="clean-kpi-card">
+                <div class="clean-kpi-label">Form Status</div>
+                <div class="clean-kpi-val">{form_status}</div>
+                <div class="clean-kpi-sub">training stimulus</div>
             </div>
         </div>
         """,
         unsafe_allow_html=True,
     )
 
-    # 2 Comparison Hero Cards (Mon-Sun)
-    c_wk1, c_wk2 = st.columns(2)
+    # Weekly Load Trends Chart
+    if weekly_trends:
+        w_tr_df = pd.DataFrame(weekly_trends)
+        c_load = alt.Chart(w_tr_df).mark_area(
+            line={"color": "#2DD4BF", "strokeWidth": 2},
+            color="rgba(45, 212, 191, 0.12)"
+        ).encode(
+            x=alt.X("week:N", title="Training Week", axis=alt.Axis(labelAngle=-45)),
+            y=alt.Y("training_load:Q", title="ICU Training Load"),
+            tooltip=["week:N", "training_load:Q", "sessions:Q"],
+        ).properties(height=200)
+        st.altair_chart(apply_forest_chart_theme(c_load, height=200), use_container_width=True)
 
-    with c_wk1:
-        st.markdown(
-            f"""
-            <div class="f-card" style="border-top: 4px solid #00E599;">
-                <div class="f-card-header">
-                    <div>
-                        <span class="forest-pill-tag" style="background: rgba(0, 229, 153, 0.1); color: #00E599;">CURRENT WEEK (MON – SUN)</span>
-                        <div class="f-card-title" style="margin-top: 6px;">
-                            {cur_week_monday.strftime('%b %d')} – {cur_week_sunday.strftime('%b %d, %Y')}
-                        </div>
-                    </div>
-                    <div style="text-align: right;">
-                        <span style="font-size: 0.75rem; color: #64748B;">Δ vs Last Week</span>
-                        <div style="font-family: 'JetBrains Mono', monospace; font-size: 1.1rem; font-weight: 800; color: {'#00E599' if load_delta_pct >= 0 else '#F43F5E'};">
-                            {'+' if load_delta_pct > 0 else ''}{load_delta_pct:.0f}%
-                        </div>
-                    </div>
-                </div>
-                <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 10px;">
-                    <div class="kpi-card-sub" style="padding: 10px;">
-                        <div class="kpi-card-label">Training Load</div>
-                        <div class="kpi-card-value" style="font-size: 1.4rem; color: #00E599;">{tot_cur_load:.0f}</div>
-                        <div class="kpi-card-footer">ICU load units</div>
-                    </div>
-                    <div class="kpi-card-sub" style="padding: 10px;">
-                        <div class="kpi-card-label">Distance</div>
-                        <div class="kpi-card-value" style="font-size: 1.4rem;">{tot_cur_dist:.2f} <span style="font-size: 0.75rem; color: #64748B;">km</span></div>
-                        <div class="kpi-card-footer">active volume</div>
-                    </div>
-                    <div class="kpi-card-sub" style="padding: 10px;">
-                        <div class="kpi-card-label">Duration</div>
-                        <div class="kpi-card-value" style="font-size: 1.4rem;">{format_duration_hm(tot_cur_time)}</div>
-                        <div class="kpi-card-footer">{tot_cur_time:.0f} moving mins</div>
-                    </div>
-                    <div class="kpi-card-sub" style="padding: 10px;">
-                        <div class="kpi-card-label">Sessions</div>
-                        <div class="kpi-card-value" style="font-size: 1.4rem;">{tot_cur_sessions}</div>
-                        <div class="kpi-card-footer">workouts</div>
-                    </div>
-                </div>
-            </div>
-            """,
-            unsafe_allow_html=True,
-        )
-
-    with c_wk2:
-        st.markdown(
-            f"""
-            <div class="f-card" style="border-top: 4px solid #6366F1;">
-                <div class="f-card-header">
-                    <div>
-                        <span class="forest-pill-tag" style="background: rgba(99, 102, 241, 0.1); color: #818CF8; border-color: rgba(99, 102, 241, 0.3);">PREVIOUS WEEK (MON – SUN)</span>
-                        <div class="f-card-title" style="margin-top: 6px;">
-                            {prev_week_monday.strftime('%b %d')} – {prev_week_sunday.strftime('%b %d, %Y')}
-                        </div>
-                    </div>
-                    <div style="text-align: right;">
-                        <span style="font-size: 0.75rem; color: #64748B;">Baseline Load</span>
-                        <div style="font-family: 'JetBrains Mono', monospace; font-size: 1.1rem; font-weight: 800; color: #818CF8;">
-                            {tot_prev_load:.0f}
-                        </div>
-                    </div>
-                </div>
-                <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 10px;">
-                    <div class="kpi-card-sub" style="padding: 10px;">
-                        <div class="kpi-card-label">Training Load</div>
-                        <div class="kpi-card-value" style="font-size: 1.4rem; color: #818CF8;">{tot_prev_load:.0f}</div>
-                        <div class="kpi-card-footer">ICU load units</div>
-                    </div>
-                    <div class="kpi-card-sub" style="padding: 10px;">
-                        <div class="kpi-card-label">Distance</div>
-                        <div class="kpi-card-value" style="font-size: 1.4rem;">{tot_prev_dist:.2f} <span style="font-size: 0.75rem; color: #64748B;">km</span></div>
-                        <div class="kpi-card-footer">active volume</div>
-                    </div>
-                    <div class="kpi-card-sub" style="padding: 10px;">
-                        <div class="kpi-card-label">Duration</div>
-                        <div class="kpi-card-value" style="font-size: 1.4rem;">{format_duration_hm(tot_prev_time)}</div>
-                        <div class="kpi-card-footer">{tot_prev_time:.0f} moving mins</div>
-                    </div>
-                    <div class="kpi-card-sub" style="padding: 10px;">
-                        <div class="kpi-card-label">Sessions</div>
-                        <div class="kpi-card-value" style="font-size: 1.4rem;">{tot_prev_sessions}</div>
-                        <div class="kpi-card-footer">workouts</div>
-                    </div>
-                </div>
-            </div>
-            """,
-            unsafe_allow_html=True,
-        )
-
-    # 3. Sport-by-Sport Comparison Table
-    st.markdown("---")
-    st.markdown("### 📊 Sport-by-Sport Weekly Load Breakdown")
-    all_sports_set = sorted(list(set(list(cur_week_sum.keys()) + list(prev_week_sum.keys()))))
+    # Personal Records
+    st.markdown("#### 🏆 Personal Records")
+    pr_tabs = st.tabs(["🏊 Swim Records", "🏃 Run Records", "🚴 Cycling Records", "🚶 Walk Records"])
     
-    if all_sports_set:
-        sp_comp_rows = []
-        for sp in all_sports_set:
-            c_sp = cur_week_sum.get(sp, {})
-            p_sp = prev_week_sum.get(sp, {})
-            
-            c_l = c_sp.get("training_load", 0)
-            p_l = p_sp.get("training_load", 0)
-            diff_l = c_l - p_l
-            diff_str = f"{'+' if diff_l > 0 else ''}{diff_l:.0f}" if p_l > 0 or c_l > 0 else "—"
-
-            sp_comp_rows.append({
-                "Sport": f"{get_sport_icon(sp)} {sp}",
-                "Cur Week Sessions": c_sp.get("sessions", 0),
-                "Cur Week Distance": f"{c_sp.get('distance_km', 0):.2f} km",
-                "Cur Week Time": format_duration_hm(c_sp.get("moving_time_min", 0)),
-                "Cur Week Load": f"{c_l:.0f}",
-                "Prev Week Sessions": p_sp.get("sessions", 0),
-                "Prev Week Distance": f"{p_sp.get('distance_km', 0):.2f} km",
-                "Prev Week Time": format_duration_hm(p_sp.get("moving_time_min", 0)),
-                "Prev Week Load": f"{p_l:.0f}",
-                "Load Delta": diff_str,
-            })
-        st.dataframe(pd.DataFrame(sp_comp_rows), use_container_width=True, hide_index=True)
-
-    # 4. Daily Load Bar Chart for Last 14 Days
-    st.markdown("---")
-    st.markdown("### 📅 Daily Training Load Distribution (14-Day Calendar View)")
-    daily_14_data = []
-    d_pointer = prev_week_monday
-    while d_pointer <= cur_week_sunday:
-        d_p_str = d_pointer.strftime("%Y-%m-%d")
-        d_acts = [a for a in all_activities if a.get("date") and a["date"][:10] == d_p_str]
-        if d_acts:
-            for da in d_acts:
-                daily_14_data.append({
-                    "date": d_pointer.strftime("%a, %b %d"),
-                    "sport": da.get("sport", "Other"),
-                    "training_load": da.get("training_load", 0),
-                    "distance_km": da.get("distance_km", 0),
-                })
-        else:
-            daily_14_data.append({
-                "date": d_pointer.strftime("%a, %b %d"),
-                "sport": "Rest",
-                "training_load": 0,
-                "distance_km": 0,
-            })
-        d_pointer += timedelta(days=1)
-
-    if daily_14_data:
-        d14_df = pd.DataFrame(daily_14_data)
-        c_14 = alt.Chart(d14_df).mark_bar(cornerRadiusTopLeft=3, cornerRadiusTopRight=3).encode(
-            x=alt.X("date:N", title="Day (Mon-Sun of Last Week -> Mon-Sun of This Week)", axis=alt.Axis(labelAngle=-45)),
-            y=alt.Y("training_load:Q", title="Daily ICU Load"),
-            color=alt.Color(
-                "sport:N",
-                scale=alt.Scale(
-                    domain=["Swim", "Run", "Ride", "Walk", "Workout", "Rest", "Other"],
-                    range=["#00D2FF", "#F43F5E", "#10B981", "#F59E0B", "#8B5CF6", "#172338", "#64748B"],
-                ),
-            ),
-            tooltip=["date:N", "sport:N", "training_load:Q", "distance_km:Q"],
-        ).properties(height=250)
-        st.altair_chart(apply_forest_chart_theme(c_14, height=250), use_container_width=True)
-
-
-# ============================================================
-# TAB 10: 🏆 PERSONAL RECORDS
-# ============================================================
-
-with tab_records:
-    pr_sw = personal_records.get("Swimming", [])
-    pr_rn = personal_records.get("Running", [])
-    pr_bk = personal_records.get("Cycling", [])
-    pr_wk = personal_records.get("Walking", [])
-
-    pr_tab_sw, pr_tab_rn, pr_tab_bk, pr_tab_wk = st.tabs([
-        "🏊 Swimming PRs",
-        "🏃 Running PRs",
-        "🚴 Cycling PRs",
-        "🚶 Walking PRs",
-    ])
-
-    with pr_tab_sw:
+    with pr_tabs[0]:
+        pr_sw = personal_records.get("Swimming", [])
         if pr_sw:
             st.dataframe(pd.DataFrame(pr_sw), use_container_width=True, hide_index=True)
         else:
-            st.info("No swimming records calculated yet.")
+            st.info("No swimming records available.")
 
-    with pr_tab_rn:
+    with pr_tabs[1]:
+        pr_rn = personal_records.get("Running", [])
         if pr_rn:
             st.dataframe(pd.DataFrame(pr_rn), use_container_width=True, hide_index=True)
         else:
-            st.info("No running records calculated yet.")
+            st.info("No running records available.")
 
-    with pr_tab_bk:
+    with pr_tabs[2]:
+        pr_bk = personal_records.get("Cycling", [])
         if pr_bk:
             st.dataframe(pd.DataFrame(pr_bk), use_container_width=True, hide_index=True)
         else:
-            st.info("No cycling records calculated yet.")
+            st.info("No cycling records available.")
 
-    with pr_tab_wk:
+    with pr_tabs[3]:
+        pr_wk = personal_records.get("Walking", [])
         if pr_wk:
             st.dataframe(pd.DataFrame(pr_wk), use_container_width=True, hide_index=True)
         else:
-            st.info("No walking records calculated yet.")
+            st.info("No walking records available.")
 
 
 # ============================================================
-# TAB 11: ⚙️ DATA & SETTINGS
+# TAB 10: ⚙️ SETTINGS
 # ============================================================
 
 with tab_settings:
-    st.markdown("### 🔌 Connected Data Sources")
+    st.markdown("#### 🔌 Data Sources & Synchronization")
     st.markdown(
         f"""
-        - **Garmin Forerunner 965:** Synced via Intervals.icu API
-        - **Intervals.icu API:** `{api_status.upper()}` ({tot_intervals} activities)
-        - **Strava Archive:** `{strava_added} archive sessions loaded` ({tot_strava} total)
+        - **Garmin Forerunner 965:** Synced via Intervals.icu API (`{api_status.upper()}`)
         - **Total Master Activities:** `{len(all_activities)} sessions`
-        - **Wellness / Sleep Days:** `{len(wellness_records)} days`
+        - **Wellness & Sleep Records:** `{len(wellness_records)} days`
         """
     )
 
-    if st.button("🧹 Clear All Caches & Resync", use_container_width=True):
-        st.cache_data.clear()
-        st.success("Caches cleared! Reloading...")
-        st.rerun()
+    c_btn1, c_btn2 = st.columns(2)
+    with c_btn1:
+        if st.button("🧹 Clear All Caches & Resync", use_container_width=True):
+            st.cache_data.clear()
+            st.success("Caches cleared! Reloading...")
+            st.rerun()
 
-    if st.button("🗑️ Clear Saved Workout Plans", use_container_width=True):
-        clear_plans()
-        st.warning("All saved workout plans cleared.")
-        st.rerun()
+    with c_btn2:
+        if st.button("🗑️ Clear Saved Workout Plans", use_container_width=True):
+            clear_plans()
+            st.warning("All saved workout plans cleared.")
+            st.rerun()
